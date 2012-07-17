@@ -141,7 +141,6 @@
         product.unitCost = [formatter numberFromString:self.unitCost.text];
         product.productDescription = self.productDescription.text;
         product.defaultCost = [formatter numberFromString:self.defaultCost.text];
-        NSLog(@"[%@] [%@]",product.defaultCost,self.defaultCost.text);
         product.image = 0;
         product.createdDate = [NSDate date];
         

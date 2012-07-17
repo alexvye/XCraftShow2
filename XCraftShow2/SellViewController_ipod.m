@@ -359,7 +359,7 @@ ProductSelectorTableViewController* prodView;
         //
         // cash register sound
         //
-        [self playSound];
+        //[self playSound];
     }
 }
 
@@ -405,6 +405,7 @@ ProductSelectorTableViewController* prodView;
     ShowAddViewController_ipod* addView = [[ShowAddViewController_ipod alloc] 
                                                 initWithNibName:@"ShowAddViewController_ipod" bundle:nil];
     addView.managedObjectContext = self.managedObjectContext;
+    addView.selectedShow = self.show;
     
     // 
     // Pass the selected object to the new view controller.
