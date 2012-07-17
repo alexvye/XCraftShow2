@@ -45,13 +45,7 @@
     } else {
         Show* show = (Show*)self.selectedShow;
         self.showName.text = show.name;
-        self.showFee.text = [Utilities formatAsCurrency:[NSNumber numberWithInt:0]];
-        Product* product = (Product*) self.selectedProduct;
-        self.name.text = product.name;
-        self.quantity.text = [Utilities formatAsDecimal:product.quantity];
-        self.unitCost.text = [Utilities formatAsCurrency:product.unitCost];
-        self.productDescription.text = product.productDescription;
-        self.defaultCost.text = [Utilities formatAsCurrency:product.defaultCost];
+        self.showFee.text = [Utilities formatAsCurrency:show.fee];
     }
     
 }

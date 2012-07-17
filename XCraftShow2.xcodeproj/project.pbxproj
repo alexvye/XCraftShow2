@@ -20,8 +20,6 @@
 		9A24AF8A15A536CD000D555D /* ProductAddViewController_ipod.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A24AF8815A536CD000D555D /* ProductAddViewController_ipod.xib */; };
 		9A24AF9315A5EC7D000D555D /* ProductSelectorTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A24AF9115A5EC7D000D555D /* ProductSelectorTableViewController.m */; };
 		9A24AF9415A5EC7D000D555D /* ProductSelectorTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A24AF9215A5EC7D000D555D /* ProductSelectorTableViewController.xib */; };
-		9A3B964A15A62A8300C57BD0 /* NewSwanDevProfile (6).mobileprovision in Resources */ = {isa = PBXBuildFile; fileRef = 9A3B964915A62A8300C57BD0 /* NewSwanDevProfile (6).mobileprovision */; };
-		9A3B965115A62CD100C57BD0 /* OctSwan.mobileprovision in Resources */ = {isa = PBXBuildFile; fileRef = 9A3B965015A62CD100C57BD0 /* OctSwan.mobileprovision */; };
 		9A3B965315A62E5E00C57BD0 /* Entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9A3B965215A62E5E00C57BD0 /* Entitlements.plist */; };
 		9A3E2068154B2EF900A3650E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A3E2067154B2EF800A3650E /* UIKit.framework */; };
 		9A3E206A154B2EF900A3650E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A3E2069154B2EF900A3650E /* Foundation.framework */; };
@@ -84,8 +82,6 @@
 		9A24AF9015A5EC7C000D555D /* ProductSelectorTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductSelectorTableViewController.h; sourceTree = "<group>"; };
 		9A24AF9115A5EC7D000D555D /* ProductSelectorTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductSelectorTableViewController.m; sourceTree = "<group>"; };
 		9A24AF9215A5EC7D000D555D /* ProductSelectorTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProductSelectorTableViewController.xib; sourceTree = "<group>"; };
-		9A3B964915A62A8300C57BD0 /* NewSwanDevProfile (6).mobileprovision */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NewSwanDevProfile (6).mobileprovision"; sourceTree = "<group>"; };
-		9A3B965015A62CD100C57BD0 /* OctSwan.mobileprovision */ = {isa = PBXFileReference; lastKnownFileType = file; path = OctSwan.mobileprovision; sourceTree = "<group>"; };
 		9A3B965215A62E5E00C57BD0 /* Entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Entitlements.plist; sourceTree = "<group>"; };
 		9A3E2063154B2EF800A3650E /* XCraftShow2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XCraftShow2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A3E2067154B2EF800A3650E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -226,8 +222,6 @@
 		9A3E2058154B2EF800A3650E = {
 			isa = PBXGroup;
 			children = (
-				9A3B964915A62A8300C57BD0 /* NewSwanDevProfile (6).mobileprovision */,
-				9A3B965015A62CD100C57BD0 /* OctSwan.mobileprovision */,
 				9A3B965215A62E5E00C57BD0 /* Entitlements.plist */,
 				9A516F7D15A3EFC3005B70E6 /* Resources */,
 				9AE7C177156400E200311EB9 /* todo */,
@@ -433,8 +427,6 @@
 				9A24AF8515A53101000D555D /* SellViewController_ipod.xib in Resources */,
 				9A24AF8A15A536CD000D555D /* ProductAddViewController_ipod.xib in Resources */,
 				9A24AF9415A5EC7D000D555D /* ProductSelectorTableViewController.xib in Resources */,
-				9A3B964A15A62A8300C57BD0 /* NewSwanDevProfile (6).mobileprovision in Resources */,
-				9A3B965115A62CD100C57BD0 /* OctSwan.mobileprovision in Resources */,
 				9A3B965315A62E5E00C57BD0 /* Entitlements.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
