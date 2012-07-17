@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="872" systemVersion="10K549" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="Contact" representedClassName="Contact" syncable="YES">
+        <attribute name="email" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="phone" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="website" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="showRel" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Show" inverseName="contactRel" inverseEntity="Show" syncable="YES"/>
+    </entity>
+    <entity name="Product" representedClassName="Product" syncable="YES">
+        <attribute name="createdDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="defaultCost" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="image" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="productDescription" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="quantity" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="unitCost" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <relationship name="saleRel" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Sale" inverseName="productRel" inverseEntity="Sale" syncable="YES"/>
+    </entity>
+    <entity name="Sale" representedClassName="Sale" syncable="YES">
+        <attribute name="amount" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="quantity" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <relationship name="productRel" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Product" inverseName="saleRel" inverseEntity="Product" syncable="YES"/>
+        <relationship name="showRel" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Show" inverseName="saleRel" inverseEntity="Show" syncable="YES"/>
+    </entity>
+    <entity name="Show" representedClassName="Show" syncable="YES">
+        <attribute name="address" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="fee" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="rules" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="contactRel" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Contact" inverseName="showRel" inverseEntity="Contact" syncable="YES"/>
+        <relationship name="saleRel" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Sale" inverseName="showRel" inverseEntity="Sale" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Contact" positionX="-504" positionY="-252" width="128" height="105"/>
+        <element name="Product" positionX="-1170" positionY="-420" width="128" height="165"/>
+        <element name="Sale" positionX="-945" positionY="-351" width="128" height="120"/>
+        <element name="Show" positionX="-704" positionY="-450" width="128" height="90"/>
+    </elements>
+</model>
