@@ -10,8 +10,10 @@
 #import "CustomSaleCell.h"
 #import "Show.h"
 #import <AVFoundation/AVFoundation.h>
+#import <MessageUI/MessageUI.h>
 
-@interface SellViewController_ipod : UIViewController <UITextFieldDelegate,UIPickerViewDelegate,UIPickerViewDataSource, UITableViewDataSource, UITableViewDelegate,AVAudioPlayerDelegate>{
+@interface SellViewController_ipod : UIViewController <UITextFieldDelegate,UIPickerViewDelegate,UITableViewDataSource, UITableViewDelegate,AVAudioPlayerDelegate,MFMailComposeViewControllerDelegate>{
+    
     IBOutlet UITableView* salesTable;
     IBOutlet UIButton* sellButton;
     IBOutlet UITextField* price;
@@ -37,7 +39,8 @@
 - (NSNumber*)cumulativeSales;
 -(NSArray*)sortedSales:(NSArray*)_sales;
 -(void)playSound;
--(IBAction) selectProduct: (UIButton*) aButton;
--(IBAction) editProduct: (UIButton*) aButton;
+-(IBAction) selectProduct:(id)sender;
+-(IBAction) editProduct:(id)sender;
+-(IBAction)openMail:(id)sender;
 @end
 

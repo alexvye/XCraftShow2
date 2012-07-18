@@ -42,10 +42,12 @@
     if(selectedShow == nil) {
         self.showName.text = @"";
         self.showFee.text = [Utilities formatAsCurrency:[NSNumber numberWithInt:0]];
+        self.datePicker.date = [NSDate date];
     } else {
         Show* show = (Show*)self.selectedShow;
         self.showName.text = show.name;
         self.showFee.text = [Utilities formatAsCurrency:show.fee];
+        self.datePicker.date = show.date;
     }
     
 }
@@ -71,7 +73,9 @@
     //
     Show* show = (Show*) [NSEntityDescription insertNewObjectForEntityForName:@"Show" inManagedObjectContext:self.managedObjectContext];
     show.name = self.showName.text;
-    show.fee = [NSNumber numberWithInt:6];
+    NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
+    [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
+    show.fee = [formatter numberFromString:self.showFee.text];
     show.address = self.showAddress.text;
     show.rules = self.showUrl.text;
     show.date = self.datePicker.date;
@@ -91,21 +95,14 @@
 }
 
 - (IBAction)changeDateInLabel:(id)sender {
-	//Use NSDateFormatter to write out the date in a friendly format
 	NSDateFormatter *df = [[NSDateFormatter alloc] init];
 	df.dateStyle = NSDateFormatterMediumStyle;
-	NSLog(@"%@",[df stringFromDate:datePicker.date]);
 }	
 
 
 #pragma mark - textview delegate
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    /*
-     Project* project = [projects objectAtIndex:[DataManager getSelectedProject]];
-     [project setName:[textField text]];
-     [DataManager saveData];
-     */
     [textField resignFirstResponder];
     return TRUE;
 }

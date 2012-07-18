@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "ShowTableViewController.h"
 #import "ProductTableViewController.h"
+#import "MailController.h"
 #import "HelpViewController.h"
 #import "DataManager.h"
 
@@ -34,7 +35,7 @@
     //
     // Set up the tab bar
     //
-    UINavigationController *nav1, *nav2, *nav4;
+    UINavigationController *nav1, *nav2, *nav3, *nav4;
     
     ShowTableViewController* viewController1 = [[ShowTableViewController alloc] initWithNibName:@"ShowTableViewController" bundle:nil];
     viewController1.title = @"Shows";
@@ -50,6 +51,13 @@
     nav2.tabBarItem.image = [UIImage imageNamed:@"24-gift.png"];
     nav2.title = @"Products";
     
+    MailController* viewController3 = [[MailController alloc] initWithNibName:@"MailController" bundle:nil];
+    viewController3.title = @"Export";
+    viewController3.managedObjectContext = self.managedObjectContext;
+    nav3 = [[UINavigationController alloc] initWithRootViewController:viewController3];
+    nav3.tabBarItem.image = [UIImage imageNamed:@"18-envelope.png"];
+    nav3.title = @"Export";
+    
     HelpViewController* viewController4 = [[HelpViewController alloc] initWithNibName:@"HelpViewController" bundle:nil];
     viewController4.title = @"Help";
     nav4 = [[UINavigationController alloc] initWithRootViewController:viewController4];
@@ -57,7 +65,7 @@
     nav4.title = @"Help";
     
     self.tabBarController = [[UITabBarController alloc] init];
-    self.tabBarController.viewControllers = [NSArray arrayWithObjects:nav1, nav2,  nav4, nil];
+    self.tabBarController.viewControllers = [NSArray arrayWithObjects:nav1, nav2,  nav3, nav4, nil];
     self.window.rootViewController = self.tabBarController;
     
     //

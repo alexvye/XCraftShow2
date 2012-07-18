@@ -21,6 +21,12 @@
 		9A24AF9315A5EC7D000D555D /* ProductSelectorTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A24AF9115A5EC7D000D555D /* ProductSelectorTableViewController.m */; };
 		9A24AF9415A5EC7D000D555D /* ProductSelectorTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A24AF9215A5EC7D000D555D /* ProductSelectorTableViewController.xib */; };
 		9A3B965315A62E5E00C57BD0 /* Entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9A3B965215A62E5E00C57BD0 /* Entitlements.plist */; };
+		9A3B967515B62F3500C57BD0 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A3B967415B62F3500C57BD0 /* MessageUI.framework */; };
+		9A3B967715B6324D00C57BD0 /* 18-envelope.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A3B967615B6324D00C57BD0 /* 18-envelope.png */; };
+		9A3B967915B7072300C57BD0 /* Default-portrait.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A3B967815B7072300C57BD0 /* Default-portrait.png */; };
+		9A3B967B15B7073000C57BD0 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A3B967A15B7073000C57BD0 /* Default.png */; };
+		9A3B967D15B7073D00C57BD0 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A3B967C15B7073D00C57BD0 /* Icon.png */; };
+		9A3B967F15B7074600C57BD0 /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A3B967E15B7074600C57BD0 /* Icon-72.png */; };
 		9A3E2068154B2EF900A3650E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A3E2067154B2EF800A3650E /* UIKit.framework */; };
 		9A3E206A154B2EF900A3650E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A3E2069154B2EF900A3650E /* Foundation.framework */; };
 		9A3E206C154B2EF900A3650E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A3E206B154B2EF900A3650E /* CoreGraphics.framework */; };
@@ -85,6 +91,12 @@
 		9A24AF9115A5EC7D000D555D /* ProductSelectorTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductSelectorTableViewController.m; sourceTree = "<group>"; };
 		9A24AF9215A5EC7D000D555D /* ProductSelectorTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProductSelectorTableViewController.xib; sourceTree = "<group>"; };
 		9A3B965215A62E5E00C57BD0 /* Entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Entitlements.plist; sourceTree = "<group>"; };
+		9A3B967415B62F3500C57BD0 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		9A3B967615B6324D00C57BD0 /* 18-envelope.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "18-envelope.png"; sourceTree = "<group>"; };
+		9A3B967815B7072300C57BD0 /* Default-portrait.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-portrait.png"; sourceTree = "<group>"; };
+		9A3B967A15B7073000C57BD0 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		9A3B967C15B7073D00C57BD0 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
+		9A3B967E15B7074600C57BD0 /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72.png"; sourceTree = "<group>"; };
 		9A3E2063154B2EF800A3650E /* XCraftShow2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XCraftShow2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A3E2067154B2EF800A3650E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		9A3E2069154B2EF900A3650E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -156,6 +168,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9A3B967515B62F3500C57BD0 /* MessageUI.framework in Frameworks */,
 				9A516F7815A3E9F3005B70E6 /* AVFoundation.framework in Frameworks */,
 				9A0BE692155C94E20078135F /* MobileCoreServices.framework in Frameworks */,
 				9A0BE690155B04D10078135F /* AddressBookUI.framework in Frameworks */,
@@ -230,6 +243,7 @@
 		9A3E2058154B2EF800A3650E = {
 			isa = PBXGroup;
 			children = (
+				9A3B967415B62F3500C57BD0 /* MessageUI.framework */,
 				9A3B965215A62E5E00C57BD0 /* Entitlements.plist */,
 				9A516F7D15A3EFC3005B70E6 /* Resources */,
 				9AE7C177156400E200311EB9 /* todo */,
@@ -309,6 +323,10 @@
 		9A516F7D15A3EFC3005B70E6 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				9A3B967E15B7074600C57BD0 /* Icon-72.png */,
+				9A3B967C15B7073D00C57BD0 /* Icon.png */,
+				9A3B967A15B7073000C57BD0 /* Default.png */,
+				9A3B967815B7072300C57BD0 /* Default-portrait.png */,
 				9AC8DA2115A3C4E200E2B33A /* cash-register.aiff */,
 			);
 			name = Resources;
@@ -327,6 +345,7 @@
 		9A5617FB154EE447001579B6 /* art */ = {
 			isa = PBXGroup;
 			children = (
+				9A3B967615B6324D00C57BD0 /* 18-envelope.png */,
 				9AB105FA157E190100A47A94 /* no-img.jpeg */,
 				9AE7C1A8157C3EAE00311EB9 /* sand.jpg */,
 				9AE7C19E157C31BE00311EB9 /* grass.jpg */,
