@@ -61,6 +61,8 @@
 		9AE7C19D1579155200311EB9 /* SellViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9AE7C19B1579155100311EB9 /* SellViewController.xib */; };
 		9AE7C19F157C31BE00311EB9 /* grass.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9AE7C19E157C31BE00311EB9 /* grass.jpg */; };
 		9AE7C1A9157C3EAE00311EB9 /* sand.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9AE7C1A8157C3EAE00311EB9 /* sand.jpg */; };
+		B5801AB515B5BD4C00DB16C9 /* ProductPriceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5801AB315B5BD4B00DB16C9 /* ProductPriceViewController.m */; };
+		B5801AB615B5BD4C00DB16C9 /* ProductPriceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B5801AB415B5BD4C00DB16C9 /* ProductPriceViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -144,6 +146,9 @@
 		9AE7C19B1579155100311EB9 /* SellViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SellViewController.xib; sourceTree = "<group>"; };
 		9AE7C19E157C31BE00311EB9 /* grass.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = grass.jpg; sourceTree = "<group>"; };
 		9AE7C1A8157C3EAE00311EB9 /* sand.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = sand.jpg; sourceTree = "<group>"; };
+		B5801AB215B5BD4B00DB16C9 /* ProductPriceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; path = ProductPriceViewController.h; sourceTree = "<group>"; };
+		B5801AB315B5BD4B00DB16C9 /* ProductPriceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductPriceViewController.m; sourceTree = "<group>"; };
+		B5801AB415B5BD4C00DB16C9 /* ProductPriceViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProductPriceViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -184,6 +189,9 @@
 		9A24AF7A15A52185000D555D /* ipod */ = {
 			isa = PBXGroup;
 			children = (
+				B5801AB215B5BD4B00DB16C9 /* ProductPriceViewController.h */,
+				B5801AB315B5BD4B00DB16C9 /* ProductPriceViewController.m */,
+				B5801AB415B5BD4C00DB16C9 /* ProductPriceViewController.xib */,
 				9A24AF8615A536CC000D555D /* ProductAddViewController_ipod.h */,
 				9A24AF8715A536CD000D555D /* ProductAddViewController_ipod.m */,
 				9A24AF8815A536CD000D555D /* ProductAddViewController_ipod.xib */,
@@ -428,6 +436,7 @@
 				9A24AF8A15A536CD000D555D /* ProductAddViewController_ipod.xib in Resources */,
 				9A24AF9415A5EC7D000D555D /* ProductSelectorTableViewController.xib in Resources */,
 				9A3B965315A62E5E00C57BD0 /* Entitlements.plist in Resources */,
+				B5801AB615B5BD4C00DB16C9 /* ProductPriceViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -461,6 +470,7 @@
 				9A24AF8415A53101000D555D /* SellViewController_ipod.m in Sources */,
 				9A24AF8915A536CD000D555D /* ProductAddViewController_ipod.m in Sources */,
 				9A24AF9315A5EC7D000D555D /* ProductSelectorTableViewController.m in Sources */,
+				B5801AB515B5BD4C00DB16C9 /* ProductPriceViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
