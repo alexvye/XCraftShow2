@@ -21,6 +21,10 @@
 		9A24AF9315A5EC7D000D555D /* ProductSelectorTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A24AF9115A5EC7D000D555D /* ProductSelectorTableViewController.m */; };
 		9A24AF9415A5EC7D000D555D /* ProductSelectorTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A24AF9215A5EC7D000D555D /* ProductSelectorTableViewController.xib */; };
 		9A3B965315A62E5E00C57BD0 /* Entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9A3B965215A62E5E00C57BD0 /* Entitlements.plist */; };
+		9A3B967215B62C0900C57BD0 /* MailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A3B967015B62C0800C57BD0 /* MailController.m */; };
+		9A3B967315B62C0900C57BD0 /* MailController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A3B967115B62C0900C57BD0 /* MailController.xib */; };
+		9A3B967515B62F3500C57BD0 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A3B967415B62F3500C57BD0 /* MessageUI.framework */; };
+		9A3B967715B6324D00C57BD0 /* 18-envelope.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A3B967615B6324D00C57BD0 /* 18-envelope.png */; };
 		9A3E2068154B2EF900A3650E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A3E2067154B2EF800A3650E /* UIKit.framework */; };
 		9A3E206A154B2EF900A3650E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A3E2069154B2EF900A3650E /* Foundation.framework */; };
 		9A3E206C154B2EF900A3650E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A3E206B154B2EF900A3650E /* CoreGraphics.framework */; };
@@ -83,6 +87,11 @@
 		9A24AF9115A5EC7D000D555D /* ProductSelectorTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductSelectorTableViewController.m; sourceTree = "<group>"; };
 		9A24AF9215A5EC7D000D555D /* ProductSelectorTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProductSelectorTableViewController.xib; sourceTree = "<group>"; };
 		9A3B965215A62E5E00C57BD0 /* Entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Entitlements.plist; sourceTree = "<group>"; };
+		9A3B966F15B62C0800C57BD0 /* MailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MailController.h; sourceTree = "<group>"; };
+		9A3B967015B62C0800C57BD0 /* MailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MailController.m; sourceTree = "<group>"; };
+		9A3B967115B62C0900C57BD0 /* MailController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MailController.xib; sourceTree = "<group>"; };
+		9A3B967415B62F3500C57BD0 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		9A3B967615B6324D00C57BD0 /* 18-envelope.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "18-envelope.png"; sourceTree = "<group>"; };
 		9A3E2063154B2EF800A3650E /* XCraftShow2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XCraftShow2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A3E2067154B2EF800A3650E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		9A3E2069154B2EF900A3650E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -151,6 +160,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9A3B967515B62F3500C57BD0 /* MessageUI.framework in Frameworks */,
 				9A516F7815A3E9F3005B70E6 /* AVFoundation.framework in Frameworks */,
 				9A0BE692155C94E20078135F /* MobileCoreServices.framework in Frameworks */,
 				9A0BE690155B04D10078135F /* AddressBookUI.framework in Frameworks */,
@@ -184,6 +194,9 @@
 		9A24AF7A15A52185000D555D /* ipod */ = {
 			isa = PBXGroup;
 			children = (
+				9A3B966F15B62C0800C57BD0 /* MailController.h */,
+				9A3B967015B62C0800C57BD0 /* MailController.m */,
+				9A3B967115B62C0900C57BD0 /* MailController.xib */,
 				9A24AF8615A536CC000D555D /* ProductAddViewController_ipod.h */,
 				9A24AF8715A536CD000D555D /* ProductAddViewController_ipod.m */,
 				9A24AF8815A536CD000D555D /* ProductAddViewController_ipod.xib */,
@@ -222,6 +235,7 @@
 		9A3E2058154B2EF800A3650E = {
 			isa = PBXGroup;
 			children = (
+				9A3B967415B62F3500C57BD0 /* MessageUI.framework */,
 				9A3B965215A62E5E00C57BD0 /* Entitlements.plist */,
 				9A516F7D15A3EFC3005B70E6 /* Resources */,
 				9AE7C177156400E200311EB9 /* todo */,
@@ -319,6 +333,7 @@
 		9A5617FB154EE447001579B6 /* art */ = {
 			isa = PBXGroup;
 			children = (
+				9A3B967615B6324D00C57BD0 /* 18-envelope.png */,
 				9AB105FA157E190100A47A94 /* no-img.jpeg */,
 				9AE7C1A8157C3EAE00311EB9 /* sand.jpg */,
 				9AE7C19E157C31BE00311EB9 /* grass.jpg */,
@@ -428,6 +443,8 @@
 				9A24AF8A15A536CD000D555D /* ProductAddViewController_ipod.xib in Resources */,
 				9A24AF9415A5EC7D000D555D /* ProductSelectorTableViewController.xib in Resources */,
 				9A3B965315A62E5E00C57BD0 /* Entitlements.plist in Resources */,
+				9A3B967315B62C0900C57BD0 /* MailController.xib in Resources */,
+				9A3B967715B6324D00C57BD0 /* 18-envelope.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -461,6 +478,7 @@
 				9A24AF8415A53101000D555D /* SellViewController_ipod.m in Sources */,
 				9A24AF8915A536CD000D555D /* ProductAddViewController_ipod.m in Sources */,
 				9A24AF9315A5EC7D000D555D /* ProductSelectorTableViewController.m in Sources */,
+				9A3B967215B62C0900C57BD0 /* MailController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
