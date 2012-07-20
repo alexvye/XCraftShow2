@@ -7,12 +7,13 @@
 //
 
 #import "ProductAddViewController_ipod.h"
+#import "ProductPriceViewController.h"
 #import "Product.h"
 #import "Utilities.h"
 
 @implementation ProductAddViewController_ipod
 
-@synthesize unitCost, productDescription, quantity, name, defaultCost;
+@synthesize unitCost, quantity, name, defaultCost;
 @synthesize managedObjectContext,selectedProduct;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -45,16 +46,12 @@
     if(selectedProduct == nil) {
         self.name.text = @"";
         self.quantity.text = [Utilities formatAsDecimal:[NSNumber numberWithInt:0]];
-        self.unitCost.text = [Utilities formatAsCurrency:[NSNumber numberWithInt:0]];
-        self.productDescription.text = @"";
-        self.defaultCost.text = [Utilities formatAsCurrency:[NSNumber numberWithInt:0]];
     } else {
         Product* product = (Product*) self.selectedProduct;
         self.name.text = product.name;
         self.quantity.text = [Utilities formatAsDecimal:product.quantity];
-        self.unitCost.text = [Utilities formatAsCurrency:product.unitCost];
-        self.productDescription.text = product.productDescription;
-        self.defaultCost.text = [Utilities formatAsCurrency:product.defaultCost];
+        [self.unitCost setTitle:[Utilities formatAsCurrency:product.unitCost] forState:UIControlStateNormal];
+        [self.defaultCost setTitle:[Utilities formatAsCurrency:product.defaultCost] forState:UIControlStateNormal];
     }
 }
 
@@ -101,6 +98,17 @@
     }
 }
 
+- (IBAction)openPricePicker:(id)sender {
+    ProductPriceViewController* ppvc = [[ProductPriceViewController alloc] initWithNibName:@"ProductPriceViewController" bundle:nil];
+    ppvc.prevPriceLabel = (UIButton*) sender;
+    [self presentModalViewController:ppvc animated:YES];
+}
+
+- (IBAction)resignButton:(id)sender {
+    [self.name resignFirstResponder];
+    [self.quantity resignFirstResponder];
+}
+
 -(IBAction) saveProduct: (UIButton*) aButton {
     //
     // Create/set product oject
@@ -138,9 +146,9 @@
         NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
         [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
         product.quantity = [formatter numberFromString:self.quantity.text];
-        product.unitCost = [formatter numberFromString:self.unitCost.text];
-        product.productDescription = self.productDescription.text;
-        product.defaultCost = [formatter numberFromString:self.defaultCost.text];
+        product.unitCost = [formatter numberFromString:self.unitCost.titleLabel.text];
+//        product.productDescription = self.productDescription.text;
+        product.defaultCost = [formatter numberFromString:self.defaultCost.titleLabel.text];
         product.image = 0;
         product.createdDate = [NSDate date];
         
@@ -160,7 +168,7 @@
 }
 
 #pragma mark - textfield/textview methods
-
+/*
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
     return TRUE;
@@ -179,5 +187,5 @@
 - (void)textViewDidEndEditing:(UITextView *)textView {
     
 }
-
+*/
 @end

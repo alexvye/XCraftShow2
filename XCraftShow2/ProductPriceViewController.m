@@ -13,6 +13,7 @@
 @end
 
 @implementation ProductPriceViewController
+@synthesize picker = _picker;
 @synthesize priceLabel = _priceLabel;
 @synthesize prevPriceLabel = _prevPriceLabel;
 
@@ -30,10 +31,30 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     if (self.prevPriceLabel != nil) {
-        self.priceLabel.text = self.prevPriceLabel.text;
+        self.priceLabel.text = [self.prevPriceLabel titleForState:UIControlStateNormal];
     }
 }
 
+
+- (void)viewDidAppear:(BOOL)animated{
+    if (self.prevPriceLabel != nil) {
+        NSString* price = self.priceLabel.text;
+        if (price != nil && price.length > 0 && [price characterAtIndex:0] == '$') {
+            price = [price substringFromIndex:1];
+        }
+        NSArray* nums = [price componentsSeparatedByString: @"."];
+        if (nums != nil && [nums count] >= 2) {
+            int dollar = [[nums objectAtIndex:0] intValue];
+            int cent = [[nums objectAtIndex:1] intValue];
+            
+            [self.picker selectRow:dollar inComponent:0 animated:NO];
+            [self.picker reloadComponent:0];
+            [self.picker selectRow:cent inComponent:1 animated:NO];
+            [self.picker reloadComponent:1];
+        }
+    }
+    
+}
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
@@ -44,7 +65,7 @@
 }
 
 - (IBAction)save:(id)sender {
-    self.prevPriceLabel.text = self.priceLabel.text;
+    [self.prevPriceLabel setTitle:self.priceLabel.text forState:UIControlStateNormal] ;
     [self dismissModalViewControllerAnimated:YES];
 }
 

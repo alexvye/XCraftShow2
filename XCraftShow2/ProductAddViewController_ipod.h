@@ -8,23 +8,19 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ProductAddViewController_ipod : UIViewController <UITextFieldDelegate,UITextViewDelegate> {
-    IBOutlet UITextView* productDescription;
-    IBOutlet UITextField* name;
-    IBOutlet UITextField* quantity;
-    IBOutlet UITextField* unitCost;
-    IBOutlet UITextField* defaultCost;
-}
+@interface ProductAddViewController_ipod : UIViewController <UITextFieldDelegate,UITextViewDelegate>
 
-@property (nonatomic, retain) IBOutlet UITextField* name;
-@property (nonatomic, retain) IBOutlet UITextView* productDescription;
-@property (nonatomic, retain) IBOutlet UITextField* quantity;
-@property (nonatomic, retain) IBOutlet UITextField* unitCost;
-@property (nonatomic, retain) IBOutlet UITextField* defaultCost;
+@property (strong, nonatomic) IBOutlet UITextField* name;
+//@property (strong, nonatomic) IBOutlet UITextView* productDescription;
+@property (strong, nonatomic) IBOutlet UITextField* quantity;
+@property (strong, nonatomic) IBOutlet UIButton* unitCost;
+@property (strong, nonatomic) IBOutlet UIButton* defaultCost;
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (strong, nonatomic) NSManagedObject *selectedProduct;
 
 - (IBAction)saveProduct:(id)sender;
-- (BOOL) doesProductExist:(NSString*)_name;
+- (IBAction)openPricePicker:(id)sender;
+- (IBAction)resignButton:(id)sender;
+- (BOOL)doesProductExist:(NSString*)_name;
 
 @end
