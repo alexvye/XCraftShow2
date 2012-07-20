@@ -301,7 +301,6 @@ ProductSelectorTableViewController* prodView;
     cell.saleDateLabel.text = dateString;
     cell.saleAmountLabel.text = [Utilities formatAsCurrency:sale.amount];
     cell.saleQuantityLabel.text = [Utilities formatAsDecimal:sale.quantity];
-    NSLog(@"amount = %@, quant = %@", sale.amount, sale.quantity);
 }
 
 - (IBAction)saveSale:(id)sender {
@@ -416,11 +415,16 @@ ProductSelectorTableViewController* prodView;
 -(IBAction)openMail:(id)sender {
     if ([MFMailComposeViewController canSendMail])
     {
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateStyle:NSDateFormatterLongStyle];
+        
         MFMailComposeViewController *mailer = [[MFMailComposeViewController alloc] init];
         
         mailer.mailComposeDelegate = self;
         
-        [mailer setSubject:@"A Message from MobileTuts+"];
+        NSString* subjectString = [NSString stringWithFormat:@"Export for %@ on %@",
+                                   self.show.name, [dateFormatter stringFromDate:self.show.date]];
+        [mailer setSubject:subjectString];
         
         NSArray *toRecipients = [NSArray arrayWithObjects:@"fisrtMail@example.com", @"secondMail@example.com", nil];
         [mailer setToRecipients:toRecipients];
@@ -429,7 +433,7 @@ ProductSelectorTableViewController* prodView;
         NSData *imageData = UIImagePNGRepresentation(myImage);
         [mailer addAttachmentData:imageData mimeType:@"image/png" fileName:@"mobiletutsImage"]; 
         
-        NSString *emailBody = @"Have you seen the MobileTuts+ web site?";
+        NSString *emailBody = [self generateExportBody];
         [mailer setMessageBody:emailBody isHTML:NO];
         
         [self presentModalViewController:mailer animated:YES];  
@@ -442,6 +446,31 @@ ProductSelectorTableViewController* prodView;
                                               otherButtonTitles:nil];
         [alert show];
     }
+}
+
+
+-(NSString*) generateExportBody {
+    //
+    // set date formatter
+    //
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateStyle:NSDateFormatterLongStyle];
+    
+    //
+    // generate export
+    //
+    NSString* body = @"============================\n";
+    body = [body stringByAppendingString:self.show.name];
+    body = [body stringByAppendingString:@"\n============================\n"];
+    for(Sale* sale in sales) {
+        Product* product = sale.productRel;
+
+        NSString *dateString = [dateFormatter stringFromDate:sale.date];
+        body = [body stringByAppendingString:[NSString stringWithFormat:
+                                              @"%@ %@ %@ %@\n", product.name, dateString, [Utilities formatAsCurrency:sale.amount], [Utilities formatAsDecimal:sale.quantity]]];
+    }
+    
+    return body;
 }
 
 - (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error 

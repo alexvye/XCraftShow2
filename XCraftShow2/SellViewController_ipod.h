@@ -42,5 +42,6 @@
 -(IBAction) selectProduct:(id)sender;
 -(IBAction) editProduct:(id)sender;
 -(IBAction)openMail:(id)sender;
+-(NSString*) generateExportBody;
 @end
 
