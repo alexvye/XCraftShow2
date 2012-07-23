@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "CustomProductCell.h"
 
-@interface ProductTableViewController : UITableViewController <NSFetchedResultsControllerDelegate> {
+@interface ProductTableViewController : UITableViewController <UITableViewDelegate, UITableViewDataSource, NSFetchedResultsControllerDelegate> {
 }
 
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;

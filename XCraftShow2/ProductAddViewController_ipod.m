@@ -11,6 +11,12 @@
 #import "Product.h"
 #import "Utilities.h"
 
+
+@interface ProductAddViewController_ipod ()
+- (NSString*)removeDollarSign:(NSString*)price;
+@end
+
+
 @implementation ProductAddViewController_ipod
 
 @synthesize unitCost, quantity, name, defaultCost;
@@ -109,6 +115,10 @@
     [self.quantity resignFirstResponder];
 }
 
+- (IBAction)cancelProduct:(id)sender {
+    [self dismissModalViewControllerAnimated:YES];
+}
+
 -(IBAction) saveProduct: (UIButton*) aButton {
     //
     // Create/set product oject
@@ -146,9 +156,8 @@
         NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
         [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
         product.quantity = [formatter numberFromString:self.quantity.text];
-        product.unitCost = [formatter numberFromString:self.unitCost.titleLabel.text];
-//        product.productDescription = self.productDescription.text;
-        product.defaultCost = [formatter numberFromString:self.defaultCost.titleLabel.text];
+        product.unitCost = [formatter numberFromString:[self removeDollarSign:self.unitCost.titleLabel.text]];
+        product.defaultCost = [formatter numberFromString:[self removeDollarSign:self.defaultCost.titleLabel.text]];
         product.image = 0;
         product.createdDate = [NSDate date];
         
@@ -163,8 +172,17 @@
         //
         // Pop view
         //
-        [self.navigationController popViewControllerAnimated:TRUE];
+        [self dismissModalViewControllerAnimated:YES];
+//        [self.navigationController popViewControllerAnimated:TRUE];
     }
+}
+
+- (NSString*)removeDollarSign:(NSString*)price; {
+    if (price != nil && price.length > 0 && [price characterAtIndex:0] == '$') {
+        price = [price substringFromIndex:1];
+    }
+    
+    return price;
 }
 
 #pragma mark - textfield/textview methods

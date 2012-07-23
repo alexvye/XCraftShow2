@@ -135,16 +135,22 @@ int numberObjects;
 			cell = [[UITableViewCell alloc] 
                     initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
         }
-    } else {
-    
+    } else {        
         cell = (CustomProductCell*) [self.tableView dequeueReusableCellWithIdentifier:CustomProductCellIdentifier];
         if (cell == nil) {
-            cell = [[CustomProductCell alloc] initWithFrame:CGRectZero reuseIdentifier:CustomProductCellIdentifier];
+//            cell = [[CustomProductCell alloc] initWithFrame:CGRectZero reuseIdentifier:CustomProductCellIdentifier];
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
         }    
+        NSManagedObject *managedObject = [self.fetchedResultsController objectAtIndexPath:indexPath];        
+        Product* product = (Product*) managedObject;
+        cell.textLabel.text = product.name;
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"Quantity: %d",product.quantity.intValue];
+        cell.imageView.image = [UIImage imageNamed:@"no-img.png"];
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     //
     // Configure the cell...
     //
-        [self configureCell:(CustomProductCell*)cell atIndexPath:indexPath];
+//        [self configureCell:(CustomProductCell*)cell atIndexPath:indexPath];
     }
     
     return cell;
@@ -208,7 +214,8 @@ int numberObjects;
 	// 
 	// Pass the selected object to the new view controller.
 	//
-        [self.navigationController pushViewController:detailView animated:YES];
+//        [self.navigationController pushViewController:detailView animated:YES];
+        [self presentModalViewController:detailView animated:YES];
     }
 }
 
@@ -235,7 +242,8 @@ int numberObjects;
 	// 
 	// Pass the selected object to the new view controller.
 	//
-	[self.navigationController pushViewController:detailView animated:YES];
+    [self presentModalViewController:detailView animated:YES];
+//	[self.navigationController pushViewController:detailView animated:YES];
 }
 
 #pragma mark - Fetched results controller

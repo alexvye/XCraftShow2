@@ -22,11 +22,6 @@
 		9A24AF9415A5EC7D000D555D /* ProductSelectorTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A24AF9215A5EC7D000D555D /* ProductSelectorTableViewController.xib */; };
 		9A3B965315A62E5E00C57BD0 /* Entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9A3B965215A62E5E00C57BD0 /* Entitlements.plist */; };
 		9A3B967515B62F3500C57BD0 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A3B967415B62F3500C57BD0 /* MessageUI.framework */; };
-		9A3B967715B6324D00C57BD0 /* 18-envelope.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A3B967615B6324D00C57BD0 /* 18-envelope.png */; };
-		9A3B967915B7072300C57BD0 /* Default-portrait.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A3B967815B7072300C57BD0 /* Default-portrait.png */; };
-		9A3B967B15B7073000C57BD0 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A3B967A15B7073000C57BD0 /* Default.png */; };
-		9A3B967D15B7073D00C57BD0 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A3B967C15B7073D00C57BD0 /* Icon.png */; };
-		9A3B967F15B7074600C57BD0 /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A3B967E15B7074600C57BD0 /* Icon-72.png */; };
 		9A3E2068154B2EF900A3650E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A3E2067154B2EF800A3650E /* UIKit.framework */; };
 		9A3E206A154B2EF900A3650E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A3E2069154B2EF900A3650E /* Foundation.framework */; };
 		9A3E206C154B2EF900A3650E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A3E206B154B2EF900A3650E /* CoreGraphics.framework */; };
@@ -69,6 +64,7 @@
 		9AE7C1A9157C3EAE00311EB9 /* sand.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9AE7C1A8157C3EAE00311EB9 /* sand.jpg */; };
 		B5801AB515B5BD4C00DB16C9 /* ProductPriceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5801AB315B5BD4B00DB16C9 /* ProductPriceViewController.m */; };
 		B5801AB615B5BD4C00DB16C9 /* ProductPriceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B5801AB415B5BD4C00DB16C9 /* ProductPriceViewController.xib */; };
+		B5F0B2FE15BE1AFA00A3E5A8 /* no-img.png in Resources */ = {isa = PBXBuildFile; fileRef = B5F0B2FD15BE1AFA00A3E5A8 /* no-img.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -158,9 +154,10 @@
 		9AE7C19B1579155100311EB9 /* SellViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SellViewController.xib; sourceTree = "<group>"; };
 		9AE7C19E157C31BE00311EB9 /* grass.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = grass.jpg; sourceTree = "<group>"; };
 		9AE7C1A8157C3EAE00311EB9 /* sand.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = sand.jpg; sourceTree = "<group>"; };
-		B5801AB215B5BD4B00DB16C9 /* ProductPriceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; path = ProductPriceViewController.h; sourceTree = "<group>"; };
+		B5801AB215B5BD4B00DB16C9 /* ProductPriceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductPriceViewController.h; sourceTree = "<group>"; };
 		B5801AB315B5BD4B00DB16C9 /* ProductPriceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductPriceViewController.m; sourceTree = "<group>"; };
 		B5801AB415B5BD4C00DB16C9 /* ProductPriceViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProductPriceViewController.xib; sourceTree = "<group>"; };
+		B5F0B2FD15BE1AFA00A3E5A8 /* no-img.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "no-img.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -345,6 +342,7 @@
 		9A5617FB154EE447001579B6 /* art */ = {
 			isa = PBXGroup;
 			children = (
+				B5F0B2FD15BE1AFA00A3E5A8 /* no-img.png */,
 				9A3B967615B6324D00C57BD0 /* 18-envelope.png */,
 				9AB105FA157E190100A47A94 /* no-img.jpeg */,
 				9AE7C1A8157C3EAE00311EB9 /* sand.jpg */,
@@ -456,6 +454,7 @@
 				9A24AF9415A5EC7D000D555D /* ProductSelectorTableViewController.xib in Resources */,
 				9A3B965315A62E5E00C57BD0 /* Entitlements.plist in Resources */,
 				B5801AB615B5BD4C00DB16C9 /* ProductPriceViewController.xib in Resources */,
+				B5F0B2FE15BE1AFA00A3E5A8 /* no-img.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

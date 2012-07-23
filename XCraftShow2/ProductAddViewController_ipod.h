@@ -18,6 +18,7 @@
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (strong, nonatomic) NSManagedObject *selectedProduct;
 
+- (IBAction)cancelProduct:(id)sender;
 - (IBAction)saveProduct:(id)sender;
 - (IBAction)openPricePicker:(id)sender;
 - (IBAction)resignButton:(id)sender;
