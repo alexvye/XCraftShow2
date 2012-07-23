@@ -457,7 +457,7 @@
 				9A24AF9415A5EC7D000D555D /* ProductSelectorTableViewController.xib in Resources */,
 				9A3B965315A62E5E00C57BD0 /* Entitlements.plist in Resources */,
 				B5801AB615B5BD4C00DB16C9 /* ProductPriceViewController.xib in Resources */,
-				B5F0B2FE15BE1AFA00A3E5A8 /* no-img.png in Resources */,
+				9AE2F36F15BCF007002E7AA2 /* Defaults.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
