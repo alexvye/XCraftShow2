@@ -51,6 +51,7 @@
 		9AA88459158B8D87003C2FC0 /* Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AA88458158B8D87003C2FC0 /* Utilities.m */; };
 		9AB105FB157E190100A47A94 /* no-img.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 9AB105FA157E190100A47A94 /* no-img.jpeg */; };
 		9AC8DA2215A3C4E200E2B33A /* cash-register.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 9AC8DA2115A3C4E200E2B33A /* cash-register.aiff */; };
+		9AE2F36F15BCF007002E7AA2 /* Defaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9AE2F36E15BCF007002E7AA2 /* Defaults.plist */; };
 		9AE7C1701563FF6600311EB9 /* Show.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AE7C16F1563FF6600311EB9 /* Show.m */; };
 		9AE7C1731563FF6600311EB9 /* Contact.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AE7C1721563FF6600311EB9 /* Contact.m */; };
 		9AE7C1761563FF6600311EB9 /* Sale.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AE7C1751563FF6600311EB9 /* Sale.m */; };
@@ -136,6 +137,7 @@
 		9AC8DA2115A3C4E200E2B33A /* cash-register.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; name = "cash-register.aiff"; path = "XCraftShow2/cash-register.aiff"; sourceTree = "<group>"; };
 		9AC8DA2415A3C65200E2B33A /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
 		9AC8DA2615A3CB0300E2B33A /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		9AE2F36E15BCF007002E7AA2 /* Defaults.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Defaults.plist; sourceTree = "<group>"; };
 		9AE7C16E1563FF6600311EB9 /* Show.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Show.h; sourceTree = "<group>"; };
 		9AE7C16F1563FF6600311EB9 /* Show.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Show.m; sourceTree = "<group>"; };
 		9AE7C1711563FF6600311EB9 /* Contact.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Contact.h; sourceTree = "<group>"; };
@@ -325,6 +327,7 @@
 				9A3B967A15B7073000C57BD0 /* Default.png */,
 				9A3B967815B7072300C57BD0 /* Default-portrait.png */,
 				9AC8DA2115A3C4E200E2B33A /* cash-register.aiff */,
+				9AE2F36E15BCF007002E7AA2 /* Defaults.plist */,
 			);
 			name = Resources;
 			sourceTree = "<group>";

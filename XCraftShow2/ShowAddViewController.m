@@ -96,10 +96,6 @@
 }
 
 - (IBAction)changeDateInLabel:(id)sender {
-	//Use NSDateFormatter to write out the date in a friendly format
-	NSDateFormatter *df = [[NSDateFormatter alloc] init];
-	df.dateStyle = NSDateFormatterMediumStyle;
-	NSLog(@"%@",[df stringFromDate:datePicker.date]);
 }	
 
 

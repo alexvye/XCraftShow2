@@ -8,6 +8,7 @@
 
 #import "CustomProductCell.h"
 #import "Product.h"
+#import "Utilities.h"
 
 @implementation CustomProductCell
 @synthesize productImage;
@@ -138,18 +139,10 @@ float primaryFont;
     //
     // convert the string to a number. nil if invalid, becomes 0
     //
-    NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
-    [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
-    NSNumber *quantity = [formatter numberFromString:[(UITextField *)[self quantityTextField] text]];
+    NSNumber *quantity = [NUMBER_FORMATTER numberFromString:[(UITextField *)[self quantityTextField] text]];
     if(quantity == nil) {
         quantity = [NSNumber numberWithInt:0];
     }
-    
-    //
-    // save it
-    //
-    //[flossQuantity setObject:quantity forKey:[(UILabel *)[self primaryLabel] text]];
-    //[DataManager saveData];
 }
 
 

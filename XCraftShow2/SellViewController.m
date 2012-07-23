@@ -78,9 +78,7 @@ UILabel* headerLabel;
     headerLabel.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.8];
     headerLabel.textAlignment = UITextAlignmentCenter;
     headerLabel.textColor = [UIColor blackColor];
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateStyle:NSDateFormatterLongStyle];
-    dateString = [dateFormatter stringFromDate:show.date];
+    dateString = [DATE_FORMATTER stringFromDate:show.date];
     headerString = [NSString stringWithFormat:@"%@, %@ = %@",show.name,dateString,[Utilities formatAsCurrency:[self cumulativeSales]]];
                               
     headerLabel.text = headerString; 
@@ -113,9 +111,8 @@ UILabel* headerLabel;
 #pragma mark - textview delegate
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    NSNumberFormatter * formatter = [[NSNumberFormatter alloc] init];
-    [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
-    double amount = selectedProduct.defaultCost.doubleValue*[formatter numberFromString:self.quantity.text].doubleValue;
+
+    double amount = selectedProduct.defaultCost.doubleValue*[NUMBER_FORMATTER numberFromString:self.quantity.text].doubleValue;
 
     if(textField == quantity) {
         self.price.text = [Utilities formatAsCurrency:[NSNumber numberWithDouble:amount]]; 
@@ -275,13 +272,10 @@ UILabel* headerLabel;
     Product* product = sale.productRel;
     cell.productNameLabel.text = product.name;
 
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateStyle:NSDateFormatterLongStyle];
-    NSString *dateString = [dateFormatter stringFromDate:sale.date];
+    NSString *dateString = [DATE_FORMATTER stringFromDate:sale.date];
     cell.saleDateLabel.text = dateString;
     cell.saleAmountLabel.text = [Utilities formatAsCurrency:sale.amount];
     cell.saleQuantityLabel.text = [Utilities formatAsDecimal:sale.quantity];
-    NSLog(@"amount = %@, quant = %@", sale.amount, sale.quantity);
 }
 
 - (IBAction)saveSale:(id)sender {
@@ -305,13 +299,8 @@ UILabel* headerLabel;
         //
         Sale* sale = (Sale*) [NSEntityDescription insertNewObjectForEntityForName:@"Sale" inManagedObjectContext:self.managedObjectContext];
     
-        NSNumberFormatter * formatter = [[NSNumberFormatter alloc] init];
-        [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
-    
-        sale.quantity = [formatter numberFromString:self.quantity.text];
-        
-        [formatter setNumberStyle:NSNumberFormatterCurrencyStyle];
-        sale.amount = [formatter numberFromString:self.price.text];
+        sale.quantity = [NUMBER_FORMATTER numberFromString:self.quantity.text];
+        sale.amount = [CURRENCY_FORMATTER numberFromString:self.price.text];
     
         sale.date = [NSDate date];
         sale.productRel = selectedProduct;

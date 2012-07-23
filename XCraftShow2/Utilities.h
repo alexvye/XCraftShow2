@@ -10,7 +10,12 @@
 
 @interface Utilities : NSObject
 
+extern NSNumberFormatter* CURRENCY_FORMATTER;
+extern NSNumberFormatter* NUMBER_FORMATTER;
+extern NSDateFormatter* DATE_FORMATTER;
+
 +(NSString*) formatAsCurrency:(NSNumber*)amount;
 +(NSString*) formatAsDecimal:(NSNumber*)amount;
++(NSString*) truncateString:(NSString*)input:(int)length;
 
 @end

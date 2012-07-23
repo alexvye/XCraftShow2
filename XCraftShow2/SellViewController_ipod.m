@@ -89,9 +89,7 @@ ProductSelectorTableViewController* prodView;
     headerLabel.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.8];
     headerLabel.textAlignment = UITextAlignmentCenter;
     headerLabel.textColor = [UIColor blackColor];
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateStyle:NSDateFormatterLongStyle];
-    dateString = [dateFormatter stringFromDate:show.date];
+    dateString = [DATE_FORMATTER stringFromDate:show.date];
     headerString = [NSString stringWithFormat:@"%@, %@ = %@",show.name,dateString,[Utilities formatAsCurrency:[self cumulativeSales]]];
     
     headerLabel.text = headerString; 
@@ -133,9 +131,7 @@ ProductSelectorTableViewController* prodView;
 #pragma mark - textview delegate
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    NSNumberFormatter * formatter = [[NSNumberFormatter alloc] init];
-    [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
-    double amount = selectedProduct.defaultCost.doubleValue*[formatter numberFromString:self.quantity.text].doubleValue;
+    double amount = selectedProduct.defaultCost.doubleValue*[CURRENCY_FORMATTER numberFromString:self.quantity.text].doubleValue;
     
     if(textField == quantity) {
         self.price.text = [Utilities formatAsCurrency:[NSNumber numberWithDouble:amount]]; 
@@ -295,9 +291,7 @@ ProductSelectorTableViewController* prodView;
     Product* product = sale.productRel;
     cell.productNameLabel.text = product.name;
     
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateStyle:NSDateFormatterLongStyle];
-    NSString *dateString = [dateFormatter stringFromDate:sale.date];
+    NSString *dateString = [DATE_FORMATTER stringFromDate:sale.date];
     cell.saleDateLabel.text = dateString;
     cell.saleAmountLabel.text = [Utilities formatAsCurrency:sale.amount];
     cell.saleQuantityLabel.text = [Utilities formatAsDecimal:sale.quantity];
@@ -324,13 +318,9 @@ ProductSelectorTableViewController* prodView;
         //
         Sale* sale = (Sale*) [NSEntityDescription insertNewObjectForEntityForName:@"Sale" inManagedObjectContext:self.managedObjectContext];
         
-        NSNumberFormatter * formatter = [[NSNumberFormatter alloc] init];
-        [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
-        
-        sale.quantity = [formatter numberFromString:self.quantity.text];
-        
-        [formatter setNumberStyle:NSNumberFormatterCurrencyStyle];
-        sale.amount = [formatter numberFromString:self.price.text];
+        sale.quantity = [NUMBER_FORMATTER numberFromString:self.quantity.text];
+
+        sale.amount = [CURRENCY_FORMATTER numberFromString:self.price.text];
         
         sale.date = [NSDate date];
         sale.productRel = selectedProduct;
@@ -415,23 +405,22 @@ ProductSelectorTableViewController* prodView;
 -(IBAction)openMail:(id)sender {
     if ([MFMailComposeViewController canSendMail])
     {
-        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setDateStyle:NSDateFormatterLongStyle];
-        
         MFMailComposeViewController *mailer = [[MFMailComposeViewController alloc] init];
         
         mailer.mailComposeDelegate = self;
         
         NSString* subjectString = [NSString stringWithFormat:@"Export for %@ on %@",
-                                   self.show.name, [dateFormatter stringFromDate:self.show.date]];
+                                   self.show.name, [DATE_FORMATTER stringFromDate:self.show.date]];
         [mailer setSubject:subjectString];
         
-        NSArray *toRecipients = [NSArray arrayWithObjects:@"fisrtMail@example.com", @"secondMail@example.com", nil];
-        [mailer setToRecipients:toRecipients];
+        NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
+        NSString *val = nil;
         
-        UIImage *myImage = [UIImage imageNamed:@"mobiletuts-logo.png"];
-        NSData *imageData = UIImagePNGRepresentation(myImage);
-        [mailer addAttachmentData:imageData mimeType:@"image/png" fileName:@"mobiletutsImage"]; 
+        if (standardUserDefaults) 
+            val = [standardUserDefaults objectForKey:@"export-email"];
+        
+        NSArray *toRecipients = [NSArray arrayWithObjects:val, nil];
+        [mailer setToRecipients:toRecipients];
         
         NSString *emailBody = [self generateExportBody];
         [mailer setMessageBody:emailBody isHTML:NO];
@@ -449,13 +438,7 @@ ProductSelectorTableViewController* prodView;
 }
 
 
--(NSString*) generateExportBody {
-    //
-    // set date formatter
-    //
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateStyle:NSDateFormatterLongStyle];
-    
+-(NSString*) generateExportBody {    
     //
     // generate export
     //
@@ -465,9 +448,13 @@ ProductSelectorTableViewController* prodView;
     for(Sale* sale in sales) {
         Product* product = sale.productRel;
 
-        NSString *dateString = [dateFormatter stringFromDate:sale.date];
+        NSString *dateString = [DATE_FORMATTER stringFromDate:sale.date];
         body = [body stringByAppendingString:[NSString stringWithFormat:
-                                              @"%@ %@ %@ %@\n", product.name, dateString, [Utilities formatAsCurrency:sale.amount], [Utilities formatAsDecimal:sale.quantity]]];
+                                              @"%@ %@ %@ %@\n", 
+                [Utilities truncateString:product.name:10], 
+                dateString, 
+                [Utilities formatAsCurrency:sale.amount], 
+                [Utilities formatAsDecimal:sale.quantity]]];
     }
     
     return body;

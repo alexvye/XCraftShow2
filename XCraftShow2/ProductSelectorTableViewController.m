@@ -8,6 +8,7 @@
 
 #import "ProductSelectorTableViewController.h"
 #import "Product.h"
+#import "Utilities.h"
 
 @implementation ProductSelectorTableViewController
 
@@ -161,9 +162,7 @@ NSArray* products;
     Product* product = (Product*) [products objectAtIndex:indexPath.row];
     cell.productNameLabel.text = product.name;
     
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateStyle:NSDateFormatterLongStyle];
-    NSString *dateString = [dateFormatter stringFromDate:product.createdDate];
+    NSString *dateString = [DATE_FORMATTER stringFromDate:product.createdDate];
     cell.productDateLabel.text = [NSString stringWithFormat:@"Updated: %@", dateString];
     
     [[cell productImage] setImage:[UIImage imageNamed:@"no-img.jpeg"]];
