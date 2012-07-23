@@ -143,12 +143,10 @@
         
         product.name = self.name.text;
         
-        NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
-        [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
-        product.quantity = [formatter numberFromString:self.quantity.text];
-        product.unitCost = [formatter numberFromString:self.unitCost.titleLabel.text];
-//        product.productDescription = self.productDescription.text;
-        product.defaultCost = [formatter numberFromString:self.defaultCost.titleLabel.text];
+        product.quantity = [NUMBER_FORMATTER numberFromString:self.quantity.text];
+        product.unitCost = [CURRENCY_FORMATTER numberFromString:self.unitCost.titleLabel.text];
+        
+        product.defaultCost = [CURRENCY_FORMATTER numberFromString:self.defaultCost.titleLabel.text];
         product.image = 0;
         product.createdDate = [NSDate date];
         

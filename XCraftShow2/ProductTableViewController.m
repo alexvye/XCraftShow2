@@ -12,6 +12,7 @@ static NSString *CellIdentifier = @"Normal Cell";
 #import "ProductAddViewController.h"
 #import "ProductAddViewController_ipod.h"
 #import "Product.h"
+#import "Utilities.h"
 
 @implementation ProductTableViewController
 
@@ -320,9 +321,7 @@ int numberObjects;
     Product* product = (Product*) managedObject;
     cell.productNameLabel.text = product.name;
     
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateStyle:NSDateFormatterLongStyle];
-    NSString *dateString = [dateFormatter stringFromDate:product.createdDate];
+    NSString *dateString = [DATE_FORMATTER stringFromDate:product.createdDate];
     cell.productDateLabel.text = [NSString stringWithFormat:@"Updated: %@", dateString];
     
     [[cell productImage] setImage:[UIImage imageNamed:@"no-img.jpeg"]];

@@ -344,9 +344,7 @@ int numberObjects;
     Show* show = (Show*) managedObject;
     
     cell.showNameLabel.text = show.name;
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateStyle:NSDateFormatterLongStyle];
-    NSString *dateString = [dateFormatter stringFromDate:show.date];
+    NSString *dateString = [DATE_FORMATTER stringFromDate:show.date];
     cell.showDateLabel.text = dateString;
     cell.showProfitLabel.text = [Utilities formatAsCurrency:[self calulateProfit:show]];
     

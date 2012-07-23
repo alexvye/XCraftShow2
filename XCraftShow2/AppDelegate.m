@@ -11,6 +11,7 @@
 #import "ProductTableViewController.h"
 #import "HelpViewController.h"
 #import "DataManager.h"
+#import "Utilities.h"
 
 @implementation AppDelegate
 
@@ -22,6 +23,20 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    //
+    // Initialize formatters
+    //
+    CURRENCY_FORMATTER = [[NSNumberFormatter alloc] init];
+    [CURRENCY_FORMATTER setNumberStyle:NSNumberFormatterCurrencyStyle];
+    
+    NUMBER_FORMATTER = [[NSNumberFormatter alloc] init];
+    [NUMBER_FORMATTER setNumberStyle:NSNumberFormatterCurrencyStyle];
+    
+    DATE_FORMATTER = [[NSDateFormatter alloc] init];
+    [DATE_FORMATTER setDateStyle:NSDateFormatterLongStyle];
+    
+    //
+    //
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];

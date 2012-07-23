@@ -73,9 +73,7 @@
     //
     Show* show = (Show*) [NSEntityDescription insertNewObjectForEntityForName:@"Show" inManagedObjectContext:self.managedObjectContext];
     show.name = self.showName.text;
-    NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
-    [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
-    show.fee = [formatter numberFromString:self.showFee.text];
+    show.fee = [CURRENCY_FORMATTER numberFromString:self.showFee.text];
     show.address = self.showAddress.text;
     show.rules = self.showUrl.text;
     show.date = self.datePicker.date;
@@ -95,8 +93,6 @@
 }
 
 - (IBAction)changeDateInLabel:(id)sender {
-	NSDateFormatter *df = [[NSDateFormatter alloc] init];
-	df.dateStyle = NSDateFormatterMediumStyle;
 }	
 
 
