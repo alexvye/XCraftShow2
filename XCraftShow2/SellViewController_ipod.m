@@ -413,12 +413,14 @@ ProductSelectorTableViewController* prodView;
                                    self.show.name, [DATE_FORMATTER stringFromDate:self.show.date]];
         [mailer setSubject:subjectString];
         
-        NSArray *toRecipients = [NSArray arrayWithObjects:@"fisrtMail@example.com", @"secondMail@example.com", nil];
-        [mailer setToRecipients:toRecipients];
+        NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
+        NSString *val = nil;
         
-        UIImage *myImage = [UIImage imageNamed:@"mobiletuts-logo.png"];
-        NSData *imageData = UIImagePNGRepresentation(myImage);
-        [mailer addAttachmentData:imageData mimeType:@"image/png" fileName:@"mobiletutsImage"]; 
+        if (standardUserDefaults) 
+            val = [standardUserDefaults objectForKey:@"export-email"];
+        
+        NSArray *toRecipients = [NSArray arrayWithObjects:val, nil];
+        [mailer setToRecipients:toRecipients];
         
         NSString *emailBody = [self generateExportBody];
         [mailer setMessageBody:emailBody isHTML:NO];
@@ -448,7 +450,11 @@ ProductSelectorTableViewController* prodView;
 
         NSString *dateString = [DATE_FORMATTER stringFromDate:sale.date];
         body = [body stringByAppendingString:[NSString stringWithFormat:
-                                              @"%@ %@ %@ %@\n", product.name, dateString, [Utilities formatAsCurrency:sale.amount], [Utilities formatAsDecimal:sale.quantity]]];
+                                              @"%@ %@ %@ %@\n", 
+                [Utilities truncateString:product.name:10], 
+                dateString, 
+                [Utilities formatAsCurrency:sale.amount], 
+                [Utilities formatAsDecimal:sale.quantity]]];
     }
     
     return body;

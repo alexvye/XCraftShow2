@@ -24,6 +24,12 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     //
+    // register preferences
+    //
+    [[NSUserDefaults standardUserDefaults] registerDefaults:[NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"Defaults" ofType:@"plist"]]];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
+    //
     // Initialize formatters
     //
     CURRENCY_FORMATTER = [[NSNumberFormatter alloc] init];

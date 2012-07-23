@@ -47,7 +47,27 @@ NSDateFormatter* DATE_FORMATTER;
 }
 
 +(NSString*) truncateString:(NSString*)input:(int)length {
-    return ([input length]>length ? [input substringToIndex:length] : input);
+    //
+    // first reduct string to length or smaller
+    //
+    NSString* result = ([input length]>length ? [input substringToIndex:length] : input);
+    
+    //
+    // then pad out to length
+    //
+    if(result.length < length) {
+        int blanks = length - result.length;
+        NSString* padString = @"";
+        for(int i=0;i<blanks;i++) {
+            padString = [padString stringByAppendingString:@" "];
+        }
+        result = [result stringByAppendingString:padString];
+    }
+    
+    //
+    // the return it
+    //
+    return result;
 }
 
 @end
