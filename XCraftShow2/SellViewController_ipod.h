@@ -9,10 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "CustomSaleCell.h"
 #import "Show.h"
-#import <AVFoundation/AVFoundation.h>
 #import <MessageUI/MessageUI.h>
 
-@interface SellViewController_ipod : UIViewController <UITextFieldDelegate,UIPickerViewDelegate,UITableViewDataSource, UITableViewDelegate,AVAudioPlayerDelegate,MFMailComposeViewControllerDelegate>{
+@interface SellViewController_ipod : UIViewController <UITextFieldDelegate,UIPickerViewDelegate,UITableViewDataSource, UITableViewDelegate,MFMailComposeViewControllerDelegate>{
     
     IBOutlet UITableView* salesTable;
     IBOutlet UIButton* sellButton;

@@ -13,6 +13,7 @@
 #import "Utilities.h"
 #import "ProductSelectorTableViewController.h"
 #import "ShowAddViewController_ipod.h"
+#import <AudioToolbox/AudioToolbox.h>
 
 static NSString *CellIdentifier = @"Normal Cell";
 
@@ -348,7 +349,7 @@ ProductSelectorTableViewController* prodView;
         //
         // cash register sound
         //
-        //[self playSound];
+        [self playSound];
     }
 }
 
@@ -369,15 +370,10 @@ ProductSelectorTableViewController* prodView;
 }
 
 -(void)playSound {
-    NSURL *soundFile;
-    AVAudioPlayer *audioPlayer;
-    
-    NSString *soundFilePath = [[NSBundle mainBundle] pathForResource: @"cash-register" ofType: @"aiff"];        
-    soundFile = [NSURL fileURLWithPath:soundFilePath];
-    
-    audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:soundFile error:nil];
-    [audioPlayer setDelegate:self];
-    [audioPlayer play];                                 
+    SystemSoundID soundID;
+    NSString *soundFile = [[NSBundle mainBundle] pathForResource: @"cash-register" ofType: @"aiff"];        
+    AudioServicesCreateSystemSoundID((__bridge CFURLRef) [NSURL fileURLWithPath:soundFile], &soundID);
+    AudioServicesPlaySystemSound(soundID);
 }
 
 -(IBAction) selectProduct:(id)sender {
