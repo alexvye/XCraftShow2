@@ -11,9 +11,9 @@
 #import "Sale.h"
 #import "CustomSaleCell.h"
 #import "Utilities.h"
-#import "ProductSelectorTableViewController.h"
 #import "ShowAddViewController_ipod.h"
 #import <AudioToolbox/AudioToolbox.h>
+#import "ProductTableViewController.h"
 
 static NSString *CellIdentifier = @"Normal Cell";
 
@@ -29,7 +29,7 @@ UILabel* headerLabel;
 @synthesize showDate, showName, price, productName, sellButton, salesTable, quantity, managedObjectContext;
 @synthesize show;
 
-ProductSelectorTableViewController* prodView;
+ProductTableViewController* prodView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -64,8 +64,8 @@ ProductSelectorTableViewController* prodView;
     selectedProduct = nil;
     
     if(prodView == nil) {
-        prodView = [[ProductSelectorTableViewController alloc] 
-                initWithNibName:@"ProductSelectorTableViewController" bundle:nil];
+        prodView = [[ProductTableViewController alloc] 
+                initWithNibName:@"ProductTableViewController" bundle:nil];
         prodView.managedObjectContext = self.managedObjectContext;
     }
     
@@ -380,22 +380,8 @@ ProductSelectorTableViewController* prodView;
     // 
     // Pass the selected object to the new view controller.
     //
+    prodView.selecting = TRUE;
     [self.navigationController pushViewController:prodView animated:YES];
-}
-
--(IBAction) editProduct:(id)sender {
-	//
-	// push the view controller
-	//
-    ShowAddViewController_ipod* addView = [[ShowAddViewController_ipod alloc] 
-                                                initWithNibName:@"ShowAddViewController_ipod" bundle:nil];
-    addView.managedObjectContext = self.managedObjectContext;
-    addView.selectedShow = self.show;
-    
-    // 
-    // Pass the selected object to the new view controller.
-    //
-    [self.navigationController pushViewController:addView animated:YES];
 }
 
 -(IBAction)openMail:(id)sender {

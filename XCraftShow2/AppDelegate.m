@@ -22,13 +22,7 @@
 @synthesize persistentStoreCoordinator = __persistentStoreCoordinator;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-{
-    //
-    // register preferences
-    //
-    [[NSUserDefaults standardUserDefaults] registerDefaults:[NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"Defaults" ofType:@"plist"]]];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-    
+{    
     //
     // Initialize formatters
     //
@@ -55,35 +49,37 @@
     //
     // Set up the tab bar
     //
-    UINavigationController *nav1, *nav2, *nav4;
+    UINavigationController *showNavigationController, *productNavigationController, *helpNavigationController;
     
-    ShowTableViewController* viewController1 = [[ShowTableViewController alloc] initWithNibName:@"ShowTableViewController" bundle:nil];
-    viewController1.title = @"Shows";
-    viewController1.managedObjectContext = self.managedObjectContext;
-    nav1 = [[UINavigationController alloc] initWithRootViewController:viewController1];
-    nav1.tabBarItem.image = [UIImage imageNamed:@"122-stats.png"];
-    nav1.title = @"Shows";
+    ShowTableViewController* showViewController = [[ShowTableViewController alloc] initWithNibName:@"ShowTableViewController" bundle:nil];
+    showViewController.title = @"Shows";
+    showViewController.managedObjectContext = self.managedObjectContext;
+    showNavigationController = [[UINavigationController alloc] initWithRootViewController:showViewController];
+    showNavigationController.tabBarItem.image = [UIImage imageNamed:@"122-stats.png"];
+    showNavigationController.title = @"Shows";
     
-    ProductTableViewController* viewController2 = [[ProductTableViewController alloc] initWithNibName:@"ProductTableViewController" bundle:nil];
-    viewController2.title = @"Products";
-    viewController2.managedObjectContext = self.managedObjectContext;
-    nav2 = [[UINavigationController alloc] initWithRootViewController:viewController2];
-    nav2.tabBarItem.image = [UIImage imageNamed:@"24-gift.png"];
-    nav2.title = @"Products";
+    ProductTableViewController* productViewController = [[ProductTableViewController alloc] initWithNibName:@"ProductTableViewController" bundle:nil];
+    productViewController.title = @"Products";
+    productViewController.managedObjectContext = self.managedObjectContext;
+    productViewController.selecting = FALSE;
+    productNavigationController = [[UINavigationController alloc] initWithRootViewController:productViewController];
+    productNavigationController.tabBarItem.image = [UIImage imageNamed:@"24-gift.png"];
+    productNavigationController.title = @"Products";
     
-    HelpViewController* viewController4 = [[HelpViewController alloc] initWithNibName:@"HelpViewController" bundle:nil];
-    viewController4.title = @"Help";
-    nav4 = [[UINavigationController alloc] initWithRootViewController:viewController4];
-    nav4.tabBarItem.image = [UIImage imageNamed:@"09-chat-2.png"];    
-    nav4.title = @"Help";
+    HelpViewController* helpViewController = [[HelpViewController alloc] initWithNibName:@"HelpViewController" bundle:nil];
+    helpViewController.title = @"Help";
+    helpNavigationController = [[UINavigationController alloc] initWithRootViewController:helpViewController];
+    helpNavigationController.tabBarItem.image = [UIImage imageNamed:@"09-chat-2.png"];    
+    helpNavigationController.title = @"Help";
     
     self.tabBarController = [[UITabBarController alloc] init];
-    self.tabBarController.viewControllers = [NSArray arrayWithObjects:nav1, nav2, nav4, nil];
+    self.tabBarController.viewControllers = [NSArray arrayWithObjects:showNavigationController, productNavigationController, helpNavigationController, nil];
     self.window.rootViewController = self.tabBarController;
     
     //
     // Make the window visible and return
     //
+     
     [self.window makeKeyAndVisible];
     return YES;
 }

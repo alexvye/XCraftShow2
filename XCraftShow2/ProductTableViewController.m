@@ -6,7 +6,10 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
+#define MIN_PRODUCT_ROWS 8 // always populate table with 8 rows to avoid the ugly empty table look
+
 static NSString *CellIdentifier = @"Normal Cell";
+static NSString *EmptyCellIdentifier = @"Empty Cell";
 
 #import "ProductTableViewController.h"
 #import "ProductAddViewController.h"
@@ -18,9 +21,9 @@ static NSString *CellIdentifier = @"Normal Cell";
 
 @synthesize managedObjectContext;
 @synthesize fetchedResultsController = __fetchedResultsController;
+@synthesize selecting, selProduct; // for reuse of this controller for selecting products
 
 float rowHeight;
-int numberObjects;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -56,18 +59,25 @@ int numberObjects;
     self.tableView.rowHeight = rowHeight;
     
     //
+    // Don't draw buttons if coming from sell view controller
+    //
+    if(!self.selecting) {
+    //
 	// Edit button for reordering of array
 	//
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:@selector(turnOnEditing)];
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:@selector(turnOnEditing)];
     
     //
     // Button for adding Products
     //
-    UIBarButtonItem *plusButton = [[UIBarButtonItem alloc] 
+        UIBarButtonItem *plusButton = [[UIBarButtonItem alloc]
 								   initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addProduct:)];
-	self.navigationItem.leftBarButtonItem = plusButton;
-    
-    numberObjects = 0;
+        self.navigationItem.leftBarButtonItem = plusButton;
+    }
+    //
+    // for when we come from sell view controller
+    //
+    selProduct = nil;
 }
 
 - (void)turnOnEditing {
@@ -107,15 +117,15 @@ int numberObjects;
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     // Return the number of sections.
-    return [[self.fetchedResultsController sections] count];
+    return 1;
 }
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:section];
-    numberObjects = [sectionInfo numberOfObjects];
-    if([sectionInfo numberOfObjects] < 8) {
-        return 8;
+
+    if([sectionInfo numberOfObjects] < MIN_PRODUCT_ROWS) {
+        return MIN_PRODUCT_ROWS;
     } else {
         return [sectionInfo numberOfObjects];
     }
@@ -128,18 +138,18 @@ int numberObjects;
     //
     // Data section
     //
+    id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:indexPath.section];
     UITableViewCell* cell;
-    
-    if(indexPath.row+1>numberObjects) {
-        cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+
+    if(indexPath.row+1>[sectionInfo numberOfObjects])  { // using empty filled rows, basically a no-op
+        cell = [tableView dequeueReusableCellWithIdentifier:EmptyCellIdentifier];
 		if (cell == nil) {
 			cell = [[UITableViewCell alloc] 
-                    initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+                    initWithStyle:UITableViewCellStyleDefault reuseIdentifier:EmptyCellIdentifier];
         }
     } else {        
-        cell = (CustomProductCell*) [self.tableView dequeueReusableCellWithIdentifier:CustomProductCellIdentifier];
+        cell =[self.tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         if (cell == nil) {
-//            cell = [[CustomProductCell alloc] initWithFrame:CGRectZero reuseIdentifier:CustomProductCellIdentifier];
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
         }    
         NSManagedObject *managedObject = [self.fetchedResultsController objectAtIndexPath:indexPath];        
@@ -147,18 +157,18 @@ int numberObjects;
         cell.textLabel.text = product.name;
         cell.detailTextLabel.text = [NSString stringWithFormat:@"Quantity: %d",product.quantity.intValue];
         cell.imageView.image = [UIImage imageNamed:@"no-img.png"];
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    //
-    // Configure the cell...
-    //
-//        [self configureCell:(CustomProductCell*)cell atIndexPath:indexPath];
+        
+        if(!self.selecting) {
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        }
     }
     
     return cell;
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    if(indexPath.row +1 > numberObjects) {
+    id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:indexPath.section];
+    if(indexPath.row +1 > [sectionInfo numberOfObjects]) {
         return false;
     } else {
         return true;
@@ -192,31 +202,43 @@ int numberObjects;
 #pragma mark Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if(indexPath.row+1 <= numberObjects) {
+    id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:indexPath.section];
+    if(indexPath.row+1 <= [sectionInfo numberOfObjects]) {
+        
+        
+        //
+        // if you came from sell view controller, select product and pop
+        // if you are adding product (came from tab bar) push to editor
+        //
+        if(self.selecting) {
+            self.selProduct = [self.fetchedResultsController objectAtIndexPath:indexPath];
+            [self.navigationController popViewControllerAnimated:TRUE];
+            
+        } else {
 	//
 	// push the view controller
 	//
-        UIViewController* detailView;
+            UIViewController* detailView;
     
-        if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-            ProductAddViewController_ipod *tempView = [[ProductAddViewController_ipod alloc] 
+            if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+                ProductAddViewController_ipod *tempView = [[ProductAddViewController_ipod alloc]
                                                    initWithNibName:@"ProductAddViewController_ipod" bundle:nil];
-            tempView.managedObjectContext = self.managedObjectContext;
-            tempView.selectedProduct = [self.fetchedResultsController objectAtIndexPath:indexPath];
-            detailView = tempView;
-        } else {
-            ProductAddViewController *tempView = [[ProductAddViewController alloc] 
+                tempView.managedObjectContext = self.managedObjectContext;
+                tempView.selectedProduct = [self.fetchedResultsController objectAtIndexPath:indexPath];
+                detailView = tempView;
+            } else {
+                ProductAddViewController *tempView = [[ProductAddViewController alloc]
                                               initWithNibName:@"ProductAddViewController" bundle:nil];
-            tempView.managedObjectContext = self.managedObjectContext;
-            tempView.selectedProduct = [self.fetchedResultsController objectAtIndexPath:indexPath];
-            detailView = tempView;
-        }
+                tempView.managedObjectContext = self.managedObjectContext;
+                tempView.selectedProduct = [self.fetchedResultsController objectAtIndexPath:indexPath];
+                detailView = tempView;
+            }
 	
 	// 
 	// Pass the selected object to the new view controller.
 	//
-//        [self.navigationController pushViewController:detailView animated:YES];
-        [self presentModalViewController:detailView animated:YES];
+            [self presentModalViewController:detailView animated:YES];
+        }
     }
 }
 
@@ -320,23 +342,6 @@ int numberObjects;
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller 
 {
     [self.tableView endUpdates];
-}
-
-- (void)configureCell:(CustomProductCell*)cell atIndexPath:(NSIndexPath *)indexPath
-{
-    NSManagedObject *managedObject = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    
-    Product* product = (Product*) managedObject;
-    cell.productNameLabel.text = product.name;
-    
-    NSString *dateString = [DATE_FORMATTER stringFromDate:product.createdDate];
-    cell.productDateLabel.text = [NSString stringWithFormat:@"Updated: %@", dateString];
-    
-    [[cell productImage] setImage:[UIImage imageNamed:@"no-img.jpeg"]];
-    
-    [[cell quantityTextField] setText:[NSString stringWithFormat:@"%d",product.quantity.intValue]];
-    
-    cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
 }
 
 @end

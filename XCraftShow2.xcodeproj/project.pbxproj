@@ -18,10 +18,7 @@
 		9A24AF8515A53101000D555D /* SellViewController_ipod.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A24AF8315A53101000D555D /* SellViewController_ipod.xib */; };
 		9A24AF8915A536CD000D555D /* ProductAddViewController_ipod.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A24AF8715A536CD000D555D /* ProductAddViewController_ipod.m */; };
 		9A24AF8A15A536CD000D555D /* ProductAddViewController_ipod.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A24AF8815A536CD000D555D /* ProductAddViewController_ipod.xib */; };
-		9A24AF9315A5EC7D000D555D /* ProductSelectorTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A24AF9115A5EC7D000D555D /* ProductSelectorTableViewController.m */; };
-		9A24AF9415A5EC7D000D555D /* ProductSelectorTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A24AF9215A5EC7D000D555D /* ProductSelectorTableViewController.xib */; };
 		9A37622615BF77AF00823A45 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A516F7615A3CE15005B70E6 /* AudioToolbox.framework */; };
-		9A3B965315A62E5E00C57BD0 /* Entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9A3B965215A62E5E00C57BD0 /* Entitlements.plist */; };
 		9A3B967515B62F3500C57BD0 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A3B967415B62F3500C57BD0 /* MessageUI.framework */; };
 		9A3E2068154B2EF900A3650E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A3E2067154B2EF800A3650E /* UIKit.framework */; };
 		9A3E206A154B2EF900A3650E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A3E2069154B2EF900A3650E /* Foundation.framework */; };
@@ -53,17 +50,15 @@
 		9A8A4462159BF4FA002C48EE /* ShowTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A8A4460159BF4FA002C48EE /* ShowTableViewController.xib */; };
 		9A8A4466159CADE8002C48EE /* ProductTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A8A4464159CADE4002C48EE /* ProductTableViewController.m */; };
 		9A8A4467159CADE8002C48EE /* ProductTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A8A4465159CADE5002C48EE /* ProductTableViewController.xib */; };
+		9A8AEE3715C1CB6000E397E6 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9A8AEE3615C1CB6000E397E6 /* Settings.bundle */; };
 		9AA88459158B8D87003C2FC0 /* Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AA88458158B8D87003C2FC0 /* Utilities.m */; };
-		9AA8BE4515BFA9B100F3FCF1 /* vyerelease (1).mobileprovision in Resources */ = {isa = PBXBuildFile; fileRef = 9AA8BE4415BFA9B100F3FCF1 /* vyerelease (1).mobileprovision */; };
 		9AB105FB157E190100A47A94 /* no-img.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 9AB105FA157E190100A47A94 /* no-img.jpeg */; };
 		9AC8DA2215A3C4E200E2B33A /* cash-register.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 9AC8DA2115A3C4E200E2B33A /* cash-register.aiff */; };
-		9AE2F36F15BCF007002E7AA2 /* Defaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9AE2F36E15BCF007002E7AA2 /* Defaults.plist */; };
 		9AE7C1701563FF6600311EB9 /* Show.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AE7C16F1563FF6600311EB9 /* Show.m */; };
 		9AE7C1731563FF6600311EB9 /* Contact.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AE7C1721563FF6600311EB9 /* Contact.m */; };
 		9AE7C1761563FF6600311EB9 /* Sale.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AE7C1751563FF6600311EB9 /* Sale.m */; };
 		9AE7C178156400E200311EB9 /* todo in Resources */ = {isa = PBXBuildFile; fileRef = 9AE7C177156400E200311EB9 /* todo */; };
 		9AE7C17C1564021F00311EB9 /* CustomShowCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AE7C17B1564021F00311EB9 /* CustomShowCell.m */; };
-		9AE7C18715730E8E00311EB9 /* CustomProductCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AE7C18615730E8E00311EB9 /* CustomProductCell.m */; };
 		9AE7C198157673AE00311EB9 /* CustomSaleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AE7C197157673AE00311EB9 /* CustomSaleCell.m */; };
 		9AE7C19C1579155200311EB9 /* SellViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AE7C19A1579154D00311EB9 /* SellViewController.m */; };
 		9AE7C19D1579155200311EB9 /* SellViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9AE7C19B1579155100311EB9 /* SellViewController.xib */; };
@@ -89,10 +84,6 @@
 		9A24AF8615A536CC000D555D /* ProductAddViewController_ipod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductAddViewController_ipod.h; sourceTree = "<group>"; };
 		9A24AF8715A536CD000D555D /* ProductAddViewController_ipod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductAddViewController_ipod.m; sourceTree = "<group>"; };
 		9A24AF8815A536CD000D555D /* ProductAddViewController_ipod.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProductAddViewController_ipod.xib; sourceTree = "<group>"; };
-		9A24AF9015A5EC7C000D555D /* ProductSelectorTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductSelectorTableViewController.h; sourceTree = "<group>"; };
-		9A24AF9115A5EC7D000D555D /* ProductSelectorTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductSelectorTableViewController.m; sourceTree = "<group>"; };
-		9A24AF9215A5EC7D000D555D /* ProductSelectorTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProductSelectorTableViewController.xib; sourceTree = "<group>"; };
-		9A3B965215A62E5E00C57BD0 /* Entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Entitlements.plist; sourceTree = "<group>"; };
 		9A3B967415B62F3500C57BD0 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		9A3B967615B6324D00C57BD0 /* 18-envelope.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "18-envelope.png"; sourceTree = "<group>"; };
 		9A3B967815B7072300C57BD0 /* Default-portrait.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-portrait.png"; path = "../Default-portrait.png"; sourceTree = "<group>"; };
@@ -137,14 +128,13 @@
 		9A8A4463159CADE4002C48EE /* ProductTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductTableViewController.h; sourceTree = "<group>"; };
 		9A8A4464159CADE4002C48EE /* ProductTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductTableViewController.m; sourceTree = "<group>"; };
 		9A8A4465159CADE5002C48EE /* ProductTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProductTableViewController.xib; sourceTree = "<group>"; };
+		9A8AEE3615C1CB6000E397E6 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		9AA88457158B8D87003C2FC0 /* Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utilities.h; sourceTree = "<group>"; };
 		9AA88458158B8D87003C2FC0 /* Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utilities.m; sourceTree = "<group>"; };
-		9AA8BE4415BFA9B100F3FCF1 /* vyerelease (1).mobileprovision */ = {isa = PBXFileReference; lastKnownFileType = file; path = "vyerelease (1).mobileprovision"; sourceTree = "<group>"; };
 		9AB105FA157E190100A47A94 /* no-img.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "no-img.jpeg"; sourceTree = "<group>"; };
 		9AC8DA2115A3C4E200E2B33A /* cash-register.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; name = "cash-register.aiff"; path = "XCraftShow2/cash-register.aiff"; sourceTree = "<group>"; };
 		9AC8DA2415A3C65200E2B33A /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
 		9AC8DA2615A3CB0300E2B33A /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
-		9AE2F36E15BCF007002E7AA2 /* Defaults.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Defaults.plist; sourceTree = "<group>"; };
 		9AE7C16E1563FF6600311EB9 /* Show.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Show.h; sourceTree = "<group>"; };
 		9AE7C16F1563FF6600311EB9 /* Show.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Show.m; sourceTree = "<group>"; };
 		9AE7C1711563FF6600311EB9 /* Contact.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Contact.h; sourceTree = "<group>"; };
@@ -154,8 +144,6 @@
 		9AE7C177156400E200311EB9 /* todo */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = todo; sourceTree = "<group>"; };
 		9AE7C17A1564021F00311EB9 /* CustomShowCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomShowCell.h; sourceTree = "<group>"; };
 		9AE7C17B1564021F00311EB9 /* CustomShowCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomShowCell.m; sourceTree = "<group>"; };
-		9AE7C18515730E8E00311EB9 /* CustomProductCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomProductCell.h; sourceTree = "<group>"; };
-		9AE7C18615730E8E00311EB9 /* CustomProductCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomProductCell.m; sourceTree = "<group>"; };
 		9AE7C196157673AE00311EB9 /* CustomSaleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomSaleCell.h; sourceTree = "<group>"; };
 		9AE7C197157673AE00311EB9 /* CustomSaleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomSaleCell.m; sourceTree = "<group>"; };
 		9AE7C1991579154C00311EB9 /* SellViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SellViewController.h; sourceTree = "<group>"; };
@@ -215,9 +203,6 @@
 				9A24AF8615A536CC000D555D /* ProductAddViewController_ipod.h */,
 				9A24AF8715A536CD000D555D /* ProductAddViewController_ipod.m */,
 				9A24AF8815A536CD000D555D /* ProductAddViewController_ipod.xib */,
-				9A24AF9015A5EC7C000D555D /* ProductSelectorTableViewController.h */,
-				9A24AF9115A5EC7D000D555D /* ProductSelectorTableViewController.m */,
-				9A24AF9215A5EC7D000D555D /* ProductSelectorTableViewController.xib */,
 				9A24AF8115A53101000D555D /* SellViewController_ipod.h */,
 				9A24AF8215A53101000D555D /* SellViewController_ipod.m */,
 				9A24AF8315A53101000D555D /* SellViewController_ipod.xib */,
@@ -250,9 +235,7 @@
 		9A3E2058154B2EF800A3650E = {
 			isa = PBXGroup;
 			children = (
-				9AA8BE4415BFA9B100F3FCF1 /* vyerelease (1).mobileprovision */,
 				9A3B967415B62F3500C57BD0 /* MessageUI.framework */,
-				9A3B965215A62E5E00C57BD0 /* Entitlements.plist */,
 				9A516F7D15A3EFC3005B70E6 /* Resources */,
 				9AE7C177156400E200311EB9 /* todo */,
 				9A3E206F154B2EF900A3650E /* XCraftShow2 */,
@@ -337,7 +320,7 @@
 			isa = PBXGroup;
 			children = (
 				9AC8DA2115A3C4E200E2B33A /* cash-register.aiff */,
-				9AE2F36E15BCF007002E7AA2 /* Defaults.plist */,
+				9A8AEE3615C1CB6000E397E6 /* Settings.bundle */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -383,8 +366,6 @@
 		9AE7C179156401D300311EB9 /* custom cells */ = {
 			isa = PBXGroup;
 			children = (
-				9AE7C18515730E8E00311EB9 /* CustomProductCell.h */,
-				9AE7C18615730E8E00311EB9 /* CustomProductCell.m */,
 				9AE7C196157673AE00311EB9 /* CustomSaleCell.h */,
 				9AE7C197157673AE00311EB9 /* CustomSaleCell.m */,
 				9AE7C17A1564021F00311EB9 /* CustomShowCell.h */,
@@ -419,7 +400,7 @@
 		9A3E205A154B2EF800A3650E /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0420;
+				LastUpgradeCheck = 0440;
 			};
 			buildConfigurationList = 9A3E205D154B2EF800A3650E /* Build configuration list for PBXProject "XCraftShow2" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -464,15 +445,12 @@
 				9A24AF8015A5231D000D555D /* ShowAddViewController_ipod.xib in Resources */,
 				9A24AF8515A53101000D555D /* SellViewController_ipod.xib in Resources */,
 				9A24AF8A15A536CD000D555D /* ProductAddViewController_ipod.xib in Resources */,
-				9A24AF9415A5EC7D000D555D /* ProductSelectorTableViewController.xib in Resources */,
-				9A3B965315A62E5E00C57BD0 /* Entitlements.plist in Resources */,
 				B5801AB615B5BD4C00DB16C9 /* ProductPriceViewController.xib in Resources */,
-				9AE2F36F15BCF007002E7AA2 /* Defaults.plist in Resources */,
 				9A85DFE215BF8C1200DE3C50 /* Icon.png in Resources */,
 				9A85DFE315BF8C1F00DE3C50 /* Default.png in Resources */,
 				9A85DFE415BF8C2A00DE3C50 /* Icon-72.png in Resources */,
 				9A85DFE615BF8C3700DE3C50 /* Default-Portrait~ipad.png in Resources */,
-				9AA8BE4515BFA9B100F3FCF1 /* vyerelease (1).mobileprovision in Resources */,
+				9A8AEE3715C1CB6000E397E6 /* Settings.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -495,7 +473,6 @@
 				9AE7C1731563FF6600311EB9 /* Contact.m in Sources */,
 				9AE7C1761563FF6600311EB9 /* Sale.m in Sources */,
 				9AE7C17C1564021F00311EB9 /* CustomShowCell.m in Sources */,
-				9AE7C18715730E8E00311EB9 /* CustomProductCell.m in Sources */,
 				9AE7C198157673AE00311EB9 /* CustomSaleCell.m in Sources */,
 				9AE7C19C1579155200311EB9 /* SellViewController.m in Sources */,
 				9AA88459158B8D87003C2FC0 /* Utilities.m in Sources */,
@@ -505,7 +482,6 @@
 				9A24AF7F15A5231D000D555D /* ShowAddViewController_ipod.m in Sources */,
 				9A24AF8415A53101000D555D /* SellViewController_ipod.m in Sources */,
 				9A24AF8915A536CD000D555D /* ProductAddViewController_ipod.m in Sources */,
-				9A24AF9315A5EC7D000D555D /* ProductSelectorTableViewController.m in Sources */,
 				B5801AB515B5BD4C00DB16C9 /* ProductPriceViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -560,7 +536,7 @@
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=*]" = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=*]" = "iPhone Distribution: Alex Vye";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
@@ -569,7 +545,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 3.1;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				"PROVISIONING_PROFILE[sdk=*]" = "";
+				"PROVISIONING_PROFILE[sdk=*]" = "9FA4B91C-B757-46BA-95AC-D07B9A383C1F";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -586,11 +562,12 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "XCraftShow2/XCraftShow2-Prefix.pch";
+				GCC_THUMB_SUPPORT = NO;
 				INFOPLIST_FILE = "XCraftShow2/XCraftShow2-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -605,11 +582,12 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "XCraftShow2/XCraftShow2-Prefix.pch";
+				GCC_THUMB_SUPPORT = NO;
 				INFOPLIST_FILE = "XCraftShow2/XCraftShow2-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
