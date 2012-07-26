@@ -105,6 +105,8 @@
 }
 
 - (IBAction)openPricePicker:(id)sender {
+    [self resignButton:sender];
+    
     ProductPriceViewController* ppvc = [[ProductPriceViewController alloc] initWithNibName:@"ProductPriceViewController" bundle:nil];
     ppvc.prevPriceLabel = (UIButton*) sender;
     [self presentModalViewController:ppvc animated:YES];
