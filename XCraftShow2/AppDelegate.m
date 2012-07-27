@@ -10,7 +10,6 @@
 #import "ShowTableViewController.h"
 #import "ProductTableViewController.h"
 #import "HelpViewController.h"
-#import "DataManager.h"
 #import "Utilities.h"
 
 @implementation AppDelegate
@@ -40,11 +39,6 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
-    
-    //
-    // load data
-    //
-    [DataManager startup];
     
     //
     // Set up the tab bar

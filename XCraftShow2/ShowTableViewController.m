@@ -7,14 +7,11 @@
 //
 
 #import "ShowTableViewController.h"
-#import "DataManager.h"
-#import "ShowAddViewController.h"
 #import "ShowAddViewController_ipod.h"
 #import "CustomShowCell.h"
 #import "Show.h"
 #import "Sale.h"
 #import "Product.h"
-#import "SellViewController.h"
 #import "SellViewController_ipod.h"
 #import "Utilities.h"
 
@@ -201,23 +198,20 @@ int numberObjects;
     if(indexPath.row+1>numberObjects) {
         
     } else {
-        UIViewController* detailView;
+        SellViewController_ipod* detailView;
+        
         
         if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-            SellViewController_ipod *tempView = [[SellViewController_ipod alloc] 
+            detailView = [[SellViewController_ipod alloc]
                                               initWithNibName:@"SellViewController_ipod" bundle:nil];
-            tempView.managedObjectContext = self.managedObjectContext;
-            tempView.title = @"Sales";
-            tempView.show = (Show*)[self.fetchedResultsController objectAtIndexPath:indexPath];
-            detailView = tempView;
         } else {
-            SellViewController *tempView = [[SellViewController alloc] 
+            detailView = [[SellViewController_ipod alloc]
                                               initWithNibName:@"SellViewController" bundle:nil];
-            tempView.managedObjectContext = self.managedObjectContext;
-            tempView.title = @"Sales";
-            tempView.show = (Show*)[self.fetchedResultsController objectAtIndexPath:indexPath];
-            detailView = tempView;
         }
+        
+        detailView.managedObjectContext = self.managedObjectContext;
+        detailView.title = @"Sales";
+        detailView.show = (Show*)[self.fetchedResultsController objectAtIndexPath:indexPath];
 	//
 	// push the view controller
 	//
@@ -229,18 +223,14 @@ int numberObjects;
 	//
 	// push the view controller
 	//
-    UIViewController* addView;
+    ShowAddViewController_ipod* addView;
     
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-        ShowAddViewController_ipod* tempView = [[ShowAddViewController_ipod alloc] 
+        addView = [[ShowAddViewController_ipod alloc]
                    initWithNibName:@"ShowAddViewController_ipod" bundle:nil];
-        tempView.managedObjectContext = self.managedObjectContext;
-        addView = tempView;
     } else {
-        ShowAddViewController* tempView = [[ShowAddViewController alloc] 
+        addView = [[ShowAddViewController_ipod alloc]
                                                 initWithNibName:@"ShowAddViewController" bundle:nil];
-        tempView.managedObjectContext = self.managedObjectContext;
-        addView = tempView;
     }
     
     // 

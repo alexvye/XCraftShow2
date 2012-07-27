@@ -12,7 +12,6 @@ static NSString *CellIdentifier = @"Normal Cell";
 static NSString *EmptyCellIdentifier = @"Empty Cell";
 
 #import "ProductTableViewController.h"
-#import "ProductAddViewController.h"
 #import "ProductAddViewController_ipod.h"
 #import "Product.h"
 #import "Utilities.h"
@@ -218,23 +217,20 @@ float rowHeight;
 	//
 	// push the view controller
 	//
-            UIViewController* detailView;
+            ProductAddViewController_ipod* detailView;
     
             if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-                ProductAddViewController_ipod *tempView = [[ProductAddViewController_ipod alloc]
+                detailView = [[ProductAddViewController_ipod alloc]
                                                    initWithNibName:@"ProductAddViewController_ipod" bundle:nil];
-                tempView.managedObjectContext = self.managedObjectContext;
-                tempView.selectedProduct = [self.fetchedResultsController objectAtIndexPath:indexPath];
-                detailView = tempView;
             } else {
-                ProductAddViewController *tempView = [[ProductAddViewController alloc]
+                detailView = [[ProductAddViewController_ipod alloc]
                                               initWithNibName:@"ProductAddViewController" bundle:nil];
-                tempView.managedObjectContext = self.managedObjectContext;
-                tempView.selectedProduct = [self.fetchedResultsController objectAtIndexPath:indexPath];
-                detailView = tempView;
             }
+            
+            detailView.managedObjectContext = self.managedObjectContext;
+            detailView.selectedProduct = [self.fetchedResultsController objectAtIndexPath:indexPath];
 	
-	// 
+	//
 	// Pass the selected object to the new view controller.
 	//
             [self presentModalViewController:detailView animated:YES];
@@ -246,23 +242,20 @@ float rowHeight;
 	//
 	// push the view controller
 	//
-    UIViewController* detailView;
+    ProductAddViewController_ipod* detailView;
     
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-        ProductAddViewController_ipod *tempView = [[ProductAddViewController_ipod alloc] 
+        detailView = [[ProductAddViewController_ipod alloc] 
                                              initWithNibName:@"ProductAddViewController_ipod" bundle:nil];
-        tempView.managedObjectContext = self.managedObjectContext;
-        tempView.selectedProduct = nil;
-        detailView = tempView;
     } else {
-        ProductAddViewController *tempView = [[ProductAddViewController alloc] 
+        detailView = [[ProductAddViewController_ipod alloc] 
                                              initWithNibName:@"ProductAddViewController" bundle:nil];
-        tempView.managedObjectContext = self.managedObjectContext;
-        tempView.selectedProduct = nil;
-        detailView = tempView;
     }
+    
+    detailView.managedObjectContext = self.managedObjectContext;
+    detailView.selectedProduct = nil;
 	
-	// 
+	//
 	// Pass the selected object to the new view controller.
 	//
     [self presentModalViewController:detailView animated:YES];
