@@ -131,12 +131,12 @@
     // Check existing product names for duplicates
     // product names is an array of strings
     //
-    
-    if(self.selectedProduct == nil && [self doesProductExist:self.name.text]) {
+    if( (self.selectedProduct == nil && [self doesProductExist:self.name.text]) || [self.name.text isEqualToString:@""]) {
+        
         //
         // alert the user that they need to select a product
         //
-        NSString *message = @"Please enter a unique product name.";
+        NSString *message = @"Please enter a non-blank, unique product name.";
         
         UIAlertView *alertDialog = [[UIAlertView alloc]
                                     initWithTitle:@"Duplicate product name"
@@ -175,7 +175,6 @@
         // Pop view
         //
         [self dismissModalViewControllerAnimated:YES];
-//        [self.navigationController popViewControllerAnimated:TRUE];
     }
 }
 
@@ -187,25 +186,4 @@
     return price;
 }
 
-#pragma mark - textfield/textview methods
-/*
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    [textField resignFirstResponder];
-    return TRUE;
-}
-
-- (BOOL) textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
-    
-    if([text isEqualToString:@"\n"]){
-        [textView resignFirstResponder];
-        return NO;
-    }else{
-        return YES;
-    }
-}
-
-- (void)textViewDidEndEditing:(UITextView *)textView {
-    
-}
-*/
 @end

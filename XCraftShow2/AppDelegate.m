@@ -32,7 +32,7 @@
     [NUMBER_FORMATTER setNumberStyle:NSNumberFormatterCurrencyStyle];
     
     DATE_FORMATTER = [[NSDateFormatter alloc] init];
-    [DATE_FORMATTER setDateStyle:NSDateFormatterLongStyle];
+    [DATE_FORMATTER setDateStyle:NSDateFormatterShortStyle];
     
     //
     //

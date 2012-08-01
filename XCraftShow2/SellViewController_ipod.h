@@ -41,5 +41,7 @@
 -(IBAction) selectProduct:(id)sender;
 -(IBAction)openMail:(id)sender;
 -(NSString*) generateExportBody;
+- (IBAction)openPricePicker:(id)sender;
+- (IBAction)resignButton:(id)sender;
 @end
 
