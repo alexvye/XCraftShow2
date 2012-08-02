@@ -11,9 +11,9 @@
 #import "Sale.h"
 #import "CustomSaleCell.h"
 #import "Utilities.h"
-#import "ShowAddViewController_ipod.h"
 #import <AudioToolbox/AudioToolbox.h>
 #import "ProductTableViewController.h"
+#import "ProductPriceViewController.h"
 
 static NSString *CellIdentifier = @"Normal Cell";
 
@@ -419,6 +419,17 @@ ProductTableViewController* prodView;
     }
 }
 
+- (IBAction)openPricePicker:(id)sender {
+    [self resignButton:sender];
+    
+    ProductPriceViewController* ppvc = [[ProductPriceViewController alloc] initWithNibName:@"ProductPriceViewController" bundle:nil];
+    ppvc.prevPriceLabel = (UIButton*) sender;
+    [self presentModalViewController:ppvc animated:YES];
+}
+
+- (IBAction)resignButton:(id)sender {
+   // [self. resignFirstResponder];
+}
 
 -(NSString*) generateExportBody {    
     //

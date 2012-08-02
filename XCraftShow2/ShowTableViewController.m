@@ -7,13 +7,14 @@
 //
 
 #import "ShowTableViewController.h"
-#import "ShowAddViewController_ipod.h"
 #import "CustomShowCell.h"
 #import "Show.h"
 #import "Sale.h"
 #import "Product.h"
 #import "SellViewController_ipod.h"
 #import "Utilities.h"
+#import <EventKitUI/EventKitUI.h>
+#import <EventKit/EventKit.h>
 
 static NSString *CellIdentifier = @"Normal Cell";
 
@@ -21,6 +22,7 @@ static NSString *CellIdentifier = @"Normal Cell";
 
 @synthesize managedObjectContext;
 @synthesize fetchedResultsController = __fetchedResultsController;
+@synthesize eventsList, eventStore, defaultCalendar, detailViewController;
 
 float rowHeight;
 
@@ -220,23 +222,15 @@ int numberObjects;
 }
 
 -(IBAction) addShow: (UIButton*) aButton {
+
 	//
 	// push the view controller
 	//
-    ShowAddViewController_ipod* addView;
-    
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-        addView = [[ShowAddViewController_ipod alloc]
-                   initWithNibName:@"ShowAddViewController_ipod" bundle:nil];
-    } else {
-        addView = [[ShowAddViewController_ipod alloc]
-                                                initWithNibName:@"ShowAddViewController" bundle:nil];
-    }
-    
-    // 
-    // Pass the selected object to the new view controller.
-    //
-    [self.navigationController pushViewController:addView animated:YES];
+    EKEventStore *store = [[EKEventStore alloc] init];
+    EKEventEditViewController* controller = [[EKEventEditViewController alloc] init];
+    controller.eventStore = store;
+    controller.editViewDelegate = self;
+    [self presentModalViewController:controller animated:YES];
 }
 
 #pragma mark - Fetched results controller
@@ -353,6 +347,103 @@ int numberObjects;
     }
     
     return [NSNumber numberWithDouble:sum];
+}
+
+#pragma mark -
+#pragma mark Add a new event
+
+// If event is nil, a new event is created and added to the specified event store. New events are
+// added to the default calendar. An exception is raised if set to an event that is not in the
+// specified event store.
+- (void)addEvent:(id)sender {
+    // When add button is pushed, create an EKEventEditViewController to display the event.
+    EKEventEditViewController *addController = [[EKEventEditViewController alloc] initWithNibName:nil bundle:nil];
+    
+    // set the addController's event store to the current event store.
+    addController.eventStore = self.eventStore;
+    
+    // present EventsAddViewController as a modal view controller
+    [self presentModalViewController:addController animated:YES];
+    
+    addController.editViewDelegate = self;
+}
+
+
+#pragma mark -
+#pragma mark EKEventEditViewDelegate
+
+// Overriding EKEventEditViewDelegate method to update event store according to user actions.
+- (void)eventEditViewController:(EKEventEditViewController *)controller
+          didCompleteWithAction:(EKEventEditViewAction)action {
+    
+    NSError *error = nil;
+    EKEvent *thisEvent = controller.event;
+    
+    switch (action) {
+        case EKEventEditViewActionCanceled:
+            // Edit action canceled, do nothing.
+            break;
+            
+        case EKEventEditViewActionSaved:
+        {
+            // When user hit "Done" button, save the newly created event to the event store,
+            // and reload table view.
+            // If the new event is being added to the default calendar, then update its
+            // eventsList.
+            
+            if (self.defaultCalendar ==  thisEvent.calendar) {
+                [self.eventsList addObject:thisEvent];
+            }
+            //
+            // Save event in event store
+            //
+            
+            [controller.eventStore saveEvent:controller.event span:EKSpanThisEvent error:&error];
+            
+            //
+            // Save new show
+            //
+            
+            Show* show = (Show*) [NSEntityDescription insertNewObjectForEntityForName:@"Show" inManagedObjectContext:self.managedObjectContext];
+            show.name = thisEvent.title;
+            show.fee = [NSNumber numberWithFloat:0.0];
+            show.date = thisEvent.endDate;
+            
+            //
+            // Save
+            //
+            
+            NSError *error;
+            if(![self.managedObjectContext save:&error]) {
+                NSLog(@"Error %@", [error localizedDescription]);
+            }
+        }
+            break;
+            
+        case EKEventEditViewActionDeleted:
+            // When deleting an event, remove the event from the event store,
+            // and reload table view.
+            // If deleting an event from the currenly default calendar, then update its
+            // eventsList.
+            if (self.defaultCalendar ==  thisEvent.calendar) {
+                [self.eventsList removeObject:thisEvent];
+            }
+            [controller.eventStore removeEvent:thisEvent span:EKSpanThisEvent error:&error];
+            break;
+            
+        default:
+            break;
+    }
+    // Dismiss the modal view controller
+    [controller dismissModalViewControllerAnimated:YES];
+    
+}
+
+
+// Set the calendar edited by EKEventEditViewController to our chosen calendar - the default calendar.
+- (EKCalendar *)eventEditViewControllerDefaultCalendarForNewEvents:(EKEventEditViewController *)controller {
+    EKCalendar *calendarForEdit = self.defaultCalendar;
+    return calendarForEdit;
 }
 
 @end

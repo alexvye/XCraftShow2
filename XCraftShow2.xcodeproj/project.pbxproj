@@ -12,12 +12,12 @@
 		9A0BE692155C94E20078135F /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A0BE691155C94E20078135F /* MobileCoreServices.framework */; };
 		9A0BE696155C957D0078135F /* CameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A0BE694155C957D0078135F /* CameraViewController.m */; };
 		9A0BE697155C957D0078135F /* CameraViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A0BE695155C957D0078135F /* CameraViewController.xib */; };
-		9A24AF7F15A5231D000D555D /* ShowAddViewController_ipod.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A24AF7D15A5231D000D555D /* ShowAddViewController_ipod.m */; };
-		9A24AF8015A5231D000D555D /* ShowAddViewController_ipod.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A24AF7E15A5231D000D555D /* ShowAddViewController_ipod.xib */; };
 		9A24AF8415A53101000D555D /* SellViewController_ipod.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A24AF8215A53101000D555D /* SellViewController_ipod.m */; };
 		9A24AF8515A53101000D555D /* SellViewController_ipod.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A24AF8315A53101000D555D /* SellViewController_ipod.xib */; };
 		9A24AF8915A536CD000D555D /* ProductAddViewController_ipod.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A24AF8715A536CD000D555D /* ProductAddViewController_ipod.m */; };
 		9A24AF8A15A536CD000D555D /* ProductAddViewController_ipod.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A24AF8815A536CD000D555D /* ProductAddViewController_ipod.xib */; };
+		9A2AD8C315C8C50F008548A1 /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A2AD8C215C8C50F008548A1 /* EventKit.framework */; };
+		9A2AD8C615C8C520008548A1 /* EventKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A2AD8C515C8C520008548A1 /* EventKitUI.framework */; };
 		9A37622615BF77AF00823A45 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A516F7615A3CE15005B70E6 /* AudioToolbox.framework */; };
 		9A3B967515B62F3500C57BD0 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A3B967415B62F3500C57BD0 /* MessageUI.framework */; };
 		9A3E2068154B2EF900A3650E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A3E2067154B2EF800A3650E /* UIKit.framework */; };
@@ -71,15 +71,14 @@
 		9A0BE693155C957D0078135F /* CameraViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraViewController.h; sourceTree = "<group>"; };
 		9A0BE694155C957D0078135F /* CameraViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraViewController.m; sourceTree = "<group>"; };
 		9A0BE695155C957D0078135F /* CameraViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CameraViewController.xib; sourceTree = "<group>"; };
-		9A24AF7C15A5231D000D555D /* ShowAddViewController_ipod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShowAddViewController_ipod.h; sourceTree = "<group>"; };
-		9A24AF7D15A5231D000D555D /* ShowAddViewController_ipod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShowAddViewController_ipod.m; sourceTree = "<group>"; };
-		9A24AF7E15A5231D000D555D /* ShowAddViewController_ipod.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShowAddViewController_ipod.xib; sourceTree = "<group>"; };
 		9A24AF8115A53101000D555D /* SellViewController_ipod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SellViewController_ipod.h; sourceTree = "<group>"; };
 		9A24AF8215A53101000D555D /* SellViewController_ipod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SellViewController_ipod.m; sourceTree = "<group>"; };
 		9A24AF8315A53101000D555D /* SellViewController_ipod.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SellViewController_ipod.xib; sourceTree = "<group>"; };
 		9A24AF8615A536CC000D555D /* ProductAddViewController_ipod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductAddViewController_ipod.h; sourceTree = "<group>"; };
 		9A24AF8715A536CD000D555D /* ProductAddViewController_ipod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductAddViewController_ipod.m; sourceTree = "<group>"; };
 		9A24AF8815A536CD000D555D /* ProductAddViewController_ipod.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProductAddViewController_ipod.xib; sourceTree = "<group>"; };
+		9A2AD8C215C8C50F008548A1 /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
+		9A2AD8C515C8C520008548A1 /* EventKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKitUI.framework; path = System/Library/Frameworks/EventKitUI.framework; sourceTree = SDKROOT; };
 		9A3B967415B62F3500C57BD0 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		9A3B967615B6324D00C57BD0 /* 18-envelope.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "18-envelope.png"; sourceTree = "<group>"; };
 		9A3B967815B7072300C57BD0 /* Default-portrait.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-portrait.png"; path = "../Default-portrait.png"; sourceTree = "<group>"; };
@@ -150,6 +149,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9A2AD8C615C8C520008548A1 /* EventKitUI.framework in Frameworks */,
+				9A2AD8C315C8C50F008548A1 /* EventKit.framework in Frameworks */,
 				9A37622615BF77AF00823A45 /* AudioToolbox.framework in Frameworks */,
 				9A3B967515B62F3500C57BD0 /* MessageUI.framework in Frameworks */,
 				9A516F7815A3E9F3005B70E6 /* AVFoundation.framework in Frameworks */,
@@ -188,9 +189,6 @@
 				9A24AF8115A53101000D555D /* SellViewController_ipod.h */,
 				9A24AF8215A53101000D555D /* SellViewController_ipod.m */,
 				9A24AF8315A53101000D555D /* SellViewController_ipod.xib */,
-				9A24AF7C15A5231D000D555D /* ShowAddViewController_ipod.h */,
-				9A24AF7D15A5231D000D555D /* ShowAddViewController_ipod.m */,
-				9A24AF7E15A5231D000D555D /* ShowAddViewController_ipod.xib */,
 			);
 			name = ipod;
 			sourceTree = "<group>";
@@ -217,6 +215,8 @@
 		9A3E2058154B2EF800A3650E = {
 			isa = PBXGroup;
 			children = (
+				9A2AD8C515C8C520008548A1 /* EventKitUI.framework */,
+				9A2AD8C215C8C50F008548A1 /* EventKit.framework */,
 				9A3B967415B62F3500C57BD0 /* MessageUI.framework */,
 				9A516F7D15A3EFC3005B70E6 /* Resources */,
 				9AE7C177156400E200311EB9 /* todo */,
@@ -422,7 +422,6 @@
 				9A8A4462159BF4FA002C48EE /* ShowTableViewController.xib in Resources */,
 				9A8A4467159CADE8002C48EE /* ProductTableViewController.xib in Resources */,
 				9AC8DA2215A3C4E200E2B33A /* cash-register.aiff in Resources */,
-				9A24AF8015A5231D000D555D /* ShowAddViewController_ipod.xib in Resources */,
 				9A24AF8515A53101000D555D /* SellViewController_ipod.xib in Resources */,
 				9A24AF8A15A536CD000D555D /* ProductAddViewController_ipod.xib in Resources */,
 				B5801AB615B5BD4C00DB16C9 /* ProductPriceViewController.xib in Resources */,
@@ -455,7 +454,6 @@
 				9A8A44591598BC6D002C48EE /* Product.m in Sources */,
 				9A8A4461159BF4FA002C48EE /* ShowTableViewController.m in Sources */,
 				9A8A4466159CADE8002C48EE /* ProductTableViewController.m in Sources */,
-				9A24AF7F15A5231D000D555D /* ShowAddViewController_ipod.m in Sources */,
 				9A24AF8415A53101000D555D /* SellViewController_ipod.m in Sources */,
 				9A24AF8915A536CD000D555D /* ProductAddViewController_ipod.m in Sources */,
 				B5801AB515B5BD4C00DB16C9 /* ProductPriceViewController.m in Sources */,
@@ -497,7 +495,7 @@
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 3.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
 				"OTHER_CODE_SIGN_FLAGS[sdk=*]" = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -519,7 +517,7 @@
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 3.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				"PROVISIONING_PROFILE[sdk=*]" = "9FA4B91C-B757-46BA-95AC-D07B9A383C1F";
 				SDKROOT = iphoneos;
