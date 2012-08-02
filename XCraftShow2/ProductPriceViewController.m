@@ -14,7 +14,7 @@
 
 @implementation ProductPriceViewController
 @synthesize picker = _picker;
-@synthesize priceLabel = _priceLabel;
+@synthesize price = _price;
 @synthesize prevPriceLabel = _prevPriceLabel;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -31,18 +31,18 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     if (self.prevPriceLabel != nil) {
-        self.priceLabel.text = [self.prevPriceLabel titleForState:UIControlStateNormal];
+        self.price = [self.prevPriceLabel titleForState:UIControlStateNormal];
     }
 }
 
 
 - (void)viewDidAppear:(BOOL)animated{
     if (self.prevPriceLabel != nil) {
-        NSString* price = self.priceLabel.text;
-        if (price != nil && price.length > 0 && [price characterAtIndex:0] == '$') {
-            price = [price substringFromIndex:1];
+        NSString* tmpPrice = self.price;
+        if (tmpPrice != nil && tmpPrice.length > 0 && [tmpPrice characterAtIndex:0] == '$') {
+            tmpPrice = [tmpPrice substringFromIndex:1];
         }
-        NSArray* nums = [price componentsSeparatedByString: @"."];
+        NSArray* nums = [tmpPrice componentsSeparatedByString: @"."];
         if (nums != nil && [nums count] >= 2) {
             int dollar = [[nums objectAtIndex:0] intValue];
             int cent = [[nums objectAtIndex:1] intValue];
@@ -65,7 +65,7 @@
 }
 
 - (IBAction)save:(id)sender {
-    [self.prevPriceLabel setTitle:self.priceLabel.text forState:UIControlStateNormal] ;
+    [self.prevPriceLabel setTitle:self.price forState:UIControlStateNormal] ;
     [self dismissModalViewControllerAnimated:YES];
 }
 
@@ -85,7 +85,11 @@
 #pragma mark - UIPickerViewDelegate methods
 - (NSString*)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
     if (component == kDollars) {
-        return [NSString stringWithFormat:@"%d", row];
+//        if (row == [pickerView selectedRowInComponent:component]) {
+            return [NSString stringWithFormat:@"   %d", row];
+//        } else {
+//            return [NSString stringWithFormat:@"%d", row];
+//        }
     }
 
     return [NSString stringWithFormat:@"%02d", row];
@@ -94,7 +98,8 @@
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
     NSInteger dollarValue = [pickerView selectedRowInComponent:kDollars];
     NSInteger centValue = [pickerView selectedRowInComponent:KCents];
-    self.priceLabel.text = [NSString stringWithFormat:@"$%d.%02d", dollarValue, centValue];
+    self.price = [NSString stringWithFormat:@"$%d.%02d", dollarValue, centValue];
+//    [pickerView reloadComponent:kDollars];
 }
 
 @end

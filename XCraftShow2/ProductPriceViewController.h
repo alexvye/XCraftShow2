@@ -14,8 +14,8 @@
 @interface ProductPriceViewController : UIViewController<UIPickerViewDataSource, UIPickerViewDelegate>
 
 @property(nonatomic, strong) IBOutlet UIPickerView* picker;
-@property(nonatomic, strong) IBOutlet UILabel* priceLabel;
 @property(nonatomic, strong) UIButton* prevPriceLabel;
+@property(nonatomic, strong) NSString* price;
 
 - (IBAction)cancel:(id)sender;
 - (IBAction)save:(id)sender;
