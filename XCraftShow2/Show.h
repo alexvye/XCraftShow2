@@ -2,8 +2,8 @@
 //  Show.h
 //  XCraftShow2
 //
-//  Created by Alex Vye on 12-05-16.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Created by Alex Vye on 2012-08-07.
+//
 //
 
 #import <Foundation/Foundation.h>
@@ -14,10 +14,11 @@
 @interface Show : NSManagedObject
 
 @property (nonatomic, retain) NSString * address;
+@property (nonatomic, retain) NSDate * date;
 @property (nonatomic, retain) NSNumber * fee;
 @property (nonatomic, retain) NSString * name;
 @property (nonatomic, retain) NSString * rules;
-@property (nonatomic, retain) NSDate * date;
+@property (nonatomic, retain) NSString * eventId;
 @property (nonatomic, retain) Contact *contactRel;
 @property (nonatomic, retain) NSSet *saleRel;
 @end

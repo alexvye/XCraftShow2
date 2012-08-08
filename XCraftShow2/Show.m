@@ -2,8 +2,8 @@
 //  Show.m
 //  XCraftShow2
 //
-//  Created by Alex Vye on 12-05-16.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Created by Alex Vye on 2012-08-07.
+//
 //
 
 #import "Show.h"
@@ -14,10 +14,11 @@
 @implementation Show
 
 @dynamic address;
+@dynamic date;
 @dynamic fee;
 @dynamic name;
 @dynamic rules;
-@dynamic date;
+@dynamic eventId;
 @dynamic contactRel;
 @dynamic saleRel;
 

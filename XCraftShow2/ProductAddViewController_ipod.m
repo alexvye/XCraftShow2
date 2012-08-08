@@ -186,4 +186,35 @@
     return price;
 }
 
+- (IBAction)takePicture:(id)sender {
+    UIImagePickerController* picker = [[UIImagePickerController alloc] init];
+	UIImagePickerControllerSourceType sourceType = UIImagePickerControllerSourceTypeCamera;
+	if ([UIImagePickerController isSourceTypeAvailable:sourceType]) {
+		picker.delegate = self;
+		picker.sourceType = sourceType;
+		[self presentModalViewController:picker animated:YES];
+	} else {
+		// Display location services not available message.
+		NSString *errorType = @"Camera Error";
+		NSString *errorMsg = @"The camera is not available.";
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:errorType message:errorMsg delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+		[alert show];
+	}
+}
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+    // newImage is a UIImage do not try to use a UIImageView
+    //self.locationPicture.contentMode = UIViewContentModeScaleAspectFit;
+    //self.locationPicture.image = [info objectForKey:UIImagePickerControllerOriginalImage];
+    
+	// Save the image.
+    //[DataManager saveImage:self.locationPicture.image];
+    
+	[picker dismissModalViewControllerAnimated:YES];
+}
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
+	[picker dismissModalViewControllerAnimated:YES];
+}
+
 @end

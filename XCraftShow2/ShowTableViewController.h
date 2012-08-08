@@ -28,6 +28,8 @@
 
 - (void)configureCell:(CustomShowCell *)cell atIndexPath:(NSIndexPath *)indexPath;
 - (void)insertNewObject;
+- (void)generateRecurringShows;
+- (void)saveShow:(EKEvent*)event;
 
 - (NSNumber*)calulateProfit:(Show*)show;
 

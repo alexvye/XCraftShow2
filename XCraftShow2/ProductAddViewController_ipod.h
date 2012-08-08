@@ -8,7 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ProductAddViewController_ipod : UIViewController <UITextFieldDelegate,UITextViewDelegate>
+@interface ProductAddViewController_ipod : UIViewController <UITextFieldDelegate,UITextViewDelegate,
+        UIImagePickerControllerDelegate>
 
 @property (strong, nonatomic) IBOutlet UITextField* name;
 //@property (strong, nonatomic) IBOutlet UITextView* productDescription;
@@ -23,5 +24,6 @@
 - (IBAction)openPricePicker:(id)sender;
 - (IBAction)resignButton:(id)sender;
 - (BOOL)doesProductExist:(NSString*)_name;
+- (IBAction)takePicture:(id)sender;
 
 @end

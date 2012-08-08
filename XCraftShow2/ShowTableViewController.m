@@ -6,6 +6,8 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
+#define SECONDS_IN_WEEK 604800
+
 #import "ShowTableViewController.h"
 #import "CustomShowCell.h"
 #import "Show.h"
@@ -77,6 +79,11 @@ int numberObjects;
     UIBarButtonItem *plusButton = [[UIBarButtonItem alloc] 
 								   initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addShow:)];
 	self.navigationItem.leftBarButtonItem = plusButton;
+    
+    //
+    // generate any recurring events
+    //
+    [self generateRecurringShows];
 }
 
 - (void)turnOnEditing {
@@ -174,19 +181,23 @@ int numberObjects;
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         // Delete the managed object for the given index path
         NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
+        Show* show = (Show*) [self.fetchedResultsController objectAtIndexPath:indexPath];
+        NSString* eventId = show.eventId;
         [context deleteObject:[self.fetchedResultsController objectAtIndexPath:indexPath]];
         
         // Save the context.
         NSError *error = nil;
         if (![context save:&error]) {
-            /*
-             Replace this implementation with code to handle the error appropriately.
-             
-             abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development. 
-             */
             NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
             abort();
         }
+        //
+        // delete the event
+        //
+        EKEvent* event = [self.eventStore eventWithIdentifier:eventId];
+        [self.eventStore removeEvent:event span:EKSpanThisEvent commit:true error:&error];
+        
+        //
         [self.tableView endUpdates];
 
     } 
@@ -258,18 +269,6 @@ int numberObjects;
     NSArray *sortDescriptors = [NSArray arrayWithObjects:sortDescriptor, nil];
     
     [fetchRequest setSortDescriptors:sortDescriptors];
-    
-    
-    //
-    // The where clause
-    //
-    
-    /*
-     if(self.searchBar.text!=nil) {
-     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"din contains[cd] %@",self.searchBar.text];
-     [fetchRequest setPredicate:predicate];
-     }
-     */
     
     // Edit the section name key path and cache name if appropriate.
     // nil for section name key path means "no sections".
@@ -398,25 +397,13 @@ int numberObjects;
             // Save event in event store
             //
             
-            [controller.eventStore saveEvent:controller.event span:EKSpanThisEvent error:&error];
+            [controller.eventStore saveEvent:controller.event span:EKSpanThisEvent commit:true error:&error];
             
             //
             // Save new show
             //
+            [self saveShow:thisEvent];
             
-            Show* show = (Show*) [NSEntityDescription insertNewObjectForEntityForName:@"Show" inManagedObjectContext:self.managedObjectContext];
-            show.name = thisEvent.title;
-            show.fee = [NSNumber numberWithFloat:0.0];
-            show.date = thisEvent.endDate;
-            
-            //
-            // Save
-            //
-            
-            NSError *error;
-            if(![self.managedObjectContext save:&error]) {
-                NSLog(@"Error %@", [error localizedDescription]);
-            }
         }
             break;
             
@@ -444,6 +431,54 @@ int numberObjects;
 - (EKCalendar *)eventEditViewControllerDefaultCalendarForNewEvents:(EKEventEditViewController *)controller {
     EKCalendar *calendarForEdit = self.defaultCalendar;
     return calendarForEdit;
+}
+
+- (void)generateRecurringShows {
+    //
+    // Recurring shows can go on forever, so this is what we will do:
+    // 1. Assume we only care about recurring shows 1 month in advance
+    // 2. Get list of events for the next 1 month from current time
+    // 3. For each event, check if a show with that event id already exists
+    // 4. If not, generate show for event
+    //
+    
+    // list of events for next month
+    NSPredicate* predicate = [self.eventStore predicateForEventsWithStartDate:[NSDate date] endDate:[[NSDate date ] dateByAddingTimeInterval:SECONDS_IN_WEEK] calendars:[self.eventStore calendars]];
+    NSArray* events = [self.eventStore eventsMatchingPredicate:predicate];
+    
+    // for each event, check if show exists with that event id
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    NSPredicate *showPredicate;
+    NSError *error = nil;
+    NSArray *results;
+    
+    for (EKEvent* event in events) {
+        showPredicate = [NSPredicate predicateWithFormat:@"eventId == %@", event.eventIdentifier];
+        [request setEntity:[NSEntityDescription entityForName:@"Show" inManagedObjectContext:self.managedObjectContext]];
+        [request setPredicate:showPredicate];
+        results = [self.managedObjectContext executeFetchRequest:request error:&error];
+        if([results count] == 0) { // show id does not exist, create new
+            [self saveShow:event];
+        }
+    }
+}
+
+- (void)saveShow:(EKEvent*) event {
+    Show* show = (Show*) [NSEntityDescription insertNewObjectForEntityForName:@"Show" inManagedObjectContext:self.managedObjectContext];
+    show.name = event.title;
+    show.fee = [NSNumber numberWithFloat:0.0];
+    show.date = event.endDate;
+    show.eventId = event.eventIdentifier;
+    
+    NSLog(@"Event id %@", event.eventIdentifier);
+    //
+    // Save
+    //
+    
+    NSError *error;
+    if(![self.managedObjectContext save:&error]) {
+        NSLog(@"Error %@", [error localizedDescription]);
+    }
 }
 
 @end
