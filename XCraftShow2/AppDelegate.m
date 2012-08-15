@@ -21,7 +21,12 @@
 @synthesize persistentStoreCoordinator = __persistentStoreCoordinator;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-{    
+{
+    //
+    // Event store
+    //
+    EKEventStore *store = [[EKEventStore alloc] init];
+    
     //
     // Initialize formatters
     //
@@ -47,7 +52,8 @@
     
     ShowTableViewController* showViewController = [[ShowTableViewController alloc] initWithNibName:@"ShowTableViewController" bundle:nil];
     showViewController.title = @"Shows";
-    showViewController.managedObjectContext = self.managedObjectContext;
+   // showViewController.managedObjectContext = self.managedObjectContext;
+    showViewController.eventStore = store;
     showNavigationController = [[UINavigationController alloc] initWithRootViewController:showViewController];
     showNavigationController.tabBarItem.image = [UIImage imageNamed:@"122-stats.png"];
     showNavigationController.title = @"Shows";

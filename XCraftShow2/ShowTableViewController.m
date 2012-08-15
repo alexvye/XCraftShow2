@@ -6,9 +6,10 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#define SECONDS_IN_WEEK 604800
+#define SECONDS_IN_WEEK 3600*24*7.0
 
 #import "ShowTableViewController.h"
+#import "SalesTableViewController.h"
 #import "CustomShowCell.h"
 #import "Show.h"
 #import "Sale.h"
@@ -22,19 +23,20 @@ static NSString *CellIdentifier = @"Normal Cell";
 
 @implementation ShowTableViewController
 
-@synthesize managedObjectContext;
-@synthesize fetchedResultsController = __fetchedResultsController;
 @synthesize eventsList, eventStore, defaultCalendar, detailViewController;
 
 float rowHeight;
-
-int numberObjects;
+NSPredicate* predicate;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
+    
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(showModal:)
+                                                     name:@"show modal"
+                                                   object:nil];
     }
     return self;
 }
@@ -54,6 +56,11 @@ int numberObjects;
     [super viewDidLoad];
     
     //
+    // Load events
+    //
+    predicate = [self.eventStore predicateForEventsWithStartDate:[NSDate date] endDate:[[NSDate date ] dateByAddingTimeInterval:SECONDS_IN_WEEK] calendars:nil];
+    
+    //
     // Set constants for different devices
     //
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
@@ -62,11 +69,6 @@ int numberObjects;
         rowHeight = 99.0; 
     }
     self.tableView.rowHeight = rowHeight;
-    
-    //
-    //
-    
-    numberObjects = 0;
     
     //
 	// Edit button for reordering of array
@@ -79,11 +81,6 @@ int numberObjects;
     UIBarButtonItem *plusButton = [[UIBarButtonItem alloc] 
 								   initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addShow:)];
 	self.navigationItem.leftBarButtonItem = plusButton;
-    
-    //
-    // generate any recurring events
-    //
-    [self generateRecurringShows];
 }
 
 - (void)turnOnEditing {
@@ -123,17 +120,15 @@ int numberObjects;
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     // Return the number of sections.
-    return [[self.fetchedResultsController sections] count];
+    return 1;
 }
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:section];
-    numberObjects = [sectionInfo numberOfObjects];
-    if([sectionInfo numberOfObjects] < 8) {
+    if([[self eventStore] eventsMatchingPredicate:predicate].count < 8) {
         return 8;
     } else {
-        return [sectionInfo numberOfObjects];
+        return [[self eventStore] eventsMatchingPredicate:predicate].count;
     }
 }
 
@@ -146,7 +141,7 @@ int numberObjects;
     //
     UITableViewCell* cell;
     
-    if(indexPath.row+1>numberObjects) {
+    if(indexPath.row+1>[[self eventStore] eventsMatchingPredicate:predicate].count) {
         cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
 		if (cell == nil) {
 			cell = [[UITableViewCell alloc] 
@@ -169,7 +164,7 @@ int numberObjects;
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    if(indexPath.row +1 > numberObjects) {
+    if(indexPath.row +1 > [[self eventStore] eventsMatchingPredicate:predicate].count) {
         return false;
     } else {
         return true;
@@ -179,24 +174,13 @@ int numberObjects;
 // Override to support editing the table view.
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the managed object for the given index path
-        NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
-        Show* show = (Show*) [self.fetchedResultsController objectAtIndexPath:indexPath];
-        NSString* eventId = show.eventId;
-        [context deleteObject:[self.fetchedResultsController objectAtIndexPath:indexPath]];
-        
-        // Save the context.
-        NSError *error = nil;
-        if (![context save:&error]) {
-            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-            abort();
-        }
         //
         // delete the event
         //
-        EKEvent* event = [self.eventStore eventWithIdentifier:eventId];
+        EKEvent* event = [ [[self eventStore] eventsMatchingPredicate:predicate] objectAtIndex:indexPath.row];
+        NSError *error = nil;
         [self.eventStore removeEvent:event span:EKSpanThisEvent commit:true error:&error];
-        
+
         //
         [self.tableView endUpdates];
 
@@ -208,129 +192,41 @@ int numberObjects;
 #pragma mark Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if(indexPath.row+1>numberObjects) {
+    if(indexPath.row+1>[[self eventStore] eventsMatchingPredicate:predicate].count) {
+        
+        //
+        // no-op
+        //
         
     } else {
-        SellViewController_ipod* detailView;
-        
-        
-        if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-            detailView = [[SellViewController_ipod alloc]
-                                              initWithNibName:@"SellViewController_ipod" bundle:nil];
-        } else {
-            detailView = [[SellViewController_ipod alloc]
-                                              initWithNibName:@"SellViewController" bundle:nil];
-        }
-        
-        detailView.managedObjectContext = self.managedObjectContext;
-        detailView.title = @"Sales";
-        detailView.show = (Show*)[self.fetchedResultsController objectAtIndexPath:indexPath];
-	//
-	// push the view controller
-	//
-        [self.navigationController pushViewController:detailView animated:YES];
+        //
+        // push the view controller
+        //
+        EKEventEditViewController* controller = [[EKEventEditViewController alloc] init];
+        controller.eventStore = self.eventStore;
+        controller.editViewDelegate = self;
+        controller.event = [[[self eventStore] eventsMatchingPredicate:predicate] objectAtIndex:indexPath.row];
+        [self presentModalViewController:controller animated:YES];
     }
 }
 
 -(IBAction) addShow: (UIButton*) aButton {
-
 	//
 	// push the view controller
 	//
-    EKEventStore *store = [[EKEventStore alloc] init];
     EKEventEditViewController* controller = [[EKEventEditViewController alloc] init];
-    controller.eventStore = store;
+    controller.eventStore = self.eventStore;
     controller.editViewDelegate = self;
     [self presentModalViewController:controller animated:YES];
 }
 
-#pragma mark - Fetched results controller
-
-- (NSFetchedResultsController *)fetchedResultsController
-{
-    if (__fetchedResultsController != nil) {
-        return __fetchedResultsController;
-    }
-    
-    // Set up the fetched results controller.
-    // Create the fetch request for the entity.
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    
-    // Edit the entity name as appropriate.
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Show" inManagedObjectContext:self.managedObjectContext];
-    [fetchRequest setEntity:entity];
-    
-    // Set the batch size to a suitable number.
-    [fetchRequest setFetchBatchSize:5]; //default was 20
-    
-    // Edit the sort key as appropriate.
-    
-    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"date" ascending:NO];
-    NSArray *sortDescriptors = [NSArray arrayWithObjects:sortDescriptor, nil];
-    
-    [fetchRequest setSortDescriptors:sortDescriptors];
-    
-    // Edit the section name key path and cache name if appropriate.
-    // nil for section name key path means "no sections".
-    NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:nil];
-    aFetchedResultsController.delegate = self;
-    self.fetchedResultsController = aFetchedResultsController;
-    
-	NSError *error = nil;
-	if (![self.fetchedResultsController performFetch:&error]) {
-	    /*
-	     Replace this implementation with code to handle the error appropriately.
-         
-	     abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development. 
-	     */
-	    NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-	    abort();
-	}
-    
-    return __fetchedResultsController;
-} 
-
-- (void)insertNewObject
-{
-    // Create a new instance of the entity managed by the fetched results controller.
-    NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
-    NSEntityDescription *entity = [[self.fetchedResultsController fetchRequest] entity];
-    NSManagedObject *newManagedObject = [NSEntityDescription insertNewObjectForEntityForName:[entity name] inManagedObjectContext:context];
-    
-    // If appropriate, configure the new managed object.
-    // Normally you should use accessor methods, but using KVC here avoids the need to add a custom class to the template.
-    [newManagedObject setValue:@"Show name" forKey:@"name"];
-    
-    // Save the context.
-    NSError *error = nil;
-    if (![context save:&error]) {
-        /*
-         Replace this implementation with code to handle the error appropriately.
-         
-         abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development. 
-         */
-        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-        abort();
-    }
-}
-
-- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller 
-{
-    [self.tableView endUpdates];
-}
-
 - (void)configureCell:(CustomShowCell*)cell atIndexPath:(NSIndexPath *)indexPath
 {
-
-    NSManagedObject *managedObject = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    EKEvent* event = [[[self eventStore] eventsMatchingPredicate:predicate] objectAtIndex:indexPath.row];
     
-    Show* show = (Show*) managedObject;
-    
-    cell.showNameLabel.text = show.name;
-    NSString *dateString = [DATE_FORMATTER stringFromDate:show.date];
+    cell.showNameLabel.text = event.title;
+    NSString *dateString = [DATE_FORMATTER stringFromDate:event.startDate];
     cell.showDateLabel.text = dateString;
-    cell.showProfitLabel.text = [Utilities formatAsCurrency:[self calulateProfit:show]];
-    
     cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
 }
 
@@ -426,59 +322,26 @@ int numberObjects;
     
 }
 
-
 // Set the calendar edited by EKEventEditViewController to our chosen calendar - the default calendar.
 - (EKCalendar *)eventEditViewControllerDefaultCalendarForNewEvents:(EKEventEditViewController *)controller {
     EKCalendar *calendarForEdit = self.defaultCalendar;
     return calendarForEdit;
 }
 
-- (void)generateRecurringShows {
-    //
-    // Recurring shows can go on forever, so this is what we will do:
-    // 1. Assume we only care about recurring shows 1 month in advance
-    // 2. Get list of events for the next 1 month from current time
-    // 3. For each event, check if a show with that event id already exists
-    // 4. If not, generate show for event
-    //
+- (void)saveShow:(EKEvent*)event {
     
-    // list of events for next month
-    NSPredicate* predicate = [self.eventStore predicateForEventsWithStartDate:[NSDate date] endDate:[[NSDate date ] dateByAddingTimeInterval:SECONDS_IN_WEEK] calendars:[self.eventStore calendars]];
-    NSArray* events = [self.eventStore eventsMatchingPredicate:predicate];
-    
-    // for each event, check if show exists with that event id
-    NSFetchRequest *request = [[NSFetchRequest alloc] init];
-    NSPredicate *showPredicate;
-    NSError *error = nil;
-    NSArray *results;
-    
-    for (EKEvent* event in events) {
-        showPredicate = [NSPredicate predicateWithFormat:@"eventId == %@", event.eventIdentifier];
-        [request setEntity:[NSEntityDescription entityForName:@"Show" inManagedObjectContext:self.managedObjectContext]];
-        [request setPredicate:showPredicate];
-        results = [self.managedObjectContext executeFetchRequest:request error:&error];
-        if([results count] == 0) { // show id does not exist, create new
-            [self saveShow:event];
-        }
-    }
 }
 
-- (void)saveShow:(EKEvent*) event {
-    Show* show = (Show*) [NSEntityDescription insertNewObjectForEntityForName:@"Show" inManagedObjectContext:self.managedObjectContext];
-    show.name = event.title;
-    show.fee = [NSNumber numberWithFloat:0.0];
-    show.date = event.endDate;
-    show.eventId = event.eventIdentifier;
-    
-    NSLog(@"Event id %@", event.eventIdentifier);
-    //
-    // Save
-    //
-    
-    NSError *error;
-    if(![self.managedObjectContext save:&error]) {
-        NSLog(@"Error %@", [error localizedDescription]);
-    }
+
+- (void) showModal:(NSNotification *) notification
+{
+    SalesTableViewController* salesView = [[SalesTableViewController alloc]
+                                            initWithNibName:@"SalesTableViewController" bundle:nil];
+	//
+	// Pass the selected object to the new view controller.
+	//
+    salesView.title = @"Sales";
+     [self.navigationController pushViewController:salesView animated:true];
 }
 
 @end

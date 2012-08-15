@@ -259,7 +259,6 @@ float rowHeight;
 	// Pass the selected object to the new view controller.
 	//
     [self presentModalViewController:detailView animated:YES];
-//	[self.navigationController pushViewController:detailView animated:YES];
 }
 
 #pragma mark - Fetched results controller
