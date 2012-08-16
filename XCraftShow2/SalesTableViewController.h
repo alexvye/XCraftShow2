@@ -10,6 +10,8 @@
 
 @interface SalesTableViewController : UITableViewController
 
+@property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
+
 -(IBAction) addSale: (UIButton*) aButton;
 
 @end

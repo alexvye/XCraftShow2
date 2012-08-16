@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ProductAddViewController_ipod : UIViewController <UITextFieldDelegate,UITextViewDelegate,
+@interface ProductAddViewController_ipod : UIViewController <UINavigationControllerDelegate, UITextFieldDelegate,UITextViewDelegate,
         UIImagePickerControllerDelegate>
 
 @property (strong, nonatomic) IBOutlet UITextField* name;

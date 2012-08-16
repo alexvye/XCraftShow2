@@ -341,6 +341,7 @@ NSPredicate* predicate;
 	// Pass the selected object to the new view controller.
 	//
     salesView.title = @"Sales";
+    salesView.managedObjectContext = self.managedObjectContext;
      [self.navigationController pushViewController:salesView animated:true];
 }
 

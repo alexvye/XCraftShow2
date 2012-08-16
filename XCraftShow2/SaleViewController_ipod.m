@@ -24,6 +24,7 @@
 @synthesize show;
 @synthesize quantity;
 @synthesize price;
+@synthesize selectedProductLabel;
 
 ProductTableViewController* prodView;
 
@@ -91,7 +92,7 @@ ProductTableViewController* prodView;
         sale.amount = [CURRENCY_FORMATTER numberFromString:self.price.text];
         
         sale.date = [NSDate date];
-        sale.productRel = selectedProduct;
+        sale.productRel = (Product*) selectedProduct;
         [show addSaleRelObject:sale];
         
         //
@@ -122,7 +123,9 @@ ProductTableViewController* prodView;
     // Pass the selected object to the new view controller.
     //
     prodView.selecting = TRUE;
-    [self.navigationController pushViewController:prodView animated:YES];
+    [self presentViewController:prodView animated:YES completion:nil];
+             
+             //pushViewController:prodView animated:YES];
 }
 
 - (IBAction)openPricePicker:(id)sender {

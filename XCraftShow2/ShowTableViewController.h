@@ -23,6 +23,7 @@
 @property (nonatomic, retain) EKCalendar *defaultCalendar;
 @property (nonatomic, retain) NSMutableArray *eventsList;
 @property (nonatomic, retain) EKEventViewController *detailViewController;
+@property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 
 - (void)configureCell:(CustomShowCell *)cell atIndexPath:(NSIndexPath *)indexPath;
 - (void)saveShow:(EKEvent*)event;

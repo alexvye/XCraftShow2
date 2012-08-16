@@ -15,6 +15,8 @@
 
 @implementation SalesTableViewController
 
+@synthesize managedObjectContext;
+
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
@@ -145,6 +147,7 @@
 	//
 	// Pass the selected object to the new view controller.
 	//
+    detailView.managedObjectContext = self.managedObjectContext;
     [self presentModalViewController:detailView animated:YES];
 }
 

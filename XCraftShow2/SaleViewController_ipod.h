@@ -12,8 +12,10 @@
 @interface SaleViewController_ipod : UIViewController {
     IBOutlet UITextField* price;
     IBOutlet UITextField* quantity;
+    IBOutlet UILabel* selectedProductLabel;
 }
 
+@property(nonatomic, retain) IBOutlet UILabel* selectedProductLabel;
 @property(nonatomic, retain) Show* show;
 @property (strong, nonatomic) NSManagedObject *selectedProduct;
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
