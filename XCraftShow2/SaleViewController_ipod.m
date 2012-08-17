@@ -8,6 +8,7 @@
 
 #import "SaleViewController_ipod.h"
 #import "Sale.h"
+#import "Product.h"
 #import "Utilities.h"
 #import <AudioToolbox/AudioToolbox.h>
 #import "ProductPriceViewController.h"
@@ -59,6 +60,16 @@ ProductTableViewController* prodView;
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    if(prodView.selProduct != nil) {
+        self.selectedProductLabel.text = prodView.selProduct.name;
+        selectedProduct = prodView.selProduct;
+        self.quantity.text = [Utilities formatAsDecimal:[NSNumber numberWithInt:1]];
+        Product* product = (Product*) selectedProduct;
+        self.price.text = [Utilities formatAsCurrency:product.defaultCost];
+    }
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -123,9 +134,7 @@ ProductTableViewController* prodView;
     // Pass the selected object to the new view controller.
     //
     prodView.selecting = TRUE;
-    [self presentViewController:prodView animated:YES completion:nil];
-             
-             //pushViewController:prodView animated:YES];
+    [self.navigationController pushViewController:prodView animated:YES];
 }
 
 - (IBAction)openPricePicker:(id)sender {

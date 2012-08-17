@@ -11,6 +11,7 @@
 @interface SalesTableViewController : UITableViewController
 
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
+@property (strong, nonatomic) NSString* eventId;
 
 -(IBAction) addSale: (UIButton*) aButton;
 

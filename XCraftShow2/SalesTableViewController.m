@@ -8,6 +8,7 @@
 
 #import "SalesTableViewController.h"
 #import "SaleViewController_ipod.h"
+#import "Show.h"
 
 @interface SalesTableViewController ()
 
@@ -16,6 +17,7 @@
 @implementation SalesTableViewController
 
 @synthesize managedObjectContext;
+@synthesize eventId;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -143,12 +145,36 @@
         detailView = [[SaleViewController_ipod alloc]
                       initWithNibName:@"SaleViewController_ipod" bundle:nil];
     }
-	
+    
+    //
+    // Create a show object for first sale; otherwise retrieve show object and
+    // add sale
+    //
+    /*
+    NSEntityDescription *entityDesc = [NSEntityDescription entityForName:@"Show" inManagedObjectContext:self.managedObjectContext];
+    
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    [request setEntity:entityDesc];
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name contains[cd] %@",_name];
+    [request setPredicate:predicate];
+    
+    
+    NSError *error;
+    
+    NSArray* result = [self.managedObjectContext executeFetchRequest:request error:&error];
+    
+    if(result.count == 0) {
+        return FALSE;
+    } else {
+        return TRUE;
+    }
+	*/
 	//
 	// Pass the selected object to the new view controller.
 	//
     detailView.managedObjectContext = self.managedObjectContext;
-    [self presentModalViewController:detailView animated:YES];
+    [self.navigationController pushViewController:detailView animated:YES];
 }
 
 @end

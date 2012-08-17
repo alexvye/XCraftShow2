@@ -114,6 +114,10 @@ float primaryFont;
     NSDictionary* userInfo = nil;
     
     //[ /* store a handle to your modal controller */ ];
+    
+    //
+    // FIX: Add event id here somehow !!!!!!!!!!!!!!!!!!!
+    //
     [[NSNotificationCenter defaultCenter] postNotificationName:@"show modal"
                                                         object:self
                                                       userInfo:userInfo];
