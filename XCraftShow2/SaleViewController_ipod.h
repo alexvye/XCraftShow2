@@ -16,11 +16,11 @@
 }
 
 @property(nonatomic, retain) IBOutlet UILabel* selectedProductLabel;
-@property(nonatomic, retain) Show* show;
-@property (strong, nonatomic) NSManagedObject *selectedProduct;
-@property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property(nonatomic, retain) IBOutlet UITextField* price;
 @property(nonatomic, retain) IBOutlet UITextField* quantity;
+@property(nonatomic, retain) NSString* eventId;
+@property (strong, nonatomic) NSManagedObject *selectedProduct;
+@property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 
 
 -(IBAction)selectProduct:(id)sender;

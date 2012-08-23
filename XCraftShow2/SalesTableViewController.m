@@ -9,6 +9,8 @@
 #import "SalesTableViewController.h"
 #import "SaleViewController_ipod.h"
 #import "Show.h"
+#import "Sale.h"
+#import "Product.h"
 
 @interface SalesTableViewController ()
 
@@ -18,6 +20,8 @@
 
 @synthesize managedObjectContext;
 @synthesize eventId;
+
+Show* show;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -31,12 +35,29 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    //
+    // get show
+    //
+    show = [self showForEvent:eventId];
+    
     //
     // Button for adding Shows
     //
     UIBarButtonItem *plusButton = [[UIBarButtonItem alloc]
 								   initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addSale:)];
 	self.navigationItem.rightBarButtonItem = plusButton;
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    //[self turnOffEditing];
+    if(self.tableView != nil) {
+        [self.tableView reloadData];
+    }
+    
+    [self.tableView reloadData];
 }
 
 - (void)viewDidUnload
@@ -59,8 +80,11 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    // Return the number of rows in the section.
-    return 5;
+    if(show.saleRel.count < 8) {
+        return 8;
+    } else {
+        return show.saleRel.count;
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -70,7 +94,7 @@
     
     UITableViewCell* cell;
     
-    if(1==2)  { // using empty filled rows, basically a no-op
+    if(indexPath.row+1 > show.saleRel.count) { // using empty filled rows, basically a no-op
         cell = [tableView dequeueReusableCellWithIdentifier:EmptyCellIdentifier];
 		if (cell == nil) {
 			cell = [[UITableViewCell alloc]
@@ -81,9 +105,10 @@
         if (cell == nil) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
         }
-        cell.textLabel.text = @"text";
-        cell.detailTextLabel.text = @"detailedtext";
-        cell.imageView.image = [UIImage imageNamed:@"no-img.png"];
+        Sale* sale = (Sale*)[[show.saleRel.objectEnumerator allObjects] objectAtIndex:indexPath.row];
+        cell.textLabel.text = sale.productRel.name;
+        //cell.detailTextLabel.text = @"detailedtext";
+        //cell.imageView.image = [UIImage imageNamed:@"no-img.png"];
     }
     
     return cell;
@@ -112,21 +137,30 @@
 }
 */
 
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
+-(Show*)showForEvent:(NSString*)eventIdentifier {
+    if(eventIdentifier == nil) {
+        return nil;
+    }
+    
+    NSEntityDescription *entityDesc = [NSEntityDescription entityForName:@"Show" inManagedObjectContext:self.managedObjectContext];
+    
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    [request setEntity:entityDesc];
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"eventId contains[cd] %@",eventIdentifier];
+    [request setPredicate:predicate];
+    
+    
+    NSError *error;
+    
+    NSArray* result = [self.managedObjectContext executeFetchRequest:request error:&error];
+    
+    if(result.count == 0) {
+        return nil;
+    } else {
+        return [result objectAtIndex:0];
+    }
 }
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
 
 #pragma mark - Table view delegate
 
@@ -145,35 +179,13 @@
         detailView = [[SaleViewController_ipod alloc]
                       initWithNibName:@"SaleViewController_ipod" bundle:nil];
     }
-    
-    //
-    // Create a show object for first sale; otherwise retrieve show object and
-    // add sale
-    //
-    /*
-    NSEntityDescription *entityDesc = [NSEntityDescription entityForName:@"Show" inManagedObjectContext:self.managedObjectContext];
-    
-    NSFetchRequest *request = [[NSFetchRequest alloc] init];
-    [request setEntity:entityDesc];
-    
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name contains[cd] %@",_name];
-    [request setPredicate:predicate];
-    
-    
-    NSError *error;
-    
-    NSArray* result = [self.managedObjectContext executeFetchRequest:request error:&error];
-    
-    if(result.count == 0) {
-        return FALSE;
-    } else {
-        return TRUE;
-    }
-	*/
+ 
 	//
 	// Pass the selected object to the new view controller.
 	//
     detailView.managedObjectContext = self.managedObjectContext;
+
+    detailView.eventId = self.eventId;
     [self.navigationController pushViewController:detailView animated:YES];
 }
 

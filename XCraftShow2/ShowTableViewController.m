@@ -14,7 +14,6 @@
 #import "Show.h"
 #import "Sale.h"
 #import "Product.h"
-#import "SellViewController_ipod.h"
 #import "Utilities.h"
 #import <EventKitUI/EventKitUI.h>
 #import <EventKit/EventKit.h>
@@ -23,7 +22,7 @@ static NSString *CellIdentifier = @"Normal Cell";
 
 @implementation ShowTableViewController
 
-@synthesize eventsList, eventStore, defaultCalendar, detailViewController;
+@synthesize eventsList, eventStore, defaultCalendar, detailViewController, editSwitch;
 
 float rowHeight;
 NSPredicate* predicate;
@@ -33,10 +32,7 @@ NSPredicate* predicate;
     
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(showModal:)
-                                                     name:@"show modal"
-                                                   object:nil];
+// put custom init code here
     }
     return self;
 }
@@ -66,14 +62,17 @@ NSPredicate* predicate;
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
         rowHeight = 44.0;
     } else {
-        rowHeight = 99.0; 
+        rowHeight = 99.0;
     }
     self.tableView.rowHeight = rowHeight;
     
-    //
-	// Edit button for reordering of array
 	//
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:@selector(turnOnEditing)];
+    // Add switch to navigation bar to filter on whether or not you have the floss
+    //
+    editSwitch = [UICustomSwitch switchWithLeftText:@"Sales" andRight:@"Edit"];
+    editSwitch.on = true;
+    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:editSwitch];
+	self.navigationItem.rightBarButtonItem = item;
     
     //
     // Button for adding Shows
@@ -81,6 +80,11 @@ NSPredicate* predicate;
     UIBarButtonItem *plusButton = [[UIBarButtonItem alloc] 
 								   initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addShow:)];
 	self.navigationItem.leftBarButtonItem = plusButton;
+}
+
+- (IBAction)edit:(id)sender {
+	//[self createMyData];
+	[self.tableView reloadData];
 }
 
 - (void)turnOnEditing {
@@ -96,7 +100,7 @@ NSPredicate* predicate;
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    [self turnOffEditing];
+    //[self turnOffEditing];
     if(self.tableView != nil) {
         [self.tableView reloadData];
     }
@@ -199,14 +203,24 @@ NSPredicate* predicate;
         //
         
     } else {
-        //
-        // push the view controller
-        //
-        EKEventEditViewController* controller = [[EKEventEditViewController alloc] init];
-        controller.eventStore = self.eventStore;
-        controller.editViewDelegate = self;
-        controller.event = [[[self eventStore] eventsMatchingPredicate:predicate] objectAtIndex:indexPath.row];
-        [self presentModalViewController:controller animated:YES];
+        if(self.editSwitch.on) {
+            SalesTableViewController* salesView = [[SalesTableViewController alloc]
+                                                   initWithNibName:@"SalesTableViewController" bundle:nil];
+            //
+            // Pass the selected object to the new view controller.
+            //
+            EKEvent* event = [[[self eventStore] eventsMatchingPredicate:predicate] objectAtIndex:indexPath.row];
+            salesView.eventId = event.eventIdentifier;
+            salesView.title = @"Sales";
+            salesView.managedObjectContext = self.managedObjectContext;
+            [self.navigationController pushViewController:salesView animated:true];
+        } else {
+            EKEventEditViewController* controller = [[EKEventEditViewController alloc] init];
+            controller.eventStore = self.eventStore;
+            controller.editViewDelegate = self;
+            controller.event = [[[self eventStore] eventsMatchingPredicate:predicate] objectAtIndex:indexPath.row];
+            [self presentModalViewController:controller animated:YES];
+        }
     }
 }
 
@@ -227,7 +241,8 @@ NSPredicate* predicate;
     cell.showNameLabel.text = event.title;
     NSString *dateString = [DATE_FORMATTER stringFromDate:event.startDate];
     cell.showDateLabel.text = dateString;
-    cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
+    cell.eventId = event.eventIdentifier;
+    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 }
 
 - (NSNumber*)calulateProfit:(Show*)show 
@@ -296,10 +311,15 @@ NSPredicate* predicate;
             [controller.eventStore saveEvent:controller.event span:EKSpanThisEvent commit:true error:&error];
             
             //
-            // Save new show
+            // create show for event
             //
-            [self saveShow:thisEvent];
+            Show* show = (Show*) [NSEntityDescription insertNewObjectForEntityForName:@"Show" inManagedObjectContext:self.managedObjectContext];
+            show.eventId = thisEvent.eventIdentifier;
             
+            NSError *error;
+            if(![self.managedObjectContext save:&error]) {
+                NSLog(@"Error %@", [error localizedDescription]);
+            }
         }
             break;
             
@@ -326,23 +346,6 @@ NSPredicate* predicate;
 - (EKCalendar *)eventEditViewControllerDefaultCalendarForNewEvents:(EKEventEditViewController *)controller {
     EKCalendar *calendarForEdit = self.defaultCalendar;
     return calendarForEdit;
-}
-
-- (void)saveShow:(EKEvent*)event {
-    
-}
-
-
-- (void) showModal:(NSNotification *) notification
-{
-    SalesTableViewController* salesView = [[SalesTableViewController alloc]
-                                            initWithNibName:@"SalesTableViewController" bundle:nil];
-	//
-	// Pass the selected object to the new view controller.
-	//
-    salesView.title = @"Sales";
-    salesView.managedObjectContext = self.managedObjectContext;
-     [self.navigationController pushViewController:salesView animated:true];
 }
 
 @end

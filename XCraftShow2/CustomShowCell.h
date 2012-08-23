@@ -13,13 +13,10 @@ static NSString *CustomShowCellIdentifier = @"CustomShowCell";
 @interface CustomShowCell : UITableViewCell {
 	IBOutlet UILabel  *showDateLabel;
     IBOutlet UILabel  *showNameLabel;
-    IBOutlet UIButton *showButton;
 }
 
 @property (nonatomic,retain)IBOutlet UILabel  *showDateLabel;
 @property (nonatomic,retain)IBOutlet UILabel  *showNameLabel;
 @property (nonatomic,retain)IBOutlet UIButton  *showButton;
-
--(IBAction) gotoSales: (UIButton*) aButton;
-
+@property (nonatomic,retain)NSString* eventId;
 @end

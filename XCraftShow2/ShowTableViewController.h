@@ -11,6 +11,7 @@
 #import "Show.h"
 #import <EventKit/EventKit.h>
 #import <EventKitUI/EventKitUI.h>
+#import "UICustomSwitch.h"
 
 @interface ShowTableViewController : UITableViewController<EKEventEditViewDelegate> {
     EKEventViewController *detailViewController;
@@ -24,9 +25,10 @@
 @property (nonatomic, retain) NSMutableArray *eventsList;
 @property (nonatomic, retain) EKEventViewController *detailViewController;
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
+@property (nonatomic,retain) UICustomSwitch *editSwitch;
 
 - (void)configureCell:(CustomShowCell *)cell atIndexPath:(NSIndexPath *)indexPath;
-- (void)saveShow:(EKEvent*)event;
 - (NSNumber*)calulateProfit:(Show*)show;
+- (IBAction)edit:(id)sender;
 
 @end

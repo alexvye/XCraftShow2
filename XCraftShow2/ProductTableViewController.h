@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "PRoduct.h"
 
-@interface ProductTableViewController : UITableViewController <UITableViewDelegate, UITableViewDataSource, NSFetchedResultsControllerDelegate> {
+@interface ProductTableViewController : UITableViewController <NSFetchedResultsControllerDelegate> {
 }
 
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;

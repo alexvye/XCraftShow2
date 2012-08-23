@@ -13,6 +13,7 @@
 #import <AudioToolbox/AudioToolbox.h>
 #import "ProductPriceViewController.h"
 #import "ProductTableViewController.h"
+#import <EventKit/EventKit.h>
 
 @interface SaleViewController_ipod ()
 
@@ -22,7 +23,7 @@
 
 @synthesize selectedProduct;
 @synthesize managedObjectContext;
-@synthesize show;
+@synthesize eventId;
 @synthesize quantity;
 @synthesize price;
 @synthesize selectedProductLabel;
@@ -63,10 +64,10 @@ ProductTableViewController* prodView;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    if(prodView.selProduct != nil) {
+    selectedProduct = prodView.selProduct;
+    if(selectedProduct != nil) {
         self.selectedProductLabel.text = prodView.selProduct.name;
-        selectedProduct = prodView.selProduct;
-        self.quantity.text = [Utilities formatAsDecimal:[NSNumber numberWithInt:1]];
+        self.quantity.text = [NSString stringWithFormat:@"%d",1];
         Product* product = (Product*) selectedProduct;
         self.price.text = [Utilities formatAsCurrency:product.defaultCost];
     }
@@ -94,17 +95,20 @@ ProductTableViewController* prodView;
         
     } else {
         //
+        // Get the show for event for the selected row
+        //
+        Show* thisShow = [self showForEvent:eventId];
+        
+        //
         // Create/set showinfo oject
         //
         Sale* sale = (Sale*) [NSEntityDescription insertNewObjectForEntityForName:@"Sale" inManagedObjectContext:self.managedObjectContext];
         
         sale.quantity = [NUMBER_FORMATTER numberFromString:self.quantity.text];
-        
         sale.amount = [CURRENCY_FORMATTER numberFromString:self.price.text];
-        
         sale.date = [NSDate date];
         sale.productRel = (Product*) selectedProduct;
-        [show addSaleRelObject:sale];
+        [thisShow addSaleRelObject:sale];
         
         //
         // Save
@@ -119,6 +123,32 @@ ProductTableViewController* prodView;
         // cash register sound
         //
         [self playSound];
+        
+        //
+        // go back to sales table
+        //
+        [self.navigationController popViewControllerAnimated:true];
+    }
+}
+
+-(Show*)showForEvent:(NSString*)eventIdentifier {
+    NSEntityDescription *entityDesc = [NSEntityDescription entityForName:@"Show" inManagedObjectContext:self.managedObjectContext];
+    
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    [request setEntity:entityDesc];
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"eventId contains[cd] %@",eventIdentifier];
+    [request setPredicate:predicate];
+    
+    
+    NSError *error;
+    
+    NSArray* result = [self.managedObjectContext executeFetchRequest:request error:&error];
+    
+    if(result.count == 0) {
+        return nil;
+    } else {
+        return [result objectAtIndex:0];
     }
 }
 

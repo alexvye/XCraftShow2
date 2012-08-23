@@ -12,8 +12,6 @@
 		9A0BE692155C94E20078135F /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A0BE691155C94E20078135F /* MobileCoreServices.framework */; };
 		9A0BE696155C957D0078135F /* CameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A0BE694155C957D0078135F /* CameraViewController.m */; };
 		9A0BE697155C957D0078135F /* CameraViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A0BE695155C957D0078135F /* CameraViewController.xib */; };
-		9A24AF8415A53101000D555D /* SellViewController_ipod.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A24AF8215A53101000D555D /* SellViewController_ipod.m */; };
-		9A24AF8515A53101000D555D /* SellViewController_ipod.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A24AF8315A53101000D555D /* SellViewController_ipod.xib */; };
 		9A24AF8915A536CD000D555D /* ProductAddViewController_ipod.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A24AF8715A536CD000D555D /* ProductAddViewController_ipod.m */; };
 		9A24AF8A15A536CD000D555D /* ProductAddViewController_ipod.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A24AF8815A536CD000D555D /* ProductAddViewController_ipod.xib */; };
 		9A2AD8C315C8C50F008548A1 /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A2AD8C215C8C50F008548A1 /* EventKit.framework */; };
@@ -51,7 +49,6 @@
 		9A8AEE3715C1CB6000E397E6 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9A8AEE3615C1CB6000E397E6 /* Settings.bundle */; };
 		9AA88459158B8D87003C2FC0 /* Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AA88458158B8D87003C2FC0 /* Utilities.m */; };
 		9AB105FB157E190100A47A94 /* no-img.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 9AB105FA157E190100A47A94 /* no-img.jpeg */; };
-		9AC8DA2215A3C4E200E2B33A /* cash-register.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 9AC8DA2115A3C4E200E2B33A /* cash-register.aiff */; };
 		9ADB44E415D82FEB00914873 /* 80-shopping-cart.png in Resources */ = {isa = PBXBuildFile; fileRef = 9ADB44E315D82FEB00914873 /* 80-shopping-cart.png */; };
 		9ADB44F015D88EAF00914873 /* SalesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ADB44EE15D88EAE00914873 /* SalesTableViewController.m */; };
 		9ADB44F115D88EAF00914873 /* SalesTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9ADB44EF15D88EAF00914873 /* SalesTableViewController.xib */; };
@@ -60,9 +57,13 @@
 		9AE7C178156400E200311EB9 /* todo in Resources */ = {isa = PBXBuildFile; fileRef = 9AE7C177156400E200311EB9 /* todo */; };
 		9AE7C17C1564021F00311EB9 /* CustomShowCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AE7C17B1564021F00311EB9 /* CustomShowCell.m */; };
 		9AE7C198157673AE00311EB9 /* CustomSaleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AE7C197157673AE00311EB9 /* CustomSaleCell.m */; };
-		9AE7C19D1579155200311EB9 /* SellViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9AE7C19B1579155100311EB9 /* SellViewController.xib */; };
 		9AE7C19F157C31BE00311EB9 /* grass.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9AE7C19E157C31BE00311EB9 /* grass.jpg */; };
 		9AE7C1A9157C3EAE00311EB9 /* sand.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9AE7C1A8157C3EAE00311EB9 /* sand.jpg */; };
+		9AF44CC815E6754E0057E736 /* switchBlueBg.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AF44CC315E6754E0057E736 /* switchBlueBg.png */; };
+		9AF44CC915E6754E0057E736 /* switchOffPlain.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AF44CC415E6754E0057E736 /* switchOffPlain.png */; };
+		9AF44CCA15E6754E0057E736 /* switchThumb.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AF44CC515E6754E0057E736 /* switchThumb.png */; };
+		9AF44CCB15E6754E0057E736 /* UICustomSwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AF44CC715E6754E0057E736 /* UICustomSwitch.m */; };
+		9AF44CCD15E68B210057E736 /* cash-register.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 9AF44CCC15E68B210057E736 /* cash-register.aiff */; };
 		9AF8AFEE15DB25E500ABE444 /* SaleViewController_ipod.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AF8AFEC15DB25E500ABE444 /* SaleViewController_ipod.m */; };
 		9AF8AFEF15DB25E500ABE444 /* SaleViewController_ipod.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9AF8AFED15DB25E500ABE444 /* SaleViewController_ipod.xib */; };
 		B5801AB515B5BD4C00DB16C9 /* ProductPriceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5801AB315B5BD4B00DB16C9 /* ProductPriceViewController.m */; };
@@ -76,9 +77,6 @@
 		9A0BE693155C957D0078135F /* CameraViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraViewController.h; sourceTree = "<group>"; };
 		9A0BE694155C957D0078135F /* CameraViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraViewController.m; sourceTree = "<group>"; };
 		9A0BE695155C957D0078135F /* CameraViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CameraViewController.xib; sourceTree = "<group>"; };
-		9A24AF8115A53101000D555D /* SellViewController_ipod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SellViewController_ipod.h; sourceTree = "<group>"; };
-		9A24AF8215A53101000D555D /* SellViewController_ipod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SellViewController_ipod.m; sourceTree = "<group>"; };
-		9A24AF8315A53101000D555D /* SellViewController_ipod.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SellViewController_ipod.xib; sourceTree = "<group>"; };
 		9A24AF8615A536CC000D555D /* ProductAddViewController_ipod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductAddViewController_ipod.h; sourceTree = "<group>"; };
 		9A24AF8715A536CD000D555D /* ProductAddViewController_ipod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductAddViewController_ipod.m; sourceTree = "<group>"; };
 		9A24AF8815A536CD000D555D /* ProductAddViewController_ipod.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProductAddViewController_ipod.xib; sourceTree = "<group>"; };
@@ -128,7 +126,6 @@
 		9AA88457158B8D87003C2FC0 /* Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utilities.h; sourceTree = "<group>"; };
 		9AA88458158B8D87003C2FC0 /* Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utilities.m; sourceTree = "<group>"; };
 		9AB105FA157E190100A47A94 /* no-img.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "no-img.jpeg"; sourceTree = "<group>"; };
-		9AC8DA2115A3C4E200E2B33A /* cash-register.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; name = "cash-register.aiff"; path = "XCraftShow2/cash-register.aiff"; sourceTree = "<group>"; };
 		9AC8DA2415A3C65200E2B33A /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
 		9AC8DA2615A3CB0300E2B33A /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		9ADB44E315D82FEB00914873 /* 80-shopping-cart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "80-shopping-cart.png"; path = "../../../Downloads/glyphish-icons 2/icons/80-shopping-cart.png"; sourceTree = "<group>"; };
@@ -144,9 +141,14 @@
 		9AE7C17B1564021F00311EB9 /* CustomShowCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomShowCell.m; sourceTree = "<group>"; };
 		9AE7C196157673AE00311EB9 /* CustomSaleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomSaleCell.h; sourceTree = "<group>"; };
 		9AE7C197157673AE00311EB9 /* CustomSaleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomSaleCell.m; sourceTree = "<group>"; };
-		9AE7C19B1579155100311EB9 /* SellViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SellViewController.xib; sourceTree = "<group>"; };
 		9AE7C19E157C31BE00311EB9 /* grass.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = grass.jpg; sourceTree = "<group>"; };
 		9AE7C1A8157C3EAE00311EB9 /* sand.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = sand.jpg; sourceTree = "<group>"; };
+		9AF44CC315E6754E0057E736 /* switchBlueBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = switchBlueBg.png; sourceTree = "<group>"; };
+		9AF44CC415E6754E0057E736 /* switchOffPlain.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = switchOffPlain.png; sourceTree = "<group>"; };
+		9AF44CC515E6754E0057E736 /* switchThumb.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = switchThumb.png; sourceTree = "<group>"; };
+		9AF44CC615E6754E0057E736 /* UICustomSwitch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UICustomSwitch.h; sourceTree = "<group>"; };
+		9AF44CC715E6754E0057E736 /* UICustomSwitch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UICustomSwitch.m; sourceTree = "<group>"; };
+		9AF44CCC15E68B210057E736 /* cash-register.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = "cash-register.aiff"; sourceTree = "<group>"; };
 		9AF8AFEB15DB25E500ABE444 /* SaleViewController_ipod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SaleViewController_ipod.h; sourceTree = "<group>"; };
 		9AF8AFEC15DB25E500ABE444 /* SaleViewController_ipod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SaleViewController_ipod.m; sourceTree = "<group>"; };
 		9AF8AFED15DB25E500ABE444 /* SaleViewController_ipod.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SaleViewController_ipod.xib; sourceTree = "<group>"; };
@@ -183,7 +185,6 @@
 			isa = PBXGroup;
 			children = (
 				9A5617EF154EE190001579B6 /* ProductAddViewController.xib */,
-				9AE7C19B1579155100311EB9 /* SellViewController.xib */,
 				9A5617EA154EE17C001579B6 /* ShowAddViewController.xib */,
 			);
 			name = ipad;
@@ -201,9 +202,6 @@
 				9AF8AFEB15DB25E500ABE444 /* SaleViewController_ipod.h */,
 				9AF8AFEC15DB25E500ABE444 /* SaleViewController_ipod.m */,
 				9AF8AFED15DB25E500ABE444 /* SaleViewController_ipod.xib */,
-				9A24AF8115A53101000D555D /* SellViewController_ipod.h */,
-				9A24AF8215A53101000D555D /* SellViewController_ipod.m */,
-				9A24AF8315A53101000D555D /* SellViewController_ipod.xib */,
 			);
 			name = ipod;
 			sourceTree = "<group>";
@@ -319,7 +317,7 @@
 		9A516F7D15A3EFC3005B70E6 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				9AC8DA2115A3C4E200E2B33A /* cash-register.aiff */,
+				9AF44CCC15E68B210057E736 /* cash-register.aiff */,
 				9A8AEE3615C1CB6000E397E6 /* Settings.bundle */,
 			);
 			name = Resources;
@@ -356,6 +354,7 @@
 		9A561806154EE735001579B6 /* logic */ = {
 			isa = PBXGroup;
 			children = (
+				9AF44CC215E6754E0057E736 /* UICustomSwitch */,
 				9AA88457158B8D87003C2FC0 /* Utilities.h */,
 				9AA88458158B8D87003C2FC0 /* Utilities.m */,
 			);
@@ -371,6 +370,19 @@
 				9AE7C17B1564021F00311EB9 /* CustomShowCell.m */,
 			);
 			name = "custom cells";
+			sourceTree = "<group>";
+		};
+		9AF44CC215E6754E0057E736 /* UICustomSwitch */ = {
+			isa = PBXGroup;
+			children = (
+				9AF44CC315E6754E0057E736 /* switchBlueBg.png */,
+				9AF44CC415E6754E0057E736 /* switchOffPlain.png */,
+				9AF44CC515E6754E0057E736 /* switchThumb.png */,
+				9AF44CC615E6754E0057E736 /* UICustomSwitch.h */,
+				9AF44CC715E6754E0057E736 /* UICustomSwitch.m */,
+			);
+			name = UICustomSwitch;
+			path = ../../../Downloads/UICustomSwitch;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -434,14 +446,11 @@
 				9A561805154EE63D001579B6 /* empty-project.png in Resources */,
 				9A0BE697155C957D0078135F /* CameraViewController.xib in Resources */,
 				9AE7C178156400E200311EB9 /* todo in Resources */,
-				9AE7C19D1579155200311EB9 /* SellViewController.xib in Resources */,
 				9AE7C19F157C31BE00311EB9 /* grass.jpg in Resources */,
 				9AE7C1A9157C3EAE00311EB9 /* sand.jpg in Resources */,
 				9AB105FB157E190100A47A94 /* no-img.jpeg in Resources */,
 				9A8A4462159BF4FA002C48EE /* ShowTableViewController.xib in Resources */,
 				9A8A4467159CADE8002C48EE /* ProductTableViewController.xib in Resources */,
-				9AC8DA2215A3C4E200E2B33A /* cash-register.aiff in Resources */,
-				9A24AF8515A53101000D555D /* SellViewController_ipod.xib in Resources */,
 				9A24AF8A15A536CD000D555D /* ProductAddViewController_ipod.xib in Resources */,
 				B5801AB615B5BD4C00DB16C9 /* ProductPriceViewController.xib in Resources */,
 				9A85DFE215BF8C1200DE3C50 /* Icon.png in Resources */,
@@ -452,6 +461,10 @@
 				9ADB44E415D82FEB00914873 /* 80-shopping-cart.png in Resources */,
 				9ADB44F115D88EAF00914873 /* SalesTableViewController.xib in Resources */,
 				9AF8AFEF15DB25E500ABE444 /* SaleViewController_ipod.xib in Resources */,
+				9AF44CC815E6754E0057E736 /* switchBlueBg.png in Resources */,
+				9AF44CC915E6754E0057E736 /* switchOffPlain.png in Resources */,
+				9AF44CCA15E6754E0057E736 /* switchThumb.png in Resources */,
+				9AF44CCD15E68B210057E736 /* cash-register.aiff in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -475,12 +488,12 @@
 				9A8A44591598BC6D002C48EE /* Product.m in Sources */,
 				9A8A4461159BF4FA002C48EE /* ShowTableViewController.m in Sources */,
 				9A8A4466159CADE8002C48EE /* ProductTableViewController.m in Sources */,
-				9A24AF8415A53101000D555D /* SellViewController_ipod.m in Sources */,
 				9A24AF8915A536CD000D555D /* ProductAddViewController_ipod.m in Sources */,
 				B5801AB515B5BD4C00DB16C9 /* ProductPriceViewController.m in Sources */,
 				9A84A49415D1B757003F68E9 /* Show.m in Sources */,
 				9ADB44F015D88EAF00914873 /* SalesTableViewController.m in Sources */,
 				9AF8AFEE15DB25E500ABE444 /* SaleViewController_ipod.m in Sources */,
+				9AF44CCB15E6754E0057E736 /* UICustomSwitch.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SalesTableViewController : UITableViewController
+@interface SalesTableViewController : UITableViewController 
 
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (strong, nonatomic) NSString* eventId;
