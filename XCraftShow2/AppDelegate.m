@@ -34,7 +34,7 @@
     [CURRENCY_FORMATTER setNumberStyle:NSNumberFormatterCurrencyStyle];
     
     NUMBER_FORMATTER = [[NSNumberFormatter alloc] init];
-    [NUMBER_FORMATTER setNumberStyle:NSNumberFormatterCurrencyStyle];
+    [NUMBER_FORMATTER setNumberStyle:NSNumberFormatterDecimalStyle];
     
     DATE_FORMATTER = [[NSDateFormatter alloc] init];
     [DATE_FORMATTER setDateStyle:NSDateFormatterShortStyle];

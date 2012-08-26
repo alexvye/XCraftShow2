@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Show.h"
 
 @interface SalesTableViewController : UITableViewController 
 
@@ -14,5 +15,6 @@
 @property (strong, nonatomic) NSString* eventId;
 
 -(IBAction) addSale: (UIButton*) aButton;
+-(Show*)showForEvent:(NSString*)eventIdentifier;
 
 @end

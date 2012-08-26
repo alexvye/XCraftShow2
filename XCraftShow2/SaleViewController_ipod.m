@@ -64,12 +64,13 @@ ProductTableViewController* prodView;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    selectedProduct = prodView.selProduct;
-    if(selectedProduct != nil) {
+    if(selectedProduct != prodView.selProduct) {
         self.selectedProductLabel.text = prodView.selProduct.name;
         self.quantity.text = [NSString stringWithFormat:@"%d",1];
-        Product* product = (Product*) selectedProduct;
-        self.price.text = [Utilities formatAsCurrency:product.defaultCost];
+        self.price.titleLabel.text = [Utilities formatAsCurrency:prodView.selProduct.defaultCost];
+        selectedProduct = prodView.selProduct;
+    } else {
+        
     }
 }
 
@@ -103,9 +104,8 @@ ProductTableViewController* prodView;
         // Create/set showinfo oject
         //
         Sale* sale = (Sale*) [NSEntityDescription insertNewObjectForEntityForName:@"Sale" inManagedObjectContext:self.managedObjectContext];
-        
         sale.quantity = [NUMBER_FORMATTER numberFromString:self.quantity.text];
-        sale.amount = [CURRENCY_FORMATTER numberFromString:self.price.text];
+        sale.amount = [CURRENCY_FORMATTER numberFromString:self.price.titleLabel.text];
         sale.date = [NSDate date];
         sale.productRel = (Product*) selectedProduct;
         [thisShow addSaleRelObject:sale];
@@ -176,6 +176,11 @@ ProductTableViewController* prodView;
 }
 
 - (IBAction)resignButton:(id)sender {
-    // [self. resignFirstResponder];
+   [self.price resignFirstResponder];
+}
+
+-(BOOL) textFieldShouldReturn:(UITextField*) textField {
+    [textField resignFirstResponder];
+    return YES;
 }
 @end

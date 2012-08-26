@@ -168,28 +168,11 @@ NSPredicate* predicate;
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    if(indexPath.row +1 > [[self eventStore] eventsMatchingPredicate:predicate].count) {
-        return false;
-    } else {
-        return true;
-    } 
+    return false;
 }
 
 // Override to support editing the table view.
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        //
-        // delete the event
-        //
-        EKEvent* event = [ [[self eventStore] eventsMatchingPredicate:predicate] objectAtIndex:indexPath.row];
-        NSError *error = nil;
-        [self.eventStore removeEvent:event span:EKSpanThisEvent commit:true error:&error];
-
-        //
-        [self.tableView endUpdates];
-
-    } 
-    [self.tableView reloadData];
 }
 
 #pragma mark -

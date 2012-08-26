@@ -8,9 +8,10 @@
 
 #import "SalesTableViewController.h"
 #import "SaleViewController_ipod.h"
-#import "Show.h"
 #import "Sale.h"
 #import "Product.h"
+#import "CustomSaleCell.h"
+#import "Utilities.h"
 
 @interface SalesTableViewController ()
 
@@ -89,53 +90,28 @@ Show* show;
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
     static NSString *EmptyCellIdentifier = @"EmptyCell";
     
-    UITableViewCell* cell;
-    
     if(indexPath.row+1 > show.saleRel.count) { // using empty filled rows, basically a no-op
-        cell = [tableView dequeueReusableCellWithIdentifier:EmptyCellIdentifier];
+        UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:EmptyCellIdentifier];
 		if (cell == nil) {
 			cell = [[UITableViewCell alloc]
                     initWithStyle:UITableViewCellStyleDefault reuseIdentifier:EmptyCellIdentifier];
         }
+        return cell;
     } else {
-        cell =[self.tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        CustomSaleCell* cell =  (CustomSaleCell*)[self.tableView dequeueReusableCellWithIdentifier:CustomSaleCellIdentifier];
         if (cell == nil) {
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+            cell = (CustomSaleCell*)[[CustomSaleCell alloc] initWithFrame:CGRectZero reuseIdentifier:CustomSaleCellIdentifier];
         }
         Sale* sale = (Sale*)[[show.saleRel.objectEnumerator allObjects] objectAtIndex:indexPath.row];
-        cell.textLabel.text = sale.productRel.name;
-        //cell.detailTextLabel.text = @"detailedtext";
-        //cell.imageView.image = [UIImage imageNamed:@"no-img.png"];
+        cell.productNameLabel.text = sale.productRel.name;
+        cell.saleAmountLabel.text = [Utilities formatAsCurrency:sale.amount];
+        cell.saleDateLabel.text = [DATE_FORMATTER stringFromDate:sale.date];
+        cell.saleQuantityLabel.text = [NSString stringWithFormat:@"%d",[sale.quantity intValue]];
+        return cell;
     }
-    
-    return cell;
 }
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
 
 -(Show*)showForEvent:(NSString*)eventIdentifier {
     if(eventIdentifier == nil) {
