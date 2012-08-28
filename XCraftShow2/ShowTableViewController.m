@@ -5,27 +5,25 @@
 //  Created by Alex Vye on 12-06-27.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
+#define MIN_SHOW_ROWS 8 // always populate table with 8 rows to avoid the ugly empty table look
+
+static NSString *CellIdentifier = @"Normal Cell";
+static NSString *EmptyCellIdentifier = @"Empty Cell";
 
 #define SECONDS_IN_WEEK 3600*24*7.0
 
 #import "ShowTableViewController.h"
 #import "SalesTableViewController.h"
-#import "CustomShowCell.h"
 #import "Show.h"
 #import "Sale.h"
 #import "Product.h"
 #import "Utilities.h"
-#import <EventKitUI/EventKitUI.h>
-#import <EventKit/EventKit.h>
-
-static NSString *CellIdentifier = @"Normal Cell";
+#import "ShowViewController_ipod.h"
 
 @implementation ShowTableViewController
 
-@synthesize eventsList, eventStore, defaultCalendar, detailViewController, editSwitch;
-
-float rowHeight;
-NSPredicate* predicate;
+@synthesize managedObjectContext;
+@synthesize fetchedResultsController = __fetchedResultsController;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -52,39 +50,11 @@ NSPredicate* predicate;
     [super viewDidLoad];
     
     //
-    // Load events
-    //
-    predicate = [self.eventStore predicateForEventsWithStartDate:[NSDate date] endDate:[[NSDate date ] dateByAddingTimeInterval:SECONDS_IN_WEEK] calendars:nil];
-    
-    //
-    // Set constants for different devices
-    //
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-        rowHeight = 44.0;
-    } else {
-        rowHeight = 99.0;
-    }
-    self.tableView.rowHeight = rowHeight;
-    
-	//
-    // Add switch to navigation bar to filter on whether or not you have the floss
-    //
-    editSwitch = [UICustomSwitch switchWithLeftText:@"Sales" andRight:@"Edit"];
-    editSwitch.on = true;
-    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:editSwitch];
-	self.navigationItem.rightBarButtonItem = item;
-    
-    //
     // Button for adding Shows
     //
     UIBarButtonItem *plusButton = [[UIBarButtonItem alloc] 
 								   initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addShow:)];
 	self.navigationItem.leftBarButtonItem = plusButton;
-}
-
-- (IBAction)edit:(id)sender {
-	//[self createMyData];
-	[self.tableView reloadData];
 }
 
 - (void)turnOnEditing {
@@ -100,7 +70,7 @@ NSPredicate* predicate;
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    //[self turnOffEditing];
+    [self turnOffEditing];
     if(self.tableView != nil) {
         [self.tableView reloadData];
     }
@@ -129,39 +99,43 @@ NSPredicate* predicate;
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if([[self eventStore] eventsMatchingPredicate:predicate].count < 8) {
-        return 8;
+    id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:section];
+    
+    if([sectionInfo numberOfObjects] < MIN_SHOW_ROWS) {
+        return MIN_SHOW_ROWS;
     } else {
-        return [[self eventStore] eventsMatchingPredicate:predicate].count;
+        return [sectionInfo numberOfObjects];
     }
 }
 
 
 // Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
     //
     // Data section
     //
+    id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:indexPath.section];
     UITableViewCell* cell;
     
-    if(indexPath.row+1>[[self eventStore] eventsMatchingPredicate:predicate].count) {
-        cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if(indexPath.row+1>[sectionInfo numberOfObjects])  { // using empty filled rows, basically a no-op
+        cell = [tableView dequeueReusableCellWithIdentifier:EmptyCellIdentifier];
 		if (cell == nil) {
-			cell = [[UITableViewCell alloc] 
-                    initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+			cell = [[UITableViewCell alloc]
+                    initWithStyle:UITableViewCellStyleDefault reuseIdentifier:EmptyCellIdentifier];
         }
+
     } else {
     
-        cell =  [self.tableView dequeueReusableCellWithIdentifier:CustomShowCellIdentifier];
-        if (cell == nil) {
-            cell = [[CustomShowCell alloc] initWithFrame:CGRectZero reuseIdentifier:CustomShowCellIdentifier];
+        cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+		if (cell == nil) {
+			cell = [[UITableViewCell alloc]
+                    initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
         }
     
     //
     // Configure the cell...
     //
-        [self configureCell:(CustomShowCell*)cell atIndexPath:indexPath];
+        [self configureCell:cell atIndexPath:indexPath];
     }
     
     return cell;
@@ -179,52 +153,52 @@ NSPredicate* predicate;
 #pragma mark Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if(indexPath.row+1>[[self eventStore] eventsMatchingPredicate:predicate].count) {
+    id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:indexPath.section];
+    if(indexPath.row+1 >= [sectionInfo numberOfObjects]) {
         
         //
         // no-op
         //
         
     } else {
-        if(self.editSwitch.on) {
-            SalesTableViewController* salesView = [[SalesTableViewController alloc]
-                                                   initWithNibName:@"SalesTableViewController" bundle:nil];
-            //
-            // Pass the selected object to the new view controller.
-            //
-            EKEvent* event = [[[self eventStore] eventsMatchingPredicate:predicate] objectAtIndex:indexPath.row];
-            salesView.eventId = event.eventIdentifier;
-            salesView.title = @"Sales";
-            salesView.managedObjectContext = self.managedObjectContext;
-            [self.navigationController pushViewController:salesView animated:true];
-        } else {
-            EKEventEditViewController* controller = [[EKEventEditViewController alloc] init];
-            controller.eventStore = self.eventStore;
-            controller.editViewDelegate = self;
-            controller.event = [[[self eventStore] eventsMatchingPredicate:predicate] objectAtIndex:indexPath.row];
-            [self presentModalViewController:controller animated:YES];
-        }
+        SalesTableViewController* salesView = [[SalesTableViewController alloc]
+                                    initWithNibName:@"SalesTableViewController" bundle:nil];
+        //
+        // Pass the selected object to the new view controller.
+        //
+        salesView.title = @"Sales";
+        salesView.managedObjectContext = self.managedObjectContext;
+        NSManagedObject *managedObject = [self.fetchedResultsController objectAtIndexPath:indexPath]; 
+        salesView.show = (Show*)managedObject;
+        [self.navigationController pushViewController:salesView animated:true];
     }
 }
 
 -(IBAction) addShow: (UIButton*) aButton {
+    ShowViewController_ipod* showView;
 	//
 	// push the view controller
 	//
-    EKEventEditViewController* controller = [[EKEventEditViewController alloc] init];
-    controller.eventStore = self.eventStore;
-    controller.editViewDelegate = self;
-    [self presentModalViewController:controller animated:YES];
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+        showView = [[ShowViewController_ipod alloc]
+                      initWithNibName:@"ShowViewController_ipod" bundle:nil];
+    } else {
+        showView = [[ShowViewController_ipod alloc]
+                      initWithNibName:@"ShowViewController_ipod" bundle:nil];
+    }
+    
+	//
+	// Pass the selected object to the new view controller.
+	//
+    showView.managedObjectContext = self.managedObjectContext;
+    [self presentModalViewController:showView animated:YES];
 }
 
-- (void)configureCell:(CustomShowCell*)cell atIndexPath:(NSIndexPath *)indexPath
+- (void)configureCell:(UITableViewCell*)cell atIndexPath:(NSIndexPath *)indexPath
 {
-    EKEvent* event = [[[self eventStore] eventsMatchingPredicate:predicate] objectAtIndex:indexPath.row];
-    
-    cell.showNameLabel.text = event.title;
-    NSString *dateString = [DATE_FORMATTER stringFromDate:event.startDate];
-    cell.showDateLabel.text = dateString;
-    cell.eventId = event.eventIdentifier;
+    Show* show = (Show*)[self.fetchedResultsController objectAtIndexPath:indexPath];
+    cell.textLabel.text = show.name;
+    cell.detailTextLabel.text = [DATE_FORMATTER stringFromDate:show.date];
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 }
 
@@ -238,97 +212,73 @@ NSPredicate* predicate;
         product = sale.productRel;
         sum -= product.unitCost.doubleValue * sale.quantity.intValue;
     }
-    
     return [NSNumber numberWithDouble:sum];
 }
 
-#pragma mark -
-#pragma mark Add a new event
+#pragma mark - Fetched results controller
 
-// If event is nil, a new event is created and added to the specified event store. New events are
-// added to the default calendar. An exception is raised if set to an event that is not in the
-// specified event store.
-- (void)addEvent:(id)sender {
-    // When add button is pushed, create an EKEventEditViewController to display the event.
-    EKEventEditViewController *addController = [[EKEventEditViewController alloc] initWithNibName:nil bundle:nil];
-    
-    // set the addController's event store to the current event store.
-    addController.eventStore = self.eventStore;
-    
-    // present EventsAddViewController as a modal view controller
-    [self presentModalViewController:addController animated:YES];
-    
-    addController.editViewDelegate = self;
-}
-
-
-#pragma mark -
-#pragma mark EKEventEditViewDelegate
-
-// Overriding EKEventEditViewDelegate method to update event store according to user actions.
-- (void)eventEditViewController:(EKEventEditViewController *)controller
-          didCompleteWithAction:(EKEventEditViewAction)action {
-    
-    NSError *error = nil;
-    EKEvent *thisEvent = controller.event;
-    
-    switch (action) {
-        case EKEventEditViewActionCanceled:
-            // Edit action canceled, do nothing.
-            break;
-            
-        case EKEventEditViewActionSaved:
-        {
-            // When user hit "Done" button, save the newly created event to the event store,
-            // and reload table view.
-            // If the new event is being added to the default calendar, then update its
-            // eventsList.
-            
-            if (self.defaultCalendar ==  thisEvent.calendar) {
-                [self.eventsList addObject:thisEvent];
-            }
-            //
-            // Save event in event store
-            //
-            
-            [controller.eventStore saveEvent:controller.event span:EKSpanThisEvent commit:true error:&error];
-            
-            //
-            // create show for event
-            //
-            Show* show = (Show*) [NSEntityDescription insertNewObjectForEntityForName:@"Show" inManagedObjectContext:self.managedObjectContext];
-            show.eventId = thisEvent.eventIdentifier;
-            
-            NSError *error;
-            if(![self.managedObjectContext save:&error]) {
-                NSLog(@"Error %@", [error localizedDescription]);
-            }
-        }
-            break;
-            
-        case EKEventEditViewActionDeleted:
-            // When deleting an event, remove the event from the event store,
-            // and reload table view.
-            // If deleting an event from the currenly default calendar, then update its
-            // eventsList.
-            if (self.defaultCalendar ==  thisEvent.calendar) {
-                [self.eventsList removeObject:thisEvent];
-            }
-            [controller.eventStore removeEvent:thisEvent span:EKSpanThisEvent error:&error];
-            break;
-            
-        default:
-            break;
+- (NSFetchedResultsController *)fetchedResultsController
+{
+    if (__fetchedResultsController != nil) {
+        return __fetchedResultsController;
     }
-    // Dismiss the modal view controller
-    [controller dismissModalViewControllerAnimated:YES];
     
+    // Set up the fetched results controller.
+    // Create the fetch request for the entity.
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    
+    // Edit the entity name as appropriate.
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Show" inManagedObjectContext:self.managedObjectContext];
+    [fetchRequest setEntity:entity];
+    
+    // Set the batch size to a suitable number.
+    [fetchRequest setFetchBatchSize:5]; //default was 20
+    
+    // Edit the sort key as appropriate.
+    
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"date" ascending:NO];
+    NSArray *sortDescriptors = [NSArray arrayWithObjects:sortDescriptor, nil];
+    
+    [fetchRequest setSortDescriptors:sortDescriptors];
+    
+    //
+    // where clause
+    //
+    
+    /*
+    NSPredicate *predicate =
+    [NSPredicate predicateWithFormat:@"date == %@", [NSDate date]];
+    [fetchRequest setPredicate:predicate];
+    */
+    // Edit the section name key path and cache name if appropriate.
+    // nil for section name key path means "no sections".
+    NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:nil];
+    aFetchedResultsController.delegate = self;
+    self.fetchedResultsController = aFetchedResultsController;
+    
+	NSError *error = nil;
+	if (![self.fetchedResultsController performFetch:&error]) {
+	    /*
+	     Replace this implementation with code to handle the error appropriately.
+         
+	     abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+	     */
+	    NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+	    abort();
+	}
+    
+    return __fetchedResultsController;
 }
 
-// Set the calendar edited by EKEventEditViewController to our chosen calendar - the default calendar.
-- (EKCalendar *)eventEditViewControllerDefaultCalendarForNewEvents:(EKEventEditViewController *)controller {
-    EKCalendar *calendarForEdit = self.defaultCalendar;
-    return calendarForEdit;
+- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
+{
+    [self.tableView endUpdates];
 }
+
+-(BOOL) textFieldShouldReturn:(UITextField*) textField {
+    [textField resignFirstResponder];
+    return YES;
+}
+
 
 @end

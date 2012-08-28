@@ -7,15 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9A0BE68D155B04CA0078135F /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A0BE68C155B04CA0078135F /* AddressBook.framework */; };
-		9A0BE690155B04D10078135F /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A0BE68F155B04D10078135F /* AddressBookUI.framework */; };
+		9A03035915EC2AE500089B59 /* ShowViewController_ipod.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A03035715EC2AE500089B59 /* ShowViewController_ipod.m */; };
+		9A03035A15EC2AE500089B59 /* ShowViewController_ipod.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A03035815EC2AE500089B59 /* ShowViewController_ipod.xib */; };
 		9A0BE692155C94E20078135F /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A0BE691155C94E20078135F /* MobileCoreServices.framework */; };
 		9A0BE696155C957D0078135F /* CameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A0BE694155C957D0078135F /* CameraViewController.m */; };
 		9A0BE697155C957D0078135F /* CameraViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A0BE695155C957D0078135F /* CameraViewController.xib */; };
 		9A24AF8915A536CD000D555D /* ProductAddViewController_ipod.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A24AF8715A536CD000D555D /* ProductAddViewController_ipod.m */; };
 		9A24AF8A15A536CD000D555D /* ProductAddViewController_ipod.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A24AF8815A536CD000D555D /* ProductAddViewController_ipod.xib */; };
-		9A2AD8C315C8C50F008548A1 /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A2AD8C215C8C50F008548A1 /* EventKit.framework */; };
-		9A2AD8C615C8C520008548A1 /* EventKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A2AD8C515C8C520008548A1 /* EventKitUI.framework */; };
 		9A37622615BF77AF00823A45 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A516F7615A3CE15005B70E6 /* AudioToolbox.framework */; };
 		9A3B967515B62F3500C57BD0 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A3B967415B62F3500C57BD0 /* MessageUI.framework */; };
 		9A3E2068154B2EF900A3650E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A3E2067154B2EF800A3650E /* UIKit.framework */; };
@@ -55,14 +53,9 @@
 		9AE7C1731563FF6600311EB9 /* Contact.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AE7C1721563FF6600311EB9 /* Contact.m */; };
 		9AE7C1761563FF6600311EB9 /* Sale.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AE7C1751563FF6600311EB9 /* Sale.m */; };
 		9AE7C178156400E200311EB9 /* todo in Resources */ = {isa = PBXBuildFile; fileRef = 9AE7C177156400E200311EB9 /* todo */; };
-		9AE7C17C1564021F00311EB9 /* CustomShowCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AE7C17B1564021F00311EB9 /* CustomShowCell.m */; };
 		9AE7C198157673AE00311EB9 /* CustomSaleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AE7C197157673AE00311EB9 /* CustomSaleCell.m */; };
 		9AE7C19F157C31BE00311EB9 /* grass.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9AE7C19E157C31BE00311EB9 /* grass.jpg */; };
 		9AE7C1A9157C3EAE00311EB9 /* sand.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9AE7C1A8157C3EAE00311EB9 /* sand.jpg */; };
-		9AF44CC815E6754E0057E736 /* switchBlueBg.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AF44CC315E6754E0057E736 /* switchBlueBg.png */; };
-		9AF44CC915E6754E0057E736 /* switchOffPlain.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AF44CC415E6754E0057E736 /* switchOffPlain.png */; };
-		9AF44CCA15E6754E0057E736 /* switchThumb.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AF44CC515E6754E0057E736 /* switchThumb.png */; };
-		9AF44CCB15E6754E0057E736 /* UICustomSwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AF44CC715E6754E0057E736 /* UICustomSwitch.m */; };
 		9AF44CCD15E68B210057E736 /* cash-register.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 9AF44CCC15E68B210057E736 /* cash-register.aiff */; };
 		9AF8AFEE15DB25E500ABE444 /* SaleViewController_ipod.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AF8AFEC15DB25E500ABE444 /* SaleViewController_ipod.m */; };
 		9AF8AFEF15DB25E500ABE444 /* SaleViewController_ipod.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9AF8AFED15DB25E500ABE444 /* SaleViewController_ipod.xib */; };
@@ -71,6 +64,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9A03035615EC2AE500089B59 /* ShowViewController_ipod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShowViewController_ipod.h; sourceTree = "<group>"; };
+		9A03035715EC2AE500089B59 /* ShowViewController_ipod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShowViewController_ipod.m; sourceTree = "<group>"; };
+		9A03035815EC2AE500089B59 /* ShowViewController_ipod.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShowViewController_ipod.xib; sourceTree = "<group>"; };
 		9A0BE68C155B04CA0078135F /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		9A0BE68F155B04D10078135F /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
 		9A0BE691155C94E20078135F /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
@@ -137,17 +133,10 @@
 		9AE7C1741563FF6600311EB9 /* Sale.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sale.h; sourceTree = "<group>"; };
 		9AE7C1751563FF6600311EB9 /* Sale.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Sale.m; sourceTree = "<group>"; };
 		9AE7C177156400E200311EB9 /* todo */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = todo; sourceTree = "<group>"; };
-		9AE7C17A1564021F00311EB9 /* CustomShowCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomShowCell.h; sourceTree = "<group>"; };
-		9AE7C17B1564021F00311EB9 /* CustomShowCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomShowCell.m; sourceTree = "<group>"; };
 		9AE7C196157673AE00311EB9 /* CustomSaleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomSaleCell.h; sourceTree = "<group>"; };
 		9AE7C197157673AE00311EB9 /* CustomSaleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomSaleCell.m; sourceTree = "<group>"; };
 		9AE7C19E157C31BE00311EB9 /* grass.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = grass.jpg; sourceTree = "<group>"; };
 		9AE7C1A8157C3EAE00311EB9 /* sand.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = sand.jpg; sourceTree = "<group>"; };
-		9AF44CC315E6754E0057E736 /* switchBlueBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = switchBlueBg.png; sourceTree = "<group>"; };
-		9AF44CC415E6754E0057E736 /* switchOffPlain.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = switchOffPlain.png; sourceTree = "<group>"; };
-		9AF44CC515E6754E0057E736 /* switchThumb.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = switchThumb.png; sourceTree = "<group>"; };
-		9AF44CC615E6754E0057E736 /* UICustomSwitch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UICustomSwitch.h; sourceTree = "<group>"; };
-		9AF44CC715E6754E0057E736 /* UICustomSwitch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UICustomSwitch.m; sourceTree = "<group>"; };
 		9AF44CCC15E68B210057E736 /* cash-register.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = "cash-register.aiff"; sourceTree = "<group>"; };
 		9AF8AFEB15DB25E500ABE444 /* SaleViewController_ipod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SaleViewController_ipod.h; sourceTree = "<group>"; };
 		9AF8AFEC15DB25E500ABE444 /* SaleViewController_ipod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SaleViewController_ipod.m; sourceTree = "<group>"; };
@@ -163,14 +152,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9A2AD8C615C8C520008548A1 /* EventKitUI.framework in Frameworks */,
-				9A2AD8C315C8C50F008548A1 /* EventKit.framework in Frameworks */,
 				9A37622615BF77AF00823A45 /* AudioToolbox.framework in Frameworks */,
 				9A3B967515B62F3500C57BD0 /* MessageUI.framework in Frameworks */,
 				9A516F7815A3E9F3005B70E6 /* AVFoundation.framework in Frameworks */,
 				9A0BE692155C94E20078135F /* MobileCoreServices.framework in Frameworks */,
-				9A0BE690155B04D10078135F /* AddressBookUI.framework in Frameworks */,
-				9A0BE68D155B04CA0078135F /* AddressBook.framework in Frameworks */,
 				9A3E2068154B2EF900A3650E /* UIKit.framework in Frameworks */,
 				9A3E206A154B2EF900A3650E /* Foundation.framework in Frameworks */,
 				9A3E206C154B2EF900A3650E /* CoreGraphics.framework in Frameworks */,
@@ -202,6 +187,9 @@
 				9AF8AFEB15DB25E500ABE444 /* SaleViewController_ipod.h */,
 				9AF8AFEC15DB25E500ABE444 /* SaleViewController_ipod.m */,
 				9AF8AFED15DB25E500ABE444 /* SaleViewController_ipod.xib */,
+				9A03035615EC2AE500089B59 /* ShowViewController_ipod.h */,
+				9A03035715EC2AE500089B59 /* ShowViewController_ipod.m */,
+				9A03035815EC2AE500089B59 /* ShowViewController_ipod.xib */,
 			);
 			name = ipod;
 			sourceTree = "<group>";
@@ -354,7 +342,6 @@
 		9A561806154EE735001579B6 /* logic */ = {
 			isa = PBXGroup;
 			children = (
-				9AF44CC215E6754E0057E736 /* UICustomSwitch */,
 				9AA88457158B8D87003C2FC0 /* Utilities.h */,
 				9AA88458158B8D87003C2FC0 /* Utilities.m */,
 			);
@@ -366,23 +353,8 @@
 			children = (
 				9AE7C196157673AE00311EB9 /* CustomSaleCell.h */,
 				9AE7C197157673AE00311EB9 /* CustomSaleCell.m */,
-				9AE7C17A1564021F00311EB9 /* CustomShowCell.h */,
-				9AE7C17B1564021F00311EB9 /* CustomShowCell.m */,
 			);
 			name = "custom cells";
-			sourceTree = "<group>";
-		};
-		9AF44CC215E6754E0057E736 /* UICustomSwitch */ = {
-			isa = PBXGroup;
-			children = (
-				9AF44CC315E6754E0057E736 /* switchBlueBg.png */,
-				9AF44CC415E6754E0057E736 /* switchOffPlain.png */,
-				9AF44CC515E6754E0057E736 /* switchThumb.png */,
-				9AF44CC615E6754E0057E736 /* UICustomSwitch.h */,
-				9AF44CC715E6754E0057E736 /* UICustomSwitch.m */,
-			);
-			name = UICustomSwitch;
-			path = ../../../Downloads/UICustomSwitch;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -419,6 +391,8 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				English,
+				French,
 			);
 			mainGroup = 9A3E2058154B2EF800A3650E;
 			productRefGroup = 9A3E2064154B2EF800A3650E /* Products */;
@@ -461,10 +435,8 @@
 				9ADB44E415D82FEB00914873 /* 80-shopping-cart.png in Resources */,
 				9ADB44F115D88EAF00914873 /* SalesTableViewController.xib in Resources */,
 				9AF8AFEF15DB25E500ABE444 /* SaleViewController_ipod.xib in Resources */,
-				9AF44CC815E6754E0057E736 /* switchBlueBg.png in Resources */,
-				9AF44CC915E6754E0057E736 /* switchOffPlain.png in Resources */,
-				9AF44CCA15E6754E0057E736 /* switchThumb.png in Resources */,
 				9AF44CCD15E68B210057E736 /* cash-register.aiff in Resources */,
+				9A03035A15EC2AE500089B59 /* ShowViewController_ipod.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -482,7 +454,6 @@
 				9A0BE696155C957D0078135F /* CameraViewController.m in Sources */,
 				9AE7C1731563FF6600311EB9 /* Contact.m in Sources */,
 				9AE7C1761563FF6600311EB9 /* Sale.m in Sources */,
-				9AE7C17C1564021F00311EB9 /* CustomShowCell.m in Sources */,
 				9AE7C198157673AE00311EB9 /* CustomSaleCell.m in Sources */,
 				9AA88459158B8D87003C2FC0 /* Utilities.m in Sources */,
 				9A8A44591598BC6D002C48EE /* Product.m in Sources */,
@@ -493,7 +464,7 @@
 				9A84A49415D1B757003F68E9 /* Show.m in Sources */,
 				9ADB44F015D88EAF00914873 /* SalesTableViewController.m in Sources */,
 				9AF8AFEE15DB25E500ABE444 /* SaleViewController_ipod.m in Sources */,
-				9AF44CCB15E6754E0057E736 /* UICustomSwitch.m in Sources */,
+				9A03035915EC2AE500089B59 /* ShowViewController_ipod.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

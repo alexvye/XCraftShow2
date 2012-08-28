@@ -23,11 +23,6 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     //
-    // Event store
-    //
-    EKEventStore *store = [[EKEventStore alloc] init];
-    
-    //
     // Initialize formatters
     //
     CURRENCY_FORMATTER = [[NSNumberFormatter alloc] init];
@@ -37,7 +32,7 @@
     [NUMBER_FORMATTER setNumberStyle:NSNumberFormatterDecimalStyle];
     
     DATE_FORMATTER = [[NSDateFormatter alloc] init];
-    [DATE_FORMATTER setDateStyle:NSDateFormatterShortStyle];
+    [DATE_FORMATTER setDateStyle:NSDateFormatterMediumStyle];
     
     //
     //
@@ -53,7 +48,6 @@
     ShowTableViewController* showViewController = [[ShowTableViewController alloc] initWithNibName:@"ShowTableViewController" bundle:nil];
     showViewController.title = @"Shows";
     showViewController.managedObjectContext = self.managedObjectContext;
-    showViewController.eventStore = store;
     showNavigationController = [[UINavigationController alloc] initWithRootViewController:showViewController];
     showNavigationController.tabBarItem.image = [UIImage imageNamed:@"122-stats.png"];
     showNavigationController.title = @"Shows";

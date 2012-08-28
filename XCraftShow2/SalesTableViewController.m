@@ -5,6 +5,8 @@
 //  Created by Alex Vye on 2012-08-12.
 //
 //
+#define MIN_SALE_ROWS 8 // always populate table with 8 rows to avoid the ugly empty table look
+#define INFO_SECTION 0
 
 #import "SalesTableViewController.h"
 #import "SaleViewController_ipod.h"
@@ -12,17 +14,14 @@
 #import "Product.h"
 #import "CustomSaleCell.h"
 #import "Utilities.h"
+#import <MessageUI/MFMailComposeViewController.h>
 
 @interface SalesTableViewController ()
 
 @end
 
 @implementation SalesTableViewController
-
-@synthesize managedObjectContext;
-@synthesize eventId;
-
-Show* show;
+@synthesize managedObjectContext, show;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -36,12 +35,6 @@ Show* show;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    //
-    // get show
-    //
-    show = [self showForEvent:eventId];
-    
     //
     // Button for adding Shows
     //
@@ -57,8 +50,6 @@ Show* show;
     if(self.tableView != nil) {
         [self.tableView reloadData];
     }
-    
-    [self.tableView reloadData];
 }
 
 - (void)viewDidUnload
@@ -76,65 +67,59 @@ Show* show;
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections.
-    return 1;
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if(show.saleRel.count < 8) {
-        return 8;
+    if(section == INFO_SECTION) {
+        return 1;
     } else {
-        return show.saleRel.count;
+        if(self.show.saleRel.count < MIN_SALE_ROWS) {
+            return MIN_SALE_ROWS;
+        } else {
+            return self.show.saleRel.count;
+        }
     }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *EmptyCellIdentifier = @"EmptyCell";
-    
-    if(indexPath.row+1 > show.saleRel.count) { // using empty filled rows, basically a no-op
-        UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:EmptyCellIdentifier];
-		if (cell == nil) {
-			cell = [[UITableViewCell alloc]
-                    initWithStyle:UITableViewCellStyleDefault reuseIdentifier:EmptyCellIdentifier];
-        }
-        return cell;
-    } else {
-        CustomSaleCell* cell =  (CustomSaleCell*)[self.tableView dequeueReusableCellWithIdentifier:CustomSaleCellIdentifier];
+    if(indexPath.section == INFO_SECTION) {
+        UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"HeaderCell"];
         if (cell == nil) {
-            cell = (CustomSaleCell*)[[CustomSaleCell alloc] initWithFrame:CGRectZero reuseIdentifier:CustomSaleCellIdentifier];
+            cell = [[UITableViewCell alloc]
+                    initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"HeaderCell"];
         }
-        Sale* sale = (Sale*)[[show.saleRel.objectEnumerator allObjects] objectAtIndex:indexPath.row];
-        cell.productNameLabel.text = sale.productRel.name;
-        cell.saleAmountLabel.text = [Utilities formatAsCurrency:sale.amount];
-        cell.saleDateLabel.text = [DATE_FORMATTER stringFromDate:sale.date];
-        cell.saleQuantityLabel.text = [NSString stringWithFormat:@"%d",[sale.quantity intValue]];
+        
+        //
+        // calculate cumulative sales
+        //
+        NSString* headerString = [NSString stringWithFormat:@"Sales = %@",[Utilities formatAsCurrency:[self cumulativeSales]]];
+        
+        cell.textLabel.text = headerString;
         return cell;
-    }
-}
-
--(Show*)showForEvent:(NSString*)eventIdentifier {
-    if(eventIdentifier == nil) {
-        return nil;
-    }
-    
-    NSEntityDescription *entityDesc = [NSEntityDescription entityForName:@"Show" inManagedObjectContext:self.managedObjectContext];
-    
-    NSFetchRequest *request = [[NSFetchRequest alloc] init];
-    [request setEntity:entityDesc];
-    
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"eventId contains[cd] %@",eventIdentifier];
-    [request setPredicate:predicate];
-    
-    
-    NSError *error;
-    
-    NSArray* result = [self.managedObjectContext executeFetchRequest:request error:&error];
-    
-    if(result.count == 0) {
-        return nil;
     } else {
-        return [result objectAtIndex:0];
+        if(indexPath.row+1 > self.show.saleRel.count) { // using empty filled rows, basically a no-op
+            UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:EmptyCellIdentifier];
+            if (cell == nil) {
+                cell = [[UITableViewCell alloc]
+                    initWithStyle:UITableViewCellStyleDefault reuseIdentifier:EmptyCellIdentifier];
+            }
+            return cell;
+        } else {
+            CustomSaleCell* cell =  (CustomSaleCell*)[self.tableView dequeueReusableCellWithIdentifier:CustomSaleCellIdentifier];
+            if (cell == nil) {
+                cell = (CustomSaleCell*)[[CustomSaleCell alloc] initWithFrame:CGRectZero reuseIdentifier:CustomSaleCellIdentifier];
+            }
+            Sale* sale = (Sale*)[[self.show.saleRel.objectEnumerator allObjects] objectAtIndex:indexPath.row];
+            cell.productNameLabel.text = sale.productRel.name;
+            cell.saleAmountLabel.text = [Utilities formatAsCurrency:sale.amount];
+            cell.saleDateLabel.text = [DATE_FORMATTER stringFromDate:sale.date];
+            cell.saleQuantityLabel.text = [NSString stringWithFormat:@"%d",[sale.quantity intValue]];
+            return cell;
+        }
     }
 }
 
@@ -160,9 +145,73 @@ Show* show;
 	// Pass the selected object to the new view controller.
 	//
     detailView.managedObjectContext = self.managedObjectContext;
-
-    detailView.eventId = self.eventId;
+    detailView.show = self.show;
     [self.navigationController pushViewController:detailView animated:YES];
+}
+
+- (NSNumber*)cumulativeSales {
+    double sum = 0.0;
+    for(Sale* sale in self.show.saleRel) {
+        sum += [sale.amount doubleValue];
+    }
+    return [NSNumber numberWithDouble:sum];
+}
+
+-(IBAction)openMail:(id)sender {
+    if ([MFMailComposeViewController canSendMail])
+    {
+        MFMailComposeViewController *mailer = [[MFMailComposeViewController alloc] init];
+        
+        mailer.mailComposeDelegate = self;
+        
+        NSString* subjectString = [NSString stringWithFormat:@"Export for %@ on %@",
+                                   self.show.name, [DATE_FORMATTER stringFromDate:self.show.date]];
+        [mailer setSubject:subjectString];
+        
+        NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
+        NSString *val = nil;
+        
+        if (standardUserDefaults)
+            val = [standardUserDefaults objectForKey:@"export-email"];
+        
+        NSArray *toRecipients = [NSArray arrayWithObjects:val, nil];
+        [mailer setToRecipients:toRecipients];
+        
+        NSString *emailBody = [self generateExportBody];
+        [mailer setMessageBody:emailBody isHTML:NO];
+        
+        [self presentModalViewController:mailer animated:YES];
+        
+    } else {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Failure"
+                                                        message:@"Your device doesn't support the composer sheet"
+                                                       delegate:nil
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+        [alert show];
+    }
+}
+
+-(NSString*) generateExportBody {
+    //
+    // generate export
+    //
+    NSString* body = @"============================\n";
+    body = [body stringByAppendingString:self.show.name];
+    body = [body stringByAppendingString:@"\n============================\n"];
+    for(Sale* sale in self.show.saleRel) {
+        Product* product = sale.productRel;
+        
+        NSString *dateString = [DATE_FORMATTER stringFromDate:sale.date];
+        body = [body stringByAppendingString:[NSString stringWithFormat:
+                                              @"%@ %@ %@ %@\n",
+                                              [Utilities truncateString:product.name:10],
+                                              dateString,
+                                              [Utilities formatAsCurrency:sale.amount],
+                                              [Utilities formatAsDecimal:sale.quantity]]];
+    }
+    
+    return body;
 }
 
 @end

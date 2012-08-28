@@ -18,13 +18,14 @@
 @property(nonatomic, retain) IBOutlet UILabel* selectedProductLabel;
 @property (strong, nonatomic) IBOutlet UIButton* price;
 @property(nonatomic, retain) IBOutlet UITextField* quantity;
-@property(nonatomic, retain) NSString* eventId;
 @property (strong, nonatomic) NSManagedObject *selectedProduct;
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
+@property (strong, nonatomic) Show *show;
 
 
 -(IBAction)selectProduct:(id)sender;
 -(IBAction)saveSale:(id)sender;
+-(IBAction)cancelSale:(id)sender;
 -(IBAction)openPricePicker:(id)sender;
 -(void)playSound;
 -(IBAction)resignButton:(id)sender;

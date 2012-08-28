@@ -13,7 +13,6 @@
 #import <AudioToolbox/AudioToolbox.h>
 #import "ProductPriceViewController.h"
 #import "ProductTableViewController.h"
-#import <EventKit/EventKit.h>
 
 @interface SaleViewController_ipod ()
 
@@ -23,10 +22,10 @@
 
 @synthesize selectedProduct;
 @synthesize managedObjectContext;
-@synthesize eventId;
 @synthesize quantity;
 @synthesize price;
 @synthesize selectedProductLabel;
+@synthesize show;
 
 ProductTableViewController* prodView;
 
@@ -78,6 +77,9 @@ ProductTableViewController* prodView;
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
+- (IBAction)cancelSale:(id)sender {
+    [self dismissModalViewControllerAnimated:YES];
+}
 
 - (IBAction)saveSale:(id)sender {
     if(selectedProduct == nil) {
@@ -96,19 +98,14 @@ ProductTableViewController* prodView;
         
     } else {
         //
-        // Get the show for event for the selected row
-        //
-        Show* thisShow = [self showForEvent:eventId];
-        
-        //
         // Create/set showinfo oject
         //
         Sale* sale = (Sale*) [NSEntityDescription insertNewObjectForEntityForName:@"Sale" inManagedObjectContext:self.managedObjectContext];
         sale.quantity = [NUMBER_FORMATTER numberFromString:self.quantity.text];
         sale.amount = [CURRENCY_FORMATTER numberFromString:self.price.titleLabel.text];
-        sale.date = [NSDate date];
+        sale.date = self.show.date;
         sale.productRel = (Product*) selectedProduct;
-        [thisShow addSaleRelObject:sale];
+        [self.show addSaleRelObject:sale];
         
         //
         // Save
@@ -128,27 +125,6 @@ ProductTableViewController* prodView;
         // go back to sales table
         //
         [self.navigationController popViewControllerAnimated:true];
-    }
-}
-
--(Show*)showForEvent:(NSString*)eventIdentifier {
-    NSEntityDescription *entityDesc = [NSEntityDescription entityForName:@"Show" inManagedObjectContext:self.managedObjectContext];
-    
-    NSFetchRequest *request = [[NSFetchRequest alloc] init];
-    [request setEntity:entityDesc];
-    
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"eventId contains[cd] %@",eventIdentifier];
-    [request setPredicate:predicate];
-    
-    
-    NSError *error;
-    
-    NSArray* result = [self.managedObjectContext executeFetchRequest:request error:&error];
-    
-    if(result.count == 0) {
-        return nil;
-    } else {
-        return [result objectAtIndex:0];
     }
 }
 
@@ -183,4 +159,6 @@ ProductTableViewController* prodView;
     [textField resignFirstResponder];
     return YES;
 }
+
+
 @end

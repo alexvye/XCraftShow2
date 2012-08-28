@@ -9,12 +9,16 @@
 #import <UIKit/UIKit.h>
 #import "Show.h"
 
-@interface SalesTableViewController : UITableViewController 
+@interface SalesTableViewController : UITableViewController {
+    
+}
 
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
-@property (strong, nonatomic) NSString* eventId;
+@property (strong, nonatomic) Show *show;
 
 -(IBAction) addSale: (UIButton*) aButton;
--(Show*)showForEvent:(NSString*)eventIdentifier;
+- (NSNumber*)cumulativeSales;
+-(IBAction)openMail:(id)sender;
+-(NSString*)generateExportBody;
 
 @end
