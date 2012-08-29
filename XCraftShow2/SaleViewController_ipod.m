@@ -78,7 +78,7 @@ ProductTableViewController* prodView;
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 - (IBAction)cancelSale:(id)sender {
-    [self dismissModalViewControllerAnimated:YES];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (IBAction)saveSale:(id)sender {

@@ -142,11 +142,35 @@ static NSString *EmptyCellIdentifier = @"Empty Cell";
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    return false;
+    id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:indexPath.section];
+    if(indexPath.row +1 > [sectionInfo numberOfObjects]) {
+        return false;
+    } else {
+        return true;
+    }
 }
 
 // Override to support editing the table view.
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        // Delete the managed object for the given index path
+        NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
+        [context deleteObject:[self.fetchedResultsController objectAtIndexPath:indexPath]];
+        
+        // Save the context.
+        NSError *error = nil;
+        if (![context save:&error]) {
+            /*
+             Replace this implementation with code to handle the error appropriately.
+             
+             abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+             */
+            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+            abort();
+        }
+        [self.tableView endUpdates];
+        [self.tableView reloadData];
+    }
 }
 
 #pragma mark -
@@ -154,7 +178,7 @@ static NSString *EmptyCellIdentifier = @"Empty Cell";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:indexPath.section];
-    if(indexPath.row+1 >= [sectionInfo numberOfObjects]) {
+    if(indexPath.row+1 > [sectionInfo numberOfObjects]) {
         
         //
         // no-op
@@ -198,19 +222,29 @@ static NSString *EmptyCellIdentifier = @"Empty Cell";
 {
     Show* show = (Show*)[self.fetchedResultsController objectAtIndexPath:indexPath];
     cell.textLabel.text = show.name;
-    cell.detailTextLabel.text = [DATE_FORMATTER stringFromDate:show.date];
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@, profit = %@",[DATE_FORMATTER stringFromDate:show.date], [CURRENCY_FORMATTER stringFromNumber:[self calulateProfit:show]]];
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 }
 
 - (NSNumber*)calulateProfit:(Show*)show 
-{    
+{
+    
+    NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
+    BOOL profit = NO;
+    
+    if (standardUserDefaults)
+        profit = [standardUserDefaults boolForKey:@"profit"];
+    
+    
     double sum = 0.0 - show.fee.doubleValue;
     
     Product*product;
     for(Sale* sale in show.saleRel) {
         sum += sale.amount.doubleValue;
         product = sale.productRel;
-        sum -= product.unitCost.doubleValue * sale.quantity.intValue;
+        if(profit) {
+            sum -= product.unitCost.doubleValue * sale.quantity.intValue;
+        }
     }
     return [NSNumber numberWithDouble:sum];
 }

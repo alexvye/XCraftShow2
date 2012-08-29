@@ -12,7 +12,6 @@
 #import "SaleViewController_ipod.h"
 #import "Sale.h"
 #import "Product.h"
-#import "CustomSaleCell.h"
 #import "Utilities.h"
 #import <MessageUI/MFMailComposeViewController.h>
 
@@ -109,15 +108,14 @@
             }
             return cell;
         } else {
-            CustomSaleCell* cell =  (CustomSaleCell*)[self.tableView dequeueReusableCellWithIdentifier:CustomSaleCellIdentifier];
+            UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"CellIdentifier"];
             if (cell == nil) {
-                cell = (CustomSaleCell*)[[CustomSaleCell alloc] initWithFrame:CGRectZero reuseIdentifier:CustomSaleCellIdentifier];
+                cell = [[UITableViewCell alloc]
+                        initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"CellIdentifier"];
             }
             Sale* sale = (Sale*)[[self.show.saleRel.objectEnumerator allObjects] objectAtIndex:indexPath.row];
-            cell.productNameLabel.text = sale.productRel.name;
-            cell.saleAmountLabel.text = [Utilities formatAsCurrency:sale.amount];
-            cell.saleDateLabel.text = [DATE_FORMATTER stringFromDate:sale.date];
-            cell.saleQuantityLabel.text = [NSString stringWithFormat:@"%d",[sale.quantity intValue]];
+            cell.textLabel.text = sale.productRel.name;
+            cell.detailTextLabel.text = [NSString stringWithFormat:@"Quantity = %@, Total = %@", sale.quantity, [Utilities formatAsCurrency:sale.amount]];
             return cell;
         }
     }
@@ -172,7 +170,7 @@
         NSString *val = nil;
         
         if (standardUserDefaults)
-            val = [standardUserDefaults objectForKey:@"export-email"];
+            val = [standardUserDefaults stringForKey:@"export-email"];
         
         NSArray *toRecipients = [NSArray arrayWithObjects:val, nil];
         [mailer setToRecipients:toRecipients];

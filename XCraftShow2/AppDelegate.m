@@ -23,6 +23,11 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     //
+    // defaults
+    //
+    [AppDelegate initialize];
+    
+    //
     // Initialize formatters
     //
     CURRENCY_FORMATTER = [[NSNumberFormatter alloc] init];
@@ -202,6 +207,12 @@
 - (NSURL *)applicationDocumentsDirectory
 {
     return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
+}
+
++ (void)initialize {
+    NSDictionary *defaults = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:NO], @"profit", @"default@gmail.com", @"export-email", nil];
+    
+    [[NSUserDefaults standardUserDefaults] registerDefaults:defaults];
 }
 
 @end

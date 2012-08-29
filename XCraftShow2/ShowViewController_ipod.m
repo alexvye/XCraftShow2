@@ -8,6 +8,7 @@
 
 #import "ShowViewController_ipod.h"
 #import "Show.h"
+#import "Utilities.h"
 
 @interface ShowViewController_ipod ()
 
@@ -86,6 +87,9 @@
 
         show.name = self.nameTextField.text;
         show.date = self.datePicker.date;
+        NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
+        [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
+        show.fee = [formatter numberFromString:self.feeTextField.text];
         
         //
         // Save
