@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		9A03035915EC2AE500089B59 /* ShowViewController_ipod.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A03035715EC2AE500089B59 /* ShowViewController_ipod.m */; };
 		9A03035A15EC2AE500089B59 /* ShowViewController_ipod.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A03035815EC2AE500089B59 /* ShowViewController_ipod.xib */; };
+		9A03036815EEC1E600089B59 /* SaleViewController_ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A03036615EEC1E600089B59 /* SaleViewController_ipad.xib */; };
+		9A03036A15EECB8700089B59 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A03036915EECB8600089B59 /* AssetsLibrary.framework */; };
+		9A03037015EED0D600089B59 /* Product.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A03036F15EED0D500089B59 /* Product.m */; };
+		9A03037215EF0A1C00089B59 /* angel.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A03037115EF0A1C00089B59 /* angel.png */; };
 		9A0BE692155C94E20078135F /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A0BE691155C94E20078135F /* MobileCoreServices.framework */; };
 		9A0BE696155C957D0078135F /* CameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A0BE694155C957D0078135F /* CameraViewController.m */; };
 		9A0BE697155C957D0078135F /* CameraViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A0BE695155C957D0078135F /* CameraViewController.xib */; };
@@ -39,7 +43,6 @@
 		9A85DFE315BF8C1F00DE3C50 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A3B967A15B7073000C57BD0 /* Default.png */; };
 		9A85DFE415BF8C2A00DE3C50 /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A3B967E15B7074600C57BD0 /* Icon-72.png */; };
 		9A85DFE615BF8C3700DE3C50 /* Default-Portrait~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A85DFE515BF8C3700DE3C50 /* Default-Portrait~ipad.png */; };
-		9A8A44591598BC6D002C48EE /* Product.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A8A44581598BC6D002C48EE /* Product.m */; };
 		9A8A4461159BF4FA002C48EE /* ShowTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A8A445F159BF4F8002C48EE /* ShowTableViewController.m */; };
 		9A8A4462159BF4FA002C48EE /* ShowTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A8A4460159BF4FA002C48EE /* ShowTableViewController.xib */; };
 		9A8A4466159CADE8002C48EE /* ProductTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A8A4464159CADE4002C48EE /* ProductTableViewController.m */; };
@@ -66,6 +69,11 @@
 		9A03035615EC2AE500089B59 /* ShowViewController_ipod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShowViewController_ipod.h; sourceTree = "<group>"; };
 		9A03035715EC2AE500089B59 /* ShowViewController_ipod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShowViewController_ipod.m; sourceTree = "<group>"; };
 		9A03035815EC2AE500089B59 /* ShowViewController_ipod.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShowViewController_ipod.xib; sourceTree = "<group>"; };
+		9A03036615EEC1E600089B59 /* SaleViewController_ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SaleViewController_ipad.xib; sourceTree = "<group>"; };
+		9A03036915EECB8600089B59 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
+		9A03036E15EED0D500089B59 /* Product.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Product.h; sourceTree = "<group>"; };
+		9A03036F15EED0D500089B59 /* Product.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Product.m; sourceTree = "<group>"; };
+		9A03037115EF0A1C00089B59 /* angel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = angel.png; sourceTree = "<group>"; };
 		9A0BE68C155B04CA0078135F /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		9A0BE68F155B04D10078135F /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
 		9A0BE691155C94E20078135F /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
@@ -109,8 +117,6 @@
 		9A84A49215D1B757003F68E9 /* Show.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Show.h; sourceTree = "<group>"; };
 		9A84A49315D1B757003F68E9 /* Show.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Show.m; sourceTree = "<group>"; };
 		9A85DFE515BF8C3700DE3C50 /* Default-Portrait~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-Portrait~ipad.png"; path = "../Default-Portrait~ipad.png"; sourceTree = "<group>"; };
-		9A8A44571598BC6D002C48EE /* Product.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Product.h; sourceTree = "<group>"; };
-		9A8A44581598BC6D002C48EE /* Product.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Product.m; sourceTree = "<group>"; };
 		9A8A445E159BF4F7002C48EE /* ShowTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShowTableViewController.h; sourceTree = "<group>"; };
 		9A8A445F159BF4F8002C48EE /* ShowTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShowTableViewController.m; sourceTree = "<group>"; };
 		9A8A4460159BF4FA002C48EE /* ShowTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShowTableViewController.xib; sourceTree = "<group>"; };
@@ -149,6 +155,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9A03036A15EECB8700089B59 /* AssetsLibrary.framework in Frameworks */,
 				9A37622615BF77AF00823A45 /* AudioToolbox.framework in Frameworks */,
 				9A3B967515B62F3500C57BD0 /* MessageUI.framework in Frameworks */,
 				9A516F7815A3E9F3005B70E6 /* AVFoundation.framework in Frameworks */,
@@ -167,6 +174,7 @@
 			isa = PBXGroup;
 			children = (
 				9A5617EF154EE190001579B6 /* ProductAddViewController.xib */,
+				9A03036615EEC1E600089B59 /* SaleViewController_ipad.xib */,
 				9A5617EA154EE17C001579B6 /* ShowAddViewController.xib */,
 			);
 			name = ipad;
@@ -216,6 +224,7 @@
 		9A3E2058154B2EF800A3650E = {
 			isa = PBXGroup;
 			children = (
+				9A03036915EECB8600089B59 /* AssetsLibrary.framework */,
 				9A2AD8C515C8C520008548A1 /* EventKitUI.framework */,
 				9A2AD8C215C8C50F008548A1 /* EventKit.framework */,
 				9A3B967415B62F3500C57BD0 /* MessageUI.framework */,
@@ -288,12 +297,12 @@
 			children = (
 				9AE7C1711563FF6600311EB9 /* Contact.h */,
 				9AE7C1721563FF6600311EB9 /* Contact.m */,
-				9A8A44571598BC6D002C48EE /* Product.h */,
-				9A8A44581598BC6D002C48EE /* Product.m */,
 				9AE7C1741563FF6600311EB9 /* Sale.h */,
 				9AE7C1751563FF6600311EB9 /* Sale.m */,
 				9A84A49215D1B757003F68E9 /* Show.h */,
 				9A84A49315D1B757003F68E9 /* Show.m */,
+				9A03036E15EED0D500089B59 /* Product.h */,
+				9A03036F15EED0D500089B59 /* Product.m */,
 			);
 			name = dataModel;
 			sourceTree = "<group>";
@@ -320,6 +329,7 @@
 		9A5617FB154EE447001579B6 /* art */ = {
 			isa = PBXGroup;
 			children = (
+				9A03037115EF0A1C00089B59 /* angel.png */,
 				9ADB44E315D82FEB00914873 /* 80-shopping-cart.png */,
 				B5F0B2FD15BE1AFA00A3E5A8 /* no-img.png */,
 				9A3B967615B6324D00C57BD0 /* 18-envelope.png */,
@@ -424,6 +434,8 @@
 				9AF8AFEF15DB25E500ABE444 /* SaleViewController_ipod.xib in Resources */,
 				9AF44CCD15E68B210057E736 /* cash-register.aiff in Resources */,
 				9A03035A15EC2AE500089B59 /* ShowViewController_ipod.xib in Resources */,
+				9A03036815EEC1E600089B59 /* SaleViewController_ipad.xib in Resources */,
+				9A03037215EF0A1C00089B59 /* angel.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -442,7 +454,6 @@
 				9AE7C1731563FF6600311EB9 /* Contact.m in Sources */,
 				9AE7C1761563FF6600311EB9 /* Sale.m in Sources */,
 				9AA88459158B8D87003C2FC0 /* Utilities.m in Sources */,
-				9A8A44591598BC6D002C48EE /* Product.m in Sources */,
 				9A8A4461159BF4FA002C48EE /* ShowTableViewController.m in Sources */,
 				9A8A4466159CADE8002C48EE /* ProductTableViewController.m in Sources */,
 				9A24AF8915A536CD000D555D /* ProductAddViewController_ipod.m in Sources */,
@@ -451,6 +462,7 @@
 				9ADB44F015D88EAF00914873 /* SalesTableViewController.m in Sources */,
 				9AF8AFEE15DB25E500ABE444 /* SaleViewController_ipod.m in Sources */,
 				9A03035915EC2AE500089B59 /* ShowViewController_ipod.m in Sources */,
+				9A03037015EED0D600089B59 /* Product.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MessageUI/MFMailComposeViewController.h>
 #import "Show.h"
 
-@interface SalesTableViewController : UITableViewController {
+@interface SalesTableViewController : UITableViewController <MFMailComposeViewControllerDelegate>{
     
 }
 

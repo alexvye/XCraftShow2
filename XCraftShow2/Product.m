@@ -2,8 +2,8 @@
 //  Product.m
 //  XCraftShow2
 //
-//  Created by Alex Vye on 12-06-25.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Created by Alex Vye on 2012-08-29.
+//
 //
 
 #import "Product.h"
@@ -13,12 +13,12 @@
 @implementation Product
 
 @dynamic createdDate;
+@dynamic defaultCost;
 @dynamic image;
 @dynamic name;
 @dynamic productDescription;
 @dynamic quantity;
 @dynamic unitCost;
-@dynamic defaultCost;
 @dynamic saleRel;
 
 @end

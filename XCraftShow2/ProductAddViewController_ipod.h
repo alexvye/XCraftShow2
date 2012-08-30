@@ -12,12 +12,13 @@
         UIImagePickerControllerDelegate>
 
 @property (strong, nonatomic) IBOutlet UITextField* name;
-//@property (strong, nonatomic) IBOutlet UITextView* productDescription;
+@property (strong, nonatomic) IBOutlet UIImageView* productImageView;
 @property (strong, nonatomic) IBOutlet UITextField* quantity;
 @property (strong, nonatomic) IBOutlet UIButton* unitCost;
 @property (strong, nonatomic) IBOutlet UIButton* defaultCost;
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (strong, nonatomic) NSManagedObject *selectedProduct;
+@property (strong, nonatomic) NSData* image;
 
 - (IBAction)cancelProduct:(id)sender;
 - (IBAction)saveProduct:(id)sender;

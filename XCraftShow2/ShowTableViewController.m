@@ -208,7 +208,7 @@ static NSString *EmptyCellIdentifier = @"Empty Cell";
                       initWithNibName:@"ShowViewController_ipod" bundle:nil];
     } else {
         showView = [[ShowViewController_ipod alloc]
-                      initWithNibName:@"ShowViewController_ipod" bundle:nil];
+                      initWithNibName:@"ShowAddViewController" bundle:nil];
     }
     
 	//

@@ -13,7 +13,6 @@
 #import "Sale.h"
 #import "Product.h"
 #import "Utilities.h"
-#import <MessageUI/MFMailComposeViewController.h>
 
 @interface SalesTableViewController ()
 
@@ -136,7 +135,7 @@
                       initWithNibName:@"SaleViewController_ipod" bundle:nil];
     } else {
         detailView = [[SaleViewController_ipod alloc]
-                      initWithNibName:@"SaleViewController_ipod" bundle:nil];
+                      initWithNibName:@"SaleViewController_ipad" bundle:nil];
     }
  
 	//
@@ -210,6 +209,10 @@
     }
     
     return body;
+}
+
+- (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error {
+    [self dismissModalViewControllerAnimated:true];
 }
 
 @end

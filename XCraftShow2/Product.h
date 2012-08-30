@@ -2,8 +2,8 @@
 //  Product.h
 //  XCraftShow2
 //
-//  Created by Alex Vye on 12-06-25.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Created by Alex Vye on 2012-08-29.
+//
 //
 
 #import <Foundation/Foundation.h>
@@ -14,12 +14,12 @@
 @interface Product : NSManagedObject
 
 @property (nonatomic, retain) NSDate * createdDate;
-@property (nonatomic, retain) NSNumber * image;
+@property (nonatomic, retain) NSNumber * defaultCost;
+@property (nonatomic, retain) NSData * image;
 @property (nonatomic, retain) NSString * name;
 @property (nonatomic, retain) NSString * productDescription;
 @property (nonatomic, retain) NSNumber * quantity;
 @property (nonatomic, retain) NSNumber * unitCost;
-@property (nonatomic, retain) NSNumber * defaultCost;
 @property (nonatomic, retain) NSSet *saleRel;
 @end
 

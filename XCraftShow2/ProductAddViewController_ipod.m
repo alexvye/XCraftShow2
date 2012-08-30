@@ -11,7 +11,6 @@
 #import "Product.h"
 #import "Utilities.h"
 
-
 @interface ProductAddViewController_ipod ()
 - (NSString*)removeDollarSign:(NSString*)price;
 @end
@@ -20,7 +19,7 @@
 @implementation ProductAddViewController_ipod
 
 @synthesize unitCost, quantity, name, defaultCost;
-@synthesize managedObjectContext,selectedProduct;
+@synthesize managedObjectContext,selectedProduct,image,productImageView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -58,12 +57,19 @@
         self.quantity.text = [Utilities formatAsDecimal:product.quantity];
         [self.unitCost setTitle:[Utilities formatAsCurrency:product.unitCost] forState:UIControlStateNormal];
         [self.defaultCost setTitle:[Utilities formatAsCurrency:product.defaultCost] forState:UIControlStateNormal];
+        self.productImageView.image = [[UIImage alloc] initWithData:product.image];;
     }
 }
 
 -(void) viewDidAppear:(BOOL)animated {
     
 }
+
+- (void) viewWillAppear:(BOOL)animated  {
+
+    
+}
+
 
 -(void)viewWillDisappear:(BOOL)animated {
     
@@ -160,7 +166,7 @@
         product.quantity = [formatter numberFromString:self.quantity.text];
         product.unitCost = [formatter numberFromString:[self removeDollarSign:self.unitCost.titleLabel.text]];
         product.defaultCost = [formatter numberFromString:[self removeDollarSign:self.defaultCost.titleLabel.text]];
-        product.image = 0;
+        product.image = self.image;
         product.createdDate = [NSDate date];
         
         //
@@ -203,14 +209,28 @@
 }
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
-    // newImage is a UIImage do not try to use a UIImageView
-    //self.locationPicture.contentMode = UIViewContentModeScaleAspectFit;
-    //self.locationPicture.image = [info objectForKey:UIImagePickerControllerOriginalImage];
-    
-	// Save the image.
-    //[DataManager saveImage:self.locationPicture.image];
+    UIImage *productImage = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
+    self.image = UIImagePNGRepresentation(productImage);
     
 	[picker dismissModalViewControllerAnimated:YES];
+    
+}
+
+- (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo
+{
+    UIAlertView *alert;
+    // Unable to save the image
+    if (error)
+        alert = [[UIAlertView alloc] initWithTitle:@"Error"
+                                           message:@"Unable to save image."
+                                          delegate:self cancelButtonTitle:@"Ok"
+                                 otherButtonTitles:nil];
+    else // All is well
+        alert = [[UIAlertView alloc] initWithTitle:@"Success"
+                                           message:@"Image saved"
+                                          delegate:self cancelButtonTitle:@"Ok"
+                                 otherButtonTitles:nil];
+    [alert show];
 }
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
