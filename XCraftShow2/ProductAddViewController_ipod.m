@@ -20,6 +20,10 @@
 
 @synthesize unitCost, quantity, name, defaultCost;
 @synthesize managedObjectContext,selectedProduct,image,productImageView;
+//
+// for ipad ui
+//
+@synthesize price, prevPriceLabel,unitCostPicker,defaultCostCostPicker;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -235,6 +239,39 @@
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
 	[picker dismissModalViewControllerAnimated:YES];
+}
+
+#pragma mark - UIPickerViewDataSource methods
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
+    return 2;
+}
+
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
+    if (component == kDollars) {
+        return 1000;
+    }
+    
+    return 100;
+}
+
+#pragma mark - UIPickerViewDelegate methods
+- (NSString*)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
+    if (component == kDollars) {
+        //        if (row == [pickerView selectedRowInComponent:component]) {
+        return [NSString stringWithFormat:@"   %d", row];
+        //        } else {
+        //            return [NSString stringWithFormat:@"%d", row];
+        //        }
+    }
+    
+    return [NSString stringWithFormat:@"%02d", row];
+}
+
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
+    NSInteger dollarValue = [pickerView selectedRowInComponent:kDollars];
+    NSInteger centValue = [pickerView selectedRowInComponent:KCents];
+    self.price = [NSString stringWithFormat:@"$%d.%02d", dollarValue, centValue];
+    //    [pickerView reloadComponent:kDollars];
 }
 
 @end
