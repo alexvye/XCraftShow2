@@ -19,6 +19,7 @@
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (strong, nonatomic) NSManagedObject *selectedProduct;
 @property (strong, nonatomic) NSData* image;
+@property (strong, nonatomic) UITapGestureRecognizer *tap;
 //
 // for ipad ui only
 //
@@ -33,5 +34,4 @@
 - (IBAction)resignButton:(id)sender;
 - (BOOL)doesProductExist:(NSString*)_name;
 - (IBAction)takePicture:(id)sender;
-
 @end

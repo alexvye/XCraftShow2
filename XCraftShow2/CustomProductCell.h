@@ -2,24 +2,20 @@
 //  CustomProductCell.h
 //  XCraftShow2
 //
-//  Created by Alex Vye on 12-05-27.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Created by Alex Vye on 2012-09-03.
+//
 //
 
-#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
-static NSString *CustomProductCellIdentifier = @"CustomShowCell";
-
-@interface CustomProductCell  : UITableViewCell <UITextFieldDelegate> {
-	IBOutlet UIImageView  *productImage;
-	IBOutlet UILabel  *productNameLabel;
-    IBOutlet UITextField  *quantityTextField;    
-    IBOutlet UILabel  *productDateLabel; 
+@interface CustomProductCell : UITableViewCell {
+    IBOutlet UIImageView *flossImage;
+    IBOutlet UILabel  *primaryLabel;
+    IBOutlet UILabel  *secondaryLabel;
 }
 
-@property (nonatomic,retain)IBOutlet UIImageView  *productImage;
-@property (nonatomic,retain)IBOutlet UILabel  *productNameLabel;
-@property (nonatomic,retain)IBOutlet UILabel  *productDateLabel;
-@property (nonatomic,retain)IBOutlet UITextField  *quantityTextField;
+@property (nonatomic,retain)IBOutlet UIImageView *flossImage;
+@property (nonatomic,retain)IBOutlet UILabel  *primaryLabel;
+@property (nonatomic,retain)IBOutlet UILabel  *secondaryLabel;
 
 @end

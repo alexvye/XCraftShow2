@@ -21,6 +21,10 @@
 @implementation SalesTableViewController
 @synthesize managedObjectContext, show;
 
+float rowHeight;
+float primaryFontSize;
+float detailedFontSize;
+
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
@@ -33,21 +37,43 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+        rowHeight = 44.0;
+        primaryFontSize = 12.0;
+        detailedFontSize = 10.0;
+    } else {
+        rowHeight = 99.0;
+        primaryFontSize = 36.0;
+        detailedFontSize = 24.0;
+    }
+    self.tableView.rowHeight = rowHeight;
     //
     // Button for adding Shows
     //
-    UIBarButtonItem *plusButton = [[UIBarButtonItem alloc]
-								   initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addSale:)];
-	self.navigationItem.rightBarButtonItem = plusButton;
+    //
+	// Edit button for reordering of array
+	//
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:@selector(turnOnEditing)];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    //[self turnOffEditing];
+    [self turnOffEditing];
     if(self.tableView != nil) {
         [self.tableView reloadData];
     }
+}
+
+- (void)turnOnEditing {
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(turnOffEditing)];
+    [self.tableView setEditing:YES animated:YES];
+}
+
+- (void)turnOffEditing {
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:@selector(turnOnEditing)];
+    [self.tableView setEditing:NO animated:YES];
 }
 
 - (void)viewDidUnload
@@ -74,7 +100,11 @@
         return 1;
     } else {
         if(self.show.saleRel.count < MIN_SALE_ROWS) {
-            return MIN_SALE_ROWS;
+            if(![[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+                return 7;
+            } else {
+                return MIN_SALE_ROWS;
+            }
         } else {
             return self.show.saleRel.count;
         }
@@ -94,8 +124,9 @@
         //
         // calculate cumulative sales
         //
-        NSString* headerString = [NSString stringWithFormat:@"Sales = %@",[Utilities formatAsCurrency:[self cumulativeSales]]];
+        NSString* headerString = [NSString stringWithFormat:@"%d sales for a total of %@",self.show.saleRel.count, [Utilities formatAsCurrency:[self cumulativeSales]]];
         
+        cell.textLabel.font = [UIFont fontWithName:@"Helvetica" size:detailedFontSize];
         cell.textLabel.text = headerString;
         return cell;
     } else {
@@ -113,8 +144,11 @@
                         initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"CellIdentifier"];
             }
             Sale* sale = (Sale*)[[self.show.saleRel.objectEnumerator allObjects] objectAtIndex:indexPath.row];
+            cell.textLabel.font = [UIFont fontWithName:@"Helvetica" size:primaryFontSize];
             cell.textLabel.text = sale.productRel.name;
+            cell.detailTextLabel.font = [UIFont fontWithName:@"Helvetica" size:detailedFontSize];
             cell.detailTextLabel.text = [NSString stringWithFormat:@"Quantity = %@, Total = %@", sale.quantity, [Utilities formatAsCurrency:sale.amount]];
+            cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
             return cell;
         }
     }
@@ -124,10 +158,67 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if(indexPath.row+1 <= show.saleRel.allObjects.count) {
 
+    //
+    // push the view controller
+    //
+        SaleViewController_ipod* detailView;
+            
+        if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+            detailView = [[SaleViewController_ipod alloc]
+                      initWithNibName:@"SaleViewController_ipod" bundle:nil];
+        } else {
+            detailView = [[SaleViewController_ipod alloc]
+                      initWithNibName:@"SaleViewController_ipad" bundle:nil];
+        }
+            
+        detailView.managedObjectContext = self.managedObjectContext;
+            
+    //
+    // Pass the selected object to the new view controller.
+    //
+        //
+        // Pass the selected object to the new view controller.
+        //
+        detailView.managedObjectContext = self.managedObjectContext;
+        detailView.show = self.show;
+        detailView.editedSale = [self.show.saleRel.allObjects objectAtIndex:indexPath.row];
+        [self.navigationController pushViewController:detailView animated:YES];
+    }
 }
 
--(IBAction) addSale: (UIButton*) aButton {
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    if(indexPath.row +1 > [self.show.saleRel allObjects].count || indexPath.section == 0) {
+        return false;
+    } else {
+        return true;
+    }
+}
+
+// Override to support editing the table view.
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        // Delete the managed object for the given index path
+        [self.show removeSaleRelObject:[[self.show.saleRel allObjects] objectAtIndex:indexPath.row]];
+        
+        // Save the context.
+        NSError *error = nil;
+        if (![self.managedObjectContext save:&error]) {
+            /*
+             Replace this implementation with code to handle the error appropriately.
+             
+             abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+             */
+            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+            abort();
+        }
+        [self.tableView endUpdates];
+        [self.tableView reloadData];
+    }
+}
+
+-(IBAction) addSale:(id)sender{
     SaleViewController_ipod* detailView;
     
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
@@ -143,6 +234,8 @@
 	//
     detailView.managedObjectContext = self.managedObjectContext;
     detailView.show = self.show;
+    detailView.editedSale = nil;
+    detailView.selectedProduct = nil;
     [self.navigationController pushViewController:detailView animated:YES];
 }
 

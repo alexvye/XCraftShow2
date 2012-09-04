@@ -2,27 +2,29 @@
 //  CustomProductCell.m
 //  XCraftShow2
 //
-//  Created by Alex Vye on 12-05-27.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Created by Alex Vye on 2012-09-03.
+//
 //
 
 #import "CustomProductCell.h"
-#import "Product.h"
-#import "Utilities.h"
 
 @implementation CustomProductCell
-@synthesize productImage;
-@synthesize productNameLabel,productDateLabel;
-@synthesize quantityTextField;
+
+@synthesize flossImage;
+@synthesize primaryLabel;
+@synthesize secondaryLabel;
 
 float primaryFont;
+float secondaryFont;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
         primaryFont = 12.0;
+        secondaryFont = 10.0;
     } else {
-        primaryFont = 24.0;
+        primaryFont = 36.0;
+        secondaryFont = 24.0;
     }
     
     
@@ -40,108 +42,68 @@ float primaryFont;
     // Configure the view for the selected state
 }
 
+
 //
 // Programattically create cell, not through IB due to mem/perf reasons
 //
 - (id)initWithFrame:(CGRect)frame reuseIdentifier:(NSString *)reuseIdentifier {
 	if (self = [super initWithFrame:frame reuseIdentifier:reuseIdentifier]) {
 		// Initialization code
-        
-        //
-		// images
-		//
-		productImage = [[UIImageView alloc]init];
 		
 		//
 		// labels
 		//
-		productNameLabel = [[UILabel alloc]init];
-		productNameLabel.textAlignment = UITextAlignmentLeft;
-		productNameLabel.font = [UIFont fontWithName:@"Helvetica" size:primaryFont];
-        productDateLabel = [[UILabel alloc]init];
-		productDateLabel.textAlignment = UITextAlignmentLeft;
-		productDateLabel.font = [UIFont fontWithName:@"Helvetica" size:primaryFont];
-        
-        //
-        // text fields
-        //
-        
-        quantityTextField = [[UITextField alloc] init];
-        [quantityTextField setKeyboardType:UIKeyboardTypeNumbersAndPunctuation];
-        [quantityTextField setReturnKeyType:UIReturnKeyDone];
-        quantityTextField.delegate = self;
-        quantityTextField.textAlignment = UITextAlignmentRight;
-        quantityTextField.clearsOnBeginEditing = YES;
-        quantityTextField.borderStyle = UITextBorderStyleBezel;
-        quantityTextField.font = [UIFont fontWithName:@"Arial Rounded MT Bold" size:22];
-        quantityTextField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+		primaryLabel = [[UILabel alloc]init];
+		primaryLabel.textAlignment = UITextAlignmentLeft;
+		primaryLabel.font = [UIFont fontWithName:@"Helvetica" size:primaryFont];
+		secondaryLabel = [[UILabel alloc]init];
+		secondaryLabel.textAlignment = UITextAlignmentLeft;
+		secondaryLabel.font = [UIFont fontWithName:@"Helvetica" size:secondaryFont];
 		
 		//
+		// images
+		//
+		flossImage = [[UIImageView alloc]init];
+        
+		//
 		// custom cell
-		// 
-	    [self.contentView addSubview:productNameLabel];
-        [self.contentView addSubview:productDateLabel];
-        [self.contentView addSubview:productImage];
-		[self.contentView addSubview:quantityTextField];        
+		//
+	    [self.contentView addSubview:primaryLabel];
+		[self.contentView addSubview:secondaryLabel];
+		[self.contentView addSubview:flossImage];
 	}
 	return self;
 }
+
 
 - (void)layoutSubviews {
 	[super layoutSubviews];
 	CGRect contentRect = self.contentView.bounds;
 	CGFloat boundsX = contentRect.origin.x;
     
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {	
-
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
         //
         // images
         //
-        productImage.frame = CGRectMake(boundsX+5.0,5.0,40.0,30.0);
+        flossImage.frame = CGRectMake(boundsX+1.0,2.0,40.0,40.0);
         
         //
         // labels
         //
-        productNameLabel.frame = CGRectMake(boundsX+50.0,5.0,135.0,30.0);
-        
-        //
-        // text fields
-        //
-        quantityTextField.frame = CGRectMake(boundsX+190.0,5.0,60.0,30.0);
+        primaryLabel.frame = CGRectMake(boundsX+44.0,0.0,38.0,20.0);
+        secondaryLabel.frame = CGRectMake(boundsX+49.0,16.0,97.0,20.0);
         
     } else { //IPad
         //
         // images
         //
-        productImage.frame = CGRectMake(boundsX+10.0,5.0,80.0,80.0);
+        flossImage.frame = CGRectMake(boundsX+10.0,10.0,79.0,79);
         
         //
         // labels
         //
-        productNameLabel.frame = CGRectMake(boundsX+100,5.0,300.0,42.0);
-        productDateLabel.frame = CGRectMake(boundsX+100,52.0,300.0,42.0);
-        
-        //
-        // text fields
-        //
-        quantityTextField.frame = CGRectMake(boundsX+510,5.0,80.0,80.0);    
-    }	
-    
-}
-
-
-- (BOOL)textFieldShouldReturn:(UITextField *)textField{
-	[textField resignFirstResponder];
-    return YES;
-}
-
-- (void)textFieldDidEndEditing:(UITextField *)textField {
-    //
-    // convert the string to a number. nil if invalid, becomes 0
-    //
-    NSNumber *quantity = [NUMBER_FORMATTER numberFromString:[(UITextField *)[self quantityTextField] text]];
-    if(quantity == nil) {
-        quantity = [NSNumber numberWithInt:0];
+        primaryLabel.frame = CGRectMake(boundsX+120,10.0,380.0,79.0);
+        secondaryLabel.frame = CGRectMake(boundsX+510.0,10.0,210,79.0);
     }
 }
 
@@ -151,3 +113,4 @@ float primaryFont;
 
 
 @end
+

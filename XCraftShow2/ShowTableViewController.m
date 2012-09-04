@@ -25,6 +25,10 @@ static NSString *EmptyCellIdentifier = @"Empty Cell";
 @synthesize managedObjectContext;
 @synthesize fetchedResultsController = __fetchedResultsController;
 
+float rowHeight;
+float primaryFontSize;
+float detailedFontSize;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     
@@ -48,6 +52,17 @@ static NSString *EmptyCellIdentifier = @"Empty Cell";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+        rowHeight = 44.0;
+        primaryFontSize = 12.0;
+        detailedFontSize = 10.0;
+    } else {
+        rowHeight = 99.0;
+        primaryFontSize = 36.0;
+        detailedFontSize = 24.0;
+    }
+    
+    self.tableView.rowHeight = rowHeight;
     
     //
     // Button for adding Shows
@@ -221,9 +236,11 @@ static NSString *EmptyCellIdentifier = @"Empty Cell";
 - (void)configureCell:(UITableViewCell*)cell atIndexPath:(NSIndexPath *)indexPath
 {
     Show* show = (Show*)[self.fetchedResultsController objectAtIndexPath:indexPath];
+    cell.textLabel.font = [UIFont fontWithName:@"Helvetica" size:primaryFontSize];
     cell.textLabel.text = show.name;
+    cell.detailTextLabel.font = [UIFont fontWithName:@"Helvetica" size:detailedFontSize];
     cell.detailTextLabel.text = [NSString stringWithFormat:@"%@, profit = %@",[DATE_FORMATTER stringFromDate:show.date], [CURRENCY_FORMATTER stringFromNumber:[self calulateProfit:show]]];
-    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
 }
 
 - (NSNumber*)calulateProfit:(Show*)show 
@@ -308,11 +325,5 @@ static NSString *EmptyCellIdentifier = @"Empty Cell";
 {
     [self.tableView endUpdates];
 }
-
--(BOOL) textFieldShouldReturn:(UITextField*) textField {
-    [textField resignFirstResponder];
-    return YES;
-}
-
 
 @end
