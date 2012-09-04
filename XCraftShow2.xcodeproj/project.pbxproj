@@ -50,7 +50,6 @@
 		9A8AEE3715C1CB6000E397E6 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9A8AEE3615C1CB6000E397E6 /* Settings.bundle */; };
 		9AA88459158B8D87003C2FC0 /* Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AA88458158B8D87003C2FC0 /* Utilities.m */; };
 		9AB105FB157E190100A47A94 /* no-img.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 9AB105FA157E190100A47A94 /* no-img.jpeg */; };
-		9ADB44E415D82FEB00914873 /* 80-shopping-cart.png in Resources */ = {isa = PBXBuildFile; fileRef = 9ADB44E315D82FEB00914873 /* 80-shopping-cart.png */; };
 		9ADB44F015D88EAF00914873 /* SalesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ADB44EE15D88EAE00914873 /* SalesTableViewController.m */; };
 		9ADB44F115D88EAF00914873 /* SalesTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9ADB44EF15D88EAF00914873 /* SalesTableViewController.xib */; };
 		9AE7C1731563FF6600311EB9 /* Contact.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AE7C1721563FF6600311EB9 /* Contact.m */; };
@@ -129,7 +128,6 @@
 		9AB105FA157E190100A47A94 /* no-img.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "no-img.jpeg"; sourceTree = "<group>"; };
 		9AC8DA2415A3C65200E2B33A /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
 		9AC8DA2615A3CB0300E2B33A /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
-		9ADB44E315D82FEB00914873 /* 80-shopping-cart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "80-shopping-cart.png"; path = "../../../Downloads/glyphish-icons 2/icons/80-shopping-cart.png"; sourceTree = "<group>"; };
 		9ADB44ED15D88EAE00914873 /* SalesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SalesTableViewController.h; sourceTree = "<group>"; };
 		9ADB44EE15D88EAE00914873 /* SalesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SalesTableViewController.m; sourceTree = "<group>"; };
 		9ADB44EF15D88EAF00914873 /* SalesTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SalesTableViewController.xib; sourceTree = "<group>"; };
@@ -330,7 +328,6 @@
 			isa = PBXGroup;
 			children = (
 				9A03037115EF0A1C00089B59 /* angel.png */,
-				9ADB44E315D82FEB00914873 /* 80-shopping-cart.png */,
 				B5F0B2FD15BE1AFA00A3E5A8 /* no-img.png */,
 				9A3B967615B6324D00C57BD0 /* 18-envelope.png */,
 				9AB105FA157E190100A47A94 /* no-img.jpeg */,
@@ -429,7 +426,6 @@
 				9A85DFE415BF8C2A00DE3C50 /* Icon-72.png in Resources */,
 				9A85DFE615BF8C3700DE3C50 /* Default-Portrait~ipad.png in Resources */,
 				9A8AEE3715C1CB6000E397E6 /* Settings.bundle in Resources */,
-				9ADB44E415D82FEB00914873 /* 80-shopping-cart.png in Resources */,
 				9ADB44F115D88EAF00914873 /* SalesTableViewController.xib in Resources */,
 				9AF8AFEF15DB25E500ABE444 /* SaleViewController_ipod.xib in Resources */,
 				9AF44CCD15E68B210057E736 /* cash-register.aiff in Resources */,

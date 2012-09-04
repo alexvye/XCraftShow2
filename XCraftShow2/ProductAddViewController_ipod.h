@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface ProductAddViewController_ipod : UIViewController <UINavigationControllerDelegate, UITextFieldDelegate,UITextViewDelegate,
-        UIImagePickerControllerDelegate, UIPickerViewDataSource, UIPickerViewDelegate>
+        UIImagePickerControllerDelegate, UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate>
 
 @property (strong, nonatomic) IBOutlet UITextField* name;
 @property (strong, nonatomic) IBOutlet UIImageView* productImageView;
