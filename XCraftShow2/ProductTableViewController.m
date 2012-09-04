@@ -155,21 +155,23 @@ float titleFontSize;
         }
         return cell;
         
-    } else {        
-        CustomProductCell* cell = (CustomProductCell*) [tableView dequeueReusableCellWithIdentifier:@"CustomProductCell"];
-		if (cell == nil) {
-			cell = [[CustomProductCell alloc] initWithFrame:CGRectZero reuseIdentifier:@"CustomProductCell"];
-		}
+    } else {
+        static NSString* productCellStr = @"CustomProductCell";
+        UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:productCellStr];
+        
+        if (cell == nil) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:productCellStr];
+        }
+        
         NSManagedObject *managedObject = [self.fetchedResultsController objectAtIndexPath:indexPath];        
         Product* product = (Product*) managedObject;
-        cell.primaryLabel.text = product.name;
-        cell.secondaryLabel.text = [NSString stringWithFormat:@"Quantity: %d",product.quantity.intValue];
-
-        cell.flossImage.image = [[UIImage alloc] initWithData:product.image];
-
-        if(!self.selecting) {
-            cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
-        }
+        
+        cell.textLabel.text = product.name;
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"Quantity: %d",product.quantity.intValue];
+        cell.imageView.image = [[UIImage alloc] initWithData:product.image];
+        cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
+        NSLog(@"Image -> %@", product.image);
+        
         return cell;
     }
 }
