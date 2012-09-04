@@ -14,6 +14,7 @@ static NSString *EmptyCellIdentifier = @"Empty Cell";
 #import "ProductTableViewController.h"
 #import "ProductAddViewController_ipod.h"
 #import "Product.h"
+#import "CustomProductCell.h"
 #import "Utilities.h"
 
 @implementation ProductTableViewController
@@ -23,6 +24,7 @@ static NSString *EmptyCellIdentifier = @"Empty Cell";
 @synthesize selecting, selProduct; // for reuse of this controller for selecting products
 
 float rowHeight;
+float titleFontSize;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -50,11 +52,17 @@ float rowHeight;
     //
     // Set constants for different devices
     //
+    //
+    // Set constants for different devices
+    //
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
         rowHeight = 44.0;
+        titleFontSize = 12.0;
     } else {
-        rowHeight = 66.0; 
+        rowHeight = 99.0;
+        titleFontSize = 15.0;
     }
+    
     self.tableView.rowHeight = rowHeight;
     
     //
@@ -138,31 +146,32 @@ float rowHeight;
     // Data section
     //
     id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:indexPath.section];
-    UITableViewCell* cell;
-
+    
     if(indexPath.row+1>[sectionInfo numberOfObjects])  { // using empty filled rows, basically a no-op
-        cell = [tableView dequeueReusableCellWithIdentifier:EmptyCellIdentifier];
+        UITableViewCell* cell;cell = [tableView dequeueReusableCellWithIdentifier:EmptyCellIdentifier];
 		if (cell == nil) {
 			cell = [[UITableViewCell alloc] 
                     initWithStyle:UITableViewCellStyleDefault reuseIdentifier:EmptyCellIdentifier];
         }
+        return cell;
+        
     } else {        
-        cell =[self.tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-        if (cell == nil) {
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
-        }    
+        CustomProductCell* cell = (CustomProductCell*) [tableView dequeueReusableCellWithIdentifier:@"CustomProductCell"];
+		if (cell == nil) {
+			cell = [[CustomProductCell alloc] initWithFrame:CGRectZero reuseIdentifier:@"CustomProductCell"];
+		}
         NSManagedObject *managedObject = [self.fetchedResultsController objectAtIndexPath:indexPath];        
         Product* product = (Product*) managedObject;
-        cell.textLabel.text = product.name;
-        cell.detailTextLabel.text = [NSString stringWithFormat:@"Quantity: %d",product.quantity.intValue];
-        cell.imageView.image = [UIImage imageNamed:@"no-img.png"];
-        
+        cell.primaryLabel.text = product.name;
+        cell.secondaryLabel.text = [NSString stringWithFormat:@"Quantity: %d",product.quantity.intValue];
+
+        cell.flossImage.image = [[UIImage alloc] initWithData:product.image];
+
         if(!self.selecting) {
-            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
         }
+        return cell;
     }
-    
-    return cell;
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {

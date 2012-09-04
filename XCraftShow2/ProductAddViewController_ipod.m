@@ -20,6 +20,8 @@
 
 @synthesize unitCost, quantity, name, defaultCost;
 @synthesize managedObjectContext,selectedProduct,image,productImageView;
+@synthesize tap;
+
 //
 // for ipad ui
 //
@@ -29,7 +31,8 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
+        UIImage *productImage = [UIImage imageNamed:@"no-img.jpeg"];
+        self.image = UIImagePNGRepresentation(productImage);
     }
     return self;
 }
@@ -47,6 +50,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+
     // Do any additional setup after loading the view from its nib.
     //
     // Create/set product oject
@@ -61,8 +66,22 @@
         self.quantity.text = [Utilities formatAsDecimal:product.quantity];
         [self.unitCost setTitle:[Utilities formatAsCurrency:product.unitCost] forState:UIControlStateNormal];
         [self.defaultCost setTitle:[Utilities formatAsCurrency:product.defaultCost] forState:UIControlStateNormal];
-        self.productImageView.image = [[UIImage alloc] initWithData:product.image];;
+        self.productImageView.image = [[UIImage alloc] initWithData:product.image];
     }
+}
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
+    self.tap = [[UITapGestureRecognizer alloc]
+                initWithTarget:self
+                action:@selector(dismissKeyboard)];
+    
+    [self.view addGestureRecognizer:tap];
+}
+
+-(void)dismissKeyboard {
+    [self.name resignFirstResponder];
+    [self.quantity resignFirstResponder];
+    [self.view removeGestureRecognizer:self.tap];
 }
 
 -(void) viewDidAppear:(BOOL)animated {
@@ -171,6 +190,7 @@
         product.unitCost = [formatter numberFromString:[self removeDollarSign:self.unitCost.titleLabel.text]];
         product.defaultCost = [formatter numberFromString:[self removeDollarSign:self.defaultCost.titleLabel.text]];
         product.image = self.image;
+
         product.createdDate = [NSDate date];
         
         //
@@ -188,12 +208,12 @@
     }
 }
 
-- (NSString*)removeDollarSign:(NSString*)price; {
-    if (price != nil && price.length > 0 && [price characterAtIndex:0] == '$') {
-        price = [price substringFromIndex:1];
+- (NSString*)removeDollarSign:(NSString*)localPrice; {
+    if (localPrice != nil && localPrice.length > 0 && [localPrice characterAtIndex:0] == '$') {
+        localPrice = [localPrice substringFromIndex:1];
     }
     
-    return price;
+    return localPrice;
 }
 
 - (IBAction)takePicture:(id)sender {
@@ -215,6 +235,7 @@
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     UIImage *productImage = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
     self.image = UIImagePNGRepresentation(productImage);
+    self.productImageView.image = productImage;
     
 	[picker dismissModalViewControllerAnimated:YES];
     

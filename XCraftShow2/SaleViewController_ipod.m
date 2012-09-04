@@ -23,9 +23,13 @@
 @synthesize selectedProduct;
 @synthesize managedObjectContext;
 @synthesize quantity;
-@synthesize price;
+@synthesize price,priceButton;
 @synthesize selectedProductLabel;
 @synthesize show;
+@synthesize tap;
+@synthesize editedSale;
+
+
 
 ProductTableViewController* prodView;
 
@@ -46,13 +50,33 @@ ProductTableViewController* prodView;
     //
     // first time in, set the selected product to nil
     //
-    selectedProduct = nil;
-    
     if(prodView == nil) {
         prodView = [[ProductTableViewController alloc]
                     initWithNibName:@"ProductTableViewController" bundle:nil];
         prodView.managedObjectContext = self.managedObjectContext;
     }
+    //
+    // if being edited, set ui
+    //
+    if(editedSale!= nil) {
+        Sale* sale = (Sale*)self.editedSale;
+        self.selectedProductLabel.text = sale.productRel.name;
+        self.priceButton.titleLabel.text = [Utilities formatAsCurrency:sale.amount];
+        self.quantity.text = [Utilities formatAsDecimal:sale.quantity];
+    }
+}
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
+    self.tap = [[UITapGestureRecognizer alloc]
+                initWithTarget:self
+                action:@selector(dismissKeyboard)];
+    
+    [self.view addGestureRecognizer:tap];
+}
+
+-(void)dismissKeyboard {
+    [self.quantity resignFirstResponder];
+    [self.view removeGestureRecognizer:self.tap];
 }
 
 - (void)viewDidUnload
@@ -66,7 +90,7 @@ ProductTableViewController* prodView;
     if(selectedProduct != prodView.selProduct) {
         self.selectedProductLabel.text = prodView.selProduct.name;
         self.quantity.text = [NSString stringWithFormat:@"%d",1];
-        self.price.titleLabel.text = [Utilities formatAsCurrency:prodView.selProduct.defaultCost];
+        self.priceButton.titleLabel.text = [Utilities formatAsCurrency:prodView.selProduct.defaultCost];
         selectedProduct = prodView.selProduct;
     } else {
         
@@ -82,7 +106,7 @@ ProductTableViewController* prodView;
 }
 
 - (IBAction)saveSale:(id)sender {
-    if(selectedProduct == nil) {
+    if(self.selectedProduct == nil && self.editedSale == nil) {
         //
         // alert the user that they need to select a product
         //
@@ -102,11 +126,14 @@ ProductTableViewController* prodView;
         //
         Sale* sale = (Sale*) [NSEntityDescription insertNewObjectForEntityForName:@"Sale" inManagedObjectContext:self.managedObjectContext];
         sale.quantity = [NUMBER_FORMATTER numberFromString:self.quantity.text];
-        sale.amount = [CURRENCY_FORMATTER numberFromString:self.price.titleLabel.text];
+        sale.amount = self.price;
         sale.date = self.show.date;
-        sale.productRel = (Product*) selectedProduct;
-        [self.show addSaleRelObject:sale];
+        sale.productRel = (Product*) self.selectedProduct;
         
+        if(self.editedSale == nil) {
+            [self.show addSaleRelObject:sale];
+        }
+    
         //
         // Save
         //
@@ -152,7 +179,7 @@ ProductTableViewController* prodView;
 }
 
 - (IBAction)resignButton:(id)sender {
-   [self.price resignFirstResponder];
+   [self.priceButton resignFirstResponder];
 }
 
 -(BOOL) textFieldShouldReturn:(UITextField*) textField {
@@ -160,5 +187,37 @@ ProductTableViewController* prodView;
     return YES;
 }
 
+#pragma mark - UIPickerViewDataSource methods
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
+    return 2;
+}
+
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
+    if (component == kDollars) {
+        return 1000;
+    }
+    
+    return 100;
+}
+
+#pragma mark - UIPickerViewDelegate methods
+- (NSString*)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
+    if (component == kDollars) {
+        //        if (row == [pickerView selectedRowInComponent:component]) {
+        return [NSString stringWithFormat:@"   %d", row];
+        //        } else {
+        //            return [NSString stringWithFormat:@"%d", row];
+        //        }
+    }
+    
+    return [NSString stringWithFormat:@"%02d", row];
+}
+
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
+    NSInteger dollarValue = [pickerView selectedRowInComponent:kDollars];
+    NSInteger centValue = [pickerView selectedRowInComponent:KCents];
+    self.price = [NSNumber numberWithLong:(dollarValue + centValue/100)];
+    //    [pickerView reloadComponent:kDollars];
+}
 
 @end

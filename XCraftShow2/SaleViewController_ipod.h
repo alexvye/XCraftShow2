@@ -8,19 +8,24 @@
 
 #import <UIKit/UIKit.h>
 #import "Show.h"
+#import "Sale.h"
 
-@interface SaleViewController_ipod : UIViewController <UITextFieldDelegate> {
-    IBOutlet UIButton* price;
+@interface SaleViewController_ipod : UIViewController <UITextFieldDelegate,UIPickerViewDataSource, UIPickerViewDelegate> {
+    IBOutlet UIButton* priceButton;
     IBOutlet UITextField* quantity;
     IBOutlet UILabel* selectedProductLabel;
 }
 
 @property(nonatomic, retain) IBOutlet UILabel* selectedProductLabel;
-@property (strong, nonatomic) IBOutlet UIButton* price;
+@property (strong, nonatomic) IBOutlet UIButton* priceButton;
 @property(nonatomic, retain) IBOutlet UITextField* quantity;
+@property(nonatomic, strong) IBOutlet UIPickerView* picker;
 @property (strong, nonatomic) NSManagedObject *selectedProduct;
+@property (strong, nonatomic) NSNumber* price;
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (strong, nonatomic) Show *show;
+@property (strong, nonatomic) Show *editedSale;
+@property (strong, nonatomic) UITapGestureRecognizer *tap;
 
 
 -(IBAction)selectProduct:(id)sender;

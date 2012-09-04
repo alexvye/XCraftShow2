@@ -17,7 +17,7 @@
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (strong, nonatomic) Show *show;
 
--(IBAction) addSale: (UIButton*) aButton;
+-(IBAction) addSale:(id)sender;
 - (NSNumber*)cumulativeSales;
 -(IBAction)openMail:(id)sender;
 -(NSString*)generateExportBody;

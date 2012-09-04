@@ -13,6 +13,7 @@
 		9A03036A15EECB8700089B59 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A03036915EECB8600089B59 /* AssetsLibrary.framework */; };
 		9A03037015EED0D600089B59 /* Product.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A03036F15EED0D500089B59 /* Product.m */; };
 		9A03037215EF0A1C00089B59 /* angel.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A03037115EF0A1C00089B59 /* angel.png */; };
+		9A03037A15F5244400089B59 /* CustomProductCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A03037915F5244400089B59 /* CustomProductCell.m */; };
 		9A0BE692155C94E20078135F /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A0BE691155C94E20078135F /* MobileCoreServices.framework */; };
 		9A0BE696155C957D0078135F /* CameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A0BE694155C957D0078135F /* CameraViewController.m */; };
 		9A0BE697155C957D0078135F /* CameraViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A0BE695155C957D0078135F /* CameraViewController.xib */; };
@@ -73,6 +74,8 @@
 		9A03036E15EED0D500089B59 /* Product.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Product.h; sourceTree = "<group>"; };
 		9A03036F15EED0D500089B59 /* Product.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Product.m; sourceTree = "<group>"; };
 		9A03037115EF0A1C00089B59 /* angel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = angel.png; sourceTree = "<group>"; };
+		9A03037815F5244400089B59 /* CustomProductCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomProductCell.h; sourceTree = "<group>"; };
+		9A03037915F5244400089B59 /* CustomProductCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomProductCell.m; sourceTree = "<group>"; };
 		9A0BE68C155B04CA0078135F /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		9A0BE68F155B04D10078135F /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
 		9A0BE691155C94E20078135F /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
@@ -168,6 +171,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9A03037715F523F900089B59 /* custom cells */ = {
+			isa = PBXGroup;
+			children = (
+				9A03037815F5244400089B59 /* CustomProductCell.h */,
+				9A03037915F5244400089B59 /* CustomProductCell.m */,
+			);
+			name = "custom cells";
+			sourceTree = "<group>";
+		};
 		9A24AF7815A52179000D555D /* ipad */ = {
 			isa = PBXGroup;
 			children = (
@@ -267,6 +279,7 @@
 				9A3E2079154B2EF900A3650E /* AppDelegate.m */,
 				9A5617FB154EE447001579B6 /* art */,
 				9A5617C9154EE09B001579B6 /* controllers */,
+				9A03037715F523F900089B59 /* custom cells */,
 				9A3E2083154B306100A3650E /* dataModel */,
 				9A561806154EE735001579B6 /* logic */,
 				9A3E2070154B2EF900A3650E /* Supporting Files */,
@@ -459,6 +472,7 @@
 				9AF8AFEE15DB25E500ABE444 /* SaleViewController_ipod.m in Sources */,
 				9A03035915EC2AE500089B59 /* ShowViewController_ipod.m in Sources */,
 				9A03037015EED0D600089B59 /* Product.m in Sources */,
+				9A03037A15F5244400089B59 /* CustomProductCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
