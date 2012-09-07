@@ -5,6 +5,8 @@
 //  Created by Alex Vye on 2012-08-27.
 //
 //
+#define kDollars    0
+#define KCents      1
 
 #import "ShowViewController_ipod.h"
 #import "Show.h"
@@ -16,7 +18,7 @@
 
 @implementation ShowViewController_ipod
 
-@synthesize datePicker, feeTextField, nameTextField, managedObjectContext;
+@synthesize datePicker, feeTextField, nameTextField, managedObjectContext, feePicker;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -111,24 +113,37 @@
     return YES;
 }
 
-/*
-//
-// Create/set showinfo oject
-//
-Sale* sale = (Sale*) [NSEntityDescription insertNewObjectForEntityForName:@"Sale" inManagedObjectContext:self.managedObjectContext];
-sale.quantity = [NUMBER_FORMATTER numberFromString:self.quantity.text];
-sale.amount = [CURRENCY_FORMATTER numberFromString:self.price.titleLabel.text];
-sale.date = thisShow.date;
-sale.productRel = (Product*) selectedProduct;
-[thisShow addSaleRelObject:sale];
-
-//
-// Save
-//
-
-NSError *error;
-if(![self.managedObjectContext save:&error]) {
-    NSLog(@"Error %@", [error localizedDescription]);
+#pragma mark - UIPickerViewDataSource methods
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
+    return 2;
 }
-*/
+
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
+    if (component == kDollars) {
+        return 1000;
+    }
+    
+    return 100;
+}
+
+#pragma mark - UIPickerViewDelegate methods
+- (NSString*)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
+    if (component == kDollars) {
+        //        if (row == [pickerView selectedRowInComponent:component]) {
+        return [NSString stringWithFormat:@"   %d", row];
+        //        } else {
+        //            return [NSString stringWithFormat:@"%d", row];
+        //        }
+    }
+    
+    return [NSString stringWithFormat:@"%02d", row];
+}
+
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
+    NSInteger dollarValue = [pickerView selectedRowInComponent:kDollars];
+    NSInteger centValue = [pickerView selectedRowInComponent:KCents];
+    //self.price = [NSString stringWithFormat:@"$%d.%02d", dollarValue, centValue];
+    //    [pickerView reloadComponent:kDollars];
+}
+
 @end
