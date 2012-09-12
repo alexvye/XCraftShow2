@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "Show.h"
 #import "Sale.h"
+#import "ProductTableViewController.h"
 
 @interface SaleViewController_ipod : UIViewController <UITextFieldDelegate,UIPickerViewDataSource, UIPickerViewDelegate> {
     IBOutlet UIButton* priceButton;
@@ -20,11 +21,11 @@
 @property (strong, nonatomic) IBOutlet UIButton* priceButton;
 @property(nonatomic, retain) IBOutlet UITextField* quantity;
 @property(nonatomic, strong) IBOutlet UIPickerView* picker;
-@property (strong, nonatomic) NSManagedObject *selectedProduct;
 @property (strong, nonatomic) NSNumber* price;
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (strong, nonatomic) Show *show;
 @property (strong, nonatomic) Show *editedSale;
+@property (strong, nonatomic) ProductTableViewController* prodView;
 @property (strong, nonatomic) UITapGestureRecognizer *tap;
 
 

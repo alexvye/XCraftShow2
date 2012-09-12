@@ -12,7 +12,6 @@
 #import "Utilities.h"
 #import <AudioToolbox/AudioToolbox.h>
 #import "ProductPriceViewController.h"
-#import "ProductTableViewController.h"
 
 @interface SaleViewController_ipod ()
 
@@ -20,7 +19,6 @@
 
 @implementation SaleViewController_ipod
 
-@synthesize selectedProduct;
 @synthesize managedObjectContext;
 @synthesize quantity;
 @synthesize price,priceButton;
@@ -28,10 +26,8 @@
 @synthesize show;
 @synthesize tap;
 @synthesize editedSale;
+@synthesize prodView;
 
-
-
-ProductTableViewController* prodView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -87,14 +83,12 @@ ProductTableViewController* prodView;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    if(selectedProduct != prodView.selProduct) {
-        self.selectedProductLabel.text = prodView.selProduct.name;
+    if(self.prodView.selProduct != nil) {
+        self.selectedProductLabel.text = self.prodView.selProduct.name;
         self.quantity.text = [NSString stringWithFormat:@"%d",1];
-        self.priceButton.titleLabel.text = [Utilities formatAsCurrency:prodView.selProduct.defaultCost];
-        selectedProduct = prodView.selProduct;
-    } else {
-        
-    }
+        NSLog(@"Price should be %@", self.prodView.selProduct.unitCost);
+        [self.priceButton setTitle:[Utilities formatAsCurrency:self.prodView.selProduct.unitCost] forState:UIControlStateNormal] ;
+    } 
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -105,8 +99,13 @@ ProductTableViewController* prodView;
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+
 - (IBAction)saveSale:(id)sender {
-    if(self.selectedProduct == nil && self.editedSale == nil) {
+    //
+    // If you are coming from "edit sale", you will pass, otherwise you need to
+    // select a product
+    //
+    if(self.prodView.selProduct == nil && self.editedSale == nil) {
         //
         // alert the user that they need to select a product
         //
@@ -122,17 +121,25 @@ ProductTableViewController* prodView;
         
     } else {
         //
-        // Create/set showinfo oject
+        // Create/set sale oject
         //
-        Sale* sale = (Sale*) [NSEntityDescription insertNewObjectForEntityForName:@"Sale" inManagedObjectContext:self.managedObjectContext];
+        Sale* sale;
+        
+        //
+        // create new sale and add to show if we are not editing an exiting one
+        //
+        if(self.editedSale == nil) {
+            sale = (Sale*) [NSEntityDescription insertNewObjectForEntityForName:@"Sale" inManagedObjectContext:self.managedObjectContext];
+            [self.show addSaleRelObject:sale];
+            
+        }
+        
+        if(self.prodView != nil) {
+            sale.productRel = (Product*) self.prodView.selProduct;
+        }
         sale.quantity = [NUMBER_FORMATTER numberFromString:self.quantity.text];
         sale.amount = self.price;
         sale.date = self.show.date;
-        sale.productRel = (Product*) self.selectedProduct;
-        
-        if(self.editedSale == nil) {
-            [self.show addSaleRelObject:sale];
-        }
     
         //
         // Save

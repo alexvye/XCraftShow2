@@ -169,7 +169,10 @@ float titleFontSize;
         cell.textLabel.text = product.name;
         cell.detailTextLabel.text = [NSString stringWithFormat:@"Quantity: %d",product.quantity.intValue];
         cell.imageView.image = [[UIImage alloc] initWithData:product.image];
-        cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
+        
+        if(!self.selecting) {
+            cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
+        }
         
         return cell;
     }
@@ -220,7 +223,8 @@ float titleFontSize;
         // if you are adding product (came from tab bar) push to editor
         //
         if(self.selecting) {
-            self.selProduct = [self.fetchedResultsController objectAtIndexPath:indexPath];
+            self.selProduct = (Product*)[self.fetchedResultsController objectAtIndexPath:indexPath];
+            NSLog(@"Selected product %@ costs %@",self.selProduct.name, self.selProduct.unitCost);
             [self.navigationController popViewControllerAnimated:TRUE];
             
         } else {

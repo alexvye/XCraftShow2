@@ -235,7 +235,6 @@ float detailedFontSize;
     detailView.managedObjectContext = self.managedObjectContext;
     detailView.show = self.show;
     detailView.editedSale = nil;
-    detailView.selectedProduct = nil;
     [self.navigationController pushViewController:detailView animated:YES];
 }
 
