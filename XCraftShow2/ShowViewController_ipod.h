@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Show.h"
 
 @interface ShowViewController_ipod : UIViewController <UIPickerViewDataSource, UIPickerViewDelegate>{
     IBOutlet UIDatePicker* datePicker;
@@ -20,6 +21,7 @@
 @property(nonatomic,retain) IBOutlet UITextField* feeTextField;
 @property(nonatomic,retain) IBOutlet UITextField* nameTextField;
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
+@property (strong, nonatomic) Show* passedShow;
 
 - (IBAction)cancelShow:(id)sender;
 - (IBAction)saveShow:(id)sender;

@@ -19,6 +19,7 @@
 @implementation ShowViewController_ipod
 
 @synthesize datePicker, feeTextField, nameTextField, managedObjectContext, feePicker;
+@synthesize passedShow;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -33,11 +34,20 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    datePicker.date = [NSDate date];
-	[datePicker addTarget:self
+    self.datePicker.date = [NSDate date];
+	[self.datePicker addTarget:self
                    action:@selector(changeDateInLabel:)
          forControlEvents:UIControlEventValueChanged];
-	[self.view addSubview:datePicker];
+	[self.view addSubview:self.datePicker];
+    
+    //
+    // if a show passed in, use it
+    //
+    if(self.passedShow != nil) {
+        self.datePicker.date = self.passedShow.date;
+        self.feeTextField.text = [Utilities formatAsCurrency:self.passedShow.fee];
+        self.nameTextField.text = self.passedShow.name;
+    }
 }
 
 - (void)viewDidUnload
@@ -85,7 +95,12 @@
                                     otherButtonTitles:nil];
         [alertDialog show];
     } else {
-        Show* show = (Show*) [NSEntityDescription insertNewObjectForEntityForName:@"Show" inManagedObjectContext:self.managedObjectContext];
+        Show* show;
+        if(self.passedShow == nil) {
+            show = (Show*) [NSEntityDescription insertNewObjectForEntityForName:@"Show" inManagedObjectContext:self.managedObjectContext];
+        } else {
+            show = self.passedShow;
+        }
 
         show.name = self.nameTextField.text;
         show.date = self.datePicker.date;

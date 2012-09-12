@@ -71,17 +71,19 @@
 }
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
+    /*
     self.tap = [[UITapGestureRecognizer alloc]
                 initWithTarget:self
                 action:@selector(dismissKeyboard)];
     
     [self.view addGestureRecognizer:tap];
+     */
 }
 
 -(void)dismissKeyboard {
     [self.name resignFirstResponder];
     [self.quantity resignFirstResponder];
-    [self.view removeGestureRecognizer:self.tap];
+    //[self.view removeGestureRecognizer:self.tap];
 }
 
 -(void) viewDidAppear:(BOOL)animated {

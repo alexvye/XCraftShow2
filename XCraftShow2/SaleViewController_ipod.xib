@@ -332,14 +332,6 @@ AAgACAAIAAEAAQABAAE</bytes>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">price</string>
-						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="34646911"/>
-					</object>
-					<int key="connectionID">40</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">delegate</string>
 						<reference key="source" ref="973432312"/>
 						<reference key="destination" ref="372490531"/>
@@ -504,12 +496,17 @@ AAgACAAIAAEAAQABAAE</bytes>
 					<string key="className">SaleViewController_ipod</string>
 					<string key="superclassName">UIViewController</string>
 					<dictionary class="NSMutableDictionary" key="actions">
+						<string key="cancelSale:">id</string>
 						<string key="openPricePicker:">id</string>
 						<string key="resignButton:">id</string>
 						<string key="saveSale:">id</string>
 						<string key="selectProduct:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
+						<object class="IBActionInfo" key="cancelSale:">
+							<string key="name">cancelSale:</string>
+							<string key="candidateClassName">id</string>
+						</object>
 						<object class="IBActionInfo" key="openPricePicker:">
 							<string key="name">openPricePicker:</string>
 							<string key="candidateClassName">id</string>
@@ -528,18 +525,18 @@ AAgACAAIAAEAAQABAAE</bytes>
 						</object>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="outlets">
-						<string key="dateButton">UIButton</string>
-						<string key="price">UIButton</string>
+						<string key="picker">UIPickerView</string>
+						<string key="priceButton">UIButton</string>
 						<string key="quantity">UITextField</string>
 						<string key="selectedProductLabel">UILabel</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<object class="IBToOneOutletInfo" key="dateButton">
-							<string key="name">dateButton</string>
-							<string key="candidateClassName">UIButton</string>
+						<object class="IBToOneOutletInfo" key="picker">
+							<string key="name">picker</string>
+							<string key="candidateClassName">UIPickerView</string>
 						</object>
-						<object class="IBToOneOutletInfo" key="price">
-							<string key="name">price</string>
+						<object class="IBToOneOutletInfo" key="priceButton">
+							<string key="name">priceButton</string>
 							<string key="candidateClassName">UIButton</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="quantity">

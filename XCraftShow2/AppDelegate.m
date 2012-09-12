@@ -48,14 +48,23 @@
     //
     // Set up the tab bar
     //
-    UINavigationController *showNavigationController, *productNavigationController, *helpNavigationController;
+    UINavigationController *showNavigationController, *showEditNavigationController, *productNavigationController, *helpNavigationController;
     
     ShowTableViewController* showViewController = [[ShowTableViewController alloc] initWithNibName:@"ShowTableViewController" bundle:nil];
-    showViewController.title = @"Shows";
+    showViewController.title = @"Shows/Sales";
+    showViewController.editingShow = false;
     showViewController.managedObjectContext = self.managedObjectContext;
     showNavigationController = [[UINavigationController alloc] initWithRootViewController:showViewController];
     showNavigationController.tabBarItem.image = [UIImage imageNamed:@"122-stats.png"];
-    showNavigationController.title = @"Shows";
+    showNavigationController.title = @"Shows/Sales";
+    
+    ShowTableViewController* showEditViewController = [[ShowTableViewController alloc] initWithNibName:@"ShowTableViewController" bundle:nil];
+    showEditViewController.title = @"Shows/Edit";
+    showEditViewController.editingShow = true;
+    showEditViewController.managedObjectContext = self.managedObjectContext;
+    showEditNavigationController = [[UINavigationController alloc] initWithRootViewController:showEditViewController];
+    showEditNavigationController.tabBarItem.image = [UIImage imageNamed:@"122-stats.png"];
+    showEditNavigationController.title = @"Shows/Edit";
     
     ProductTableViewController* productViewController = [[ProductTableViewController alloc] initWithNibName:@"ProductTableViewController" bundle:nil];
     productViewController.title = @"Products";
@@ -72,7 +81,7 @@
     helpNavigationController.title = @"Help";
     
     self.tabBarController = [[UITabBarController alloc] init];
-    self.tabBarController.viewControllers = [NSArray arrayWithObjects:showNavigationController, productNavigationController, helpNavigationController, nil];
+    self.tabBarController.viewControllers = [NSArray arrayWithObjects:showNavigationController, showEditNavigationController, productNavigationController, helpNavigationController, nil];
     self.window.rootViewController = self.tabBarController;
     
     //

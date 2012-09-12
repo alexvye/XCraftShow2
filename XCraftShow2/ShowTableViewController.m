@@ -24,6 +24,7 @@ static NSString *EmptyCellIdentifier = @"Empty Cell";
 
 @synthesize managedObjectContext;
 @synthesize fetchedResultsController = __fetchedResultsController;
+@synthesize editingShow;
 
 float rowHeight;
 float primaryFontSize;
@@ -200,16 +201,30 @@ float detailedFontSize;
         //
         
     } else {
-        SalesTableViewController* salesView = [[SalesTableViewController alloc]
-                                    initWithNibName:@"SalesTableViewController" bundle:nil];
-        //
-        // Pass the selected object to the new view controller.
-        //
-        salesView.title = @"Sales";
-        salesView.managedObjectContext = self.managedObjectContext;
-        NSManagedObject *managedObject = [self.fetchedResultsController objectAtIndexPath:indexPath]; 
-        salesView.show = (Show*)managedObject;
-        [self.navigationController pushViewController:salesView animated:true];
+        NSManagedObject *managedObject = [self.fetchedResultsController objectAtIndexPath:indexPath];
+        Show* show = (Show*)managedObject;
+        if(!editingShow) {
+            SalesTableViewController* salesView = [[SalesTableViewController alloc]
+                                                   initWithNibName:@"SalesTableViewController" bundle:nil];
+            salesView.title = @"Sales";
+            salesView.managedObjectContext = self.managedObjectContext;
+            salesView.show = show;
+            [self.navigationController pushViewController:salesView animated:true];
+            
+        } else {
+            ShowViewController_ipod* detailView;
+            if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+                detailView  = [[ShowViewController_ipod alloc]
+                                    initWithNibName:@"ShowViewController_ipod" bundle:nil];
+            } else {
+                detailView = [[ShowViewController_ipod alloc]
+                              initWithNibName:@"ShowAddViewController" bundle:nil];
+            }
+            detailView.title = @"Edit Show";
+            detailView.managedObjectContext = self.managedObjectContext;
+            detailView.passedShow = show;
+            [self presentModalViewController:detailView animated:YES];
+        }
     }
 }
 
@@ -230,6 +245,7 @@ float detailedFontSize;
 	// Pass the selected object to the new view controller.
 	//
     showView.managedObjectContext = self.managedObjectContext;
+    showView.passedShow = nil;
     [self presentModalViewController:showView animated:YES];
 }
 

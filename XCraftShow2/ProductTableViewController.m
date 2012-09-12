@@ -170,7 +170,6 @@ float titleFontSize;
         cell.detailTextLabel.text = [NSString stringWithFormat:@"Quantity: %d",product.quantity.intValue];
         cell.imageView.image = [[UIImage alloc] initWithData:product.image];
         cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
-        NSLog(@"Image -> %@", product.image);
         
         return cell;
     }
