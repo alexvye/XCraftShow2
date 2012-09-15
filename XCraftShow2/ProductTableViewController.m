@@ -169,6 +169,7 @@ float titleFontSize;
         cell.textLabel.text = product.name;
         cell.detailTextLabel.text = [NSString stringWithFormat:@"Quantity: %d",product.quantity.intValue];
         cell.imageView.image = [[UIImage alloc] initWithData:product.image];
+        cell.imageView.contentMode = UIViewContentModeScaleAspectFit;
         
         if(!self.selecting) {
             cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
