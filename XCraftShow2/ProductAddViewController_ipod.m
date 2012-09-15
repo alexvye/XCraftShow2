@@ -138,15 +138,19 @@
 
 - (IBAction)openPricePicker:(id)sender {
     [self resignButton:sender];
-    ProductPriceViewController* ppvc = [[ProductPriceViewController alloc] initWithNibName:@"ProductPriceViewController" bundle:nil];
-    ppvc.prevPriceLabel = (UIButton*) sender;
 
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        ProductPriceViewController* ppvc = [[ProductPriceViewController alloc] initWithNibName:@"ProductPriceViewController_iPad" bundle:nil];
+        ppvc.prevPriceLabel = (UIButton*) sender;
+        
         self.popover = [[UIPopoverController alloc] initWithContentViewController:ppvc];
-        UIView* view = sender;
+        self.popover.popoverContentSize = ppvc.view.frame.size;
+       UIView* view = sender;
         [self.popover presentPopoverFromRect:view.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
     } else {
-        [self presentModalViewController:ppvc animated:YES];
+        ProductPriceViewController* ppvc = [[ProductPriceViewController alloc] initWithNibName:@"ProductPriceViewController" bundle:nil];
+        ppvc.prevPriceLabel = (UIButton*) sender;
+       [self presentModalViewController:ppvc animated:YES];
     }
 }
 

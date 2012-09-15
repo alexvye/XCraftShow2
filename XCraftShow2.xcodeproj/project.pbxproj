@@ -64,6 +64,7 @@
 		B5801AB515B5BD4C00DB16C9 /* ProductPriceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5801AB315B5BD4B00DB16C9 /* ProductPriceViewController.m */; };
 		B5801AB615B5BD4C00DB16C9 /* ProductPriceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B5801AB415B5BD4C00DB16C9 /* ProductPriceViewController.xib */; };
 		B5C029F81603879600052760 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B5C029F71603879600052760 /* Default-568h@2x.png */; };
+		B5C7074516053C04008043AD /* ProductPriceViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = B5C7074416053C04008043AD /* ProductPriceViewController_iPad.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -150,6 +151,7 @@
 		B5801AB315B5BD4B00DB16C9 /* ProductPriceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductPriceViewController.m; sourceTree = "<group>"; };
 		B5801AB415B5BD4C00DB16C9 /* ProductPriceViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProductPriceViewController.xib; sourceTree = "<group>"; };
 		B5C029F71603879600052760 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		B5C7074416053C04008043AD /* ProductPriceViewController_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProductPriceViewController_iPad.xib; sourceTree = "<group>"; };
 		B5F0B2FD15BE1AFA00A3E5A8 /* no-img.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "no-img.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -188,6 +190,7 @@
 				9A5617EF154EE190001579B6 /* ProductAddViewController.xib */,
 				9A03036615EEC1E600089B59 /* SaleViewController_ipad.xib */,
 				9A5617EA154EE17C001579B6 /* ShowAddViewController.xib */,
+				B5C7074416053C04008043AD /* ProductPriceViewController_iPad.xib */,
 			);
 			name = ipad;
 			sourceTree = "<group>";
@@ -449,6 +452,7 @@
 				9A03036815EEC1E600089B59 /* SaleViewController_ipad.xib in Resources */,
 				9A03037215EF0A1C00089B59 /* angel.png in Resources */,
 				B5C029F81603879600052760 /* Default-568h@2x.png in Resources */,
+				B5C7074516053C04008043AD /* ProductPriceViewController_iPad.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
