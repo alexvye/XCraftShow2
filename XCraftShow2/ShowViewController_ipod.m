@@ -157,8 +157,8 @@
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
     NSInteger dollarValue = [pickerView selectedRowInComponent:kDollars];
     NSInteger centValue = [pickerView selectedRowInComponent:KCents];
-    //self.price = [NSString stringWithFormat:@"$%d.%02d", dollarValue, centValue];
-    //    [pickerView reloadComponent:kDollars];
+//    self.price = [NSString stringWithFormat:@"$%d.%02d", dollarValue, centValue];
+//    [pickerView reloadComponent:kDollars];
 }
 
 @end

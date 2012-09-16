@@ -25,7 +25,8 @@
 //
 // for ipad ui
 //
-@synthesize price, prevPriceLabel,unitCostPicker,defaultCostCostPicker;
+@synthesize popover;
+//@synthesize price, prevPriceLabel,unitCostPicker,defaultCostCostPicker;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -137,10 +138,20 @@
 
 - (IBAction)openPricePicker:(id)sender {
     [self resignButton:sender];
-    
-    ProductPriceViewController* ppvc = [[ProductPriceViewController alloc] initWithNibName:@"ProductPriceViewController" bundle:nil];
-    ppvc.prevPriceLabel = (UIButton*) sender;
-    [self presentModalViewController:ppvc animated:YES];
+
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        ProductPriceViewController* ppvc = [[ProductPriceViewController alloc] initWithNibName:@"ProductPriceViewController_iPad" bundle:nil];
+        ppvc.prevPriceLabel = (UIButton*) sender;
+        
+        self.popover = [[UIPopoverController alloc] initWithContentViewController:ppvc];
+        self.popover.popoverContentSize = ppvc.view.frame.size;
+       UIView* view = sender;
+        [self.popover presentPopoverFromRect:view.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
+    } else {
+        ProductPriceViewController* ppvc = [[ProductPriceViewController alloc] initWithNibName:@"ProductPriceViewController" bundle:nil];
+        ppvc.prevPriceLabel = (UIButton*) sender;
+       [self presentModalViewController:ppvc animated:YES];
+    }
 }
 
 - (IBAction)resignButton:(id)sender {
@@ -291,9 +302,9 @@
 }
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
-    NSInteger dollarValue = [pickerView selectedRowInComponent:kDollars];
-    NSInteger centValue = [pickerView selectedRowInComponent:KCents];
-    self.price = [NSString stringWithFormat:@"$%d.%02d", dollarValue, centValue];
+//    NSInteger dollarValue = [pickerView selectedRowInComponent:kDollars];
+//    NSInteger centValue = [pickerView selectedRowInComponent:KCents];
+//    self.price = [NSString stringWithFormat:@"$%d.%02d", dollarValue, centValue];
     //    [pickerView reloadComponent:kDollars];
 }
 

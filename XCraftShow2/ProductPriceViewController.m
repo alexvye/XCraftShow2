@@ -85,11 +85,7 @@
 #pragma mark - UIPickerViewDelegate methods
 - (NSString*)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
     if (component == kDollars) {
-//        if (row == [pickerView selectedRowInComponent:component]) {
             return [NSString stringWithFormat:@"   %d", row];
-//        } else {
-//            return [NSString stringWithFormat:@"%d", row];
-//        }
     }
 
     return [NSString stringWithFormat:@"%02d", row];
@@ -99,7 +95,12 @@
     NSInteger dollarValue = [pickerView selectedRowInComponent:kDollars];
     NSInteger centValue = [pickerView selectedRowInComponent:KCents];
     self.price = [NSString stringWithFormat:@"$%d.%02d", dollarValue, centValue];
-//    [pickerView reloadComponent:kDollars];
+
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        [self.prevPriceLabel setTitle:self.price forState:UIControlStateNormal] ;
+    } else {
+        [pickerView reloadComponent:kDollars];
+    }
 }
 
 @end
