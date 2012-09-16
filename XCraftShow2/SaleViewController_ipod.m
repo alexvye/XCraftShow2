@@ -59,15 +59,59 @@
         self.selectedProductLabel.text = sale.productRel.name;
         self.priceButton.titleLabel.text = [Utilities formatAsCurrency:sale.amount];
         self.quantity.text = [Utilities formatAsDecimal:sale.quantity];
+        //
+        // iPad has price in picker on current screen/iphone has it on button
+        //
+        if ([[UIDevice currentDevice] userInterfaceIdiom] != UIUserInterfaceIdiomPhone) {
+            int dollar = self.price.longValue/100;
+            int cent = (self.price.longValue-dollar)*100;
+                
+            [self.picker selectRow:dollar inComponent:0 animated:NO];
+            [self.picker reloadComponent:0];
+            [self.picker selectRow:cent inComponent:1 animated:NO];
+            [self.picker reloadComponent:1];
+        }
     }
 }
 
+
+/*
+ if (self.prevPriceLabel != nil) {
+ NSString* tmpPrice = self.price;
+ if (tmpPrice != nil && tmpPrice.length > 0 && [tmpPrice characterAtIndex:0] == '$') {
+ tmpPrice = [tmpPrice substringFromIndex:1];
+ }
+ NSArray* nums = [tmpPrice componentsSeparatedByString: @"."];
+ if (nums != nil && [nums count] >= 2) {
+ int dollar = [[nums objectAtIndex:0] intValue];
+ int cent = [[nums objectAtIndex:1] intValue];
+ 
+ [self.picker selectRow:dollar inComponent:0 animated:NO];
+ [self.picker reloadComponent:0];
+ [self.picker selectRow:cent inComponent:1 animated:NO];
+ [self.picker reloadComponent:1];
+ }
+ }
+ */
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
     self.tap = [[UITapGestureRecognizer alloc]
                 initWithTarget:self
                 action:@selector(dismissKeyboard)];
     
     [self.view addGestureRecognizer:tap];
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField {
+    //
+    // Only one text field, quantity, set the price
+    // to be quantity * default cost
+    //
+    NSNumber* saleQqantity = [NUMBER_FORMATTER numberFromString:textField.text];
+    NSNumber* salePrice = [NSNumber numberWithLong:(saleQqantity.intValue * self.prodView.selProduct.defaultCost.longValue)];
+    self.priceButton.titleLabel.text = [Utilities formatAsCurrency:salePrice];
+    [self.quantity resignFirstResponder];
+    [self.view removeGestureRecognizer:self.tap];
+    
 }
 
 -(void)dismissKeyboard {
@@ -87,7 +131,7 @@
         self.selectedProductLabel.text = self.prodView.selProduct.name;
         self.quantity.text = [NSString stringWithFormat:@"%d",1];
         NSLog(@"Price should be %@", self.prodView.selProduct.unitCost);
-        [self.priceButton setTitle:[Utilities formatAsCurrency:self.prodView.selProduct.unitCost] forState:UIControlStateNormal] ;
+        [self.priceButton setTitle:[Utilities formatAsCurrency:self.prodView.selProduct.defaultCost] forState:UIControlStateNormal] ;
     } 
 }
 
@@ -138,7 +182,16 @@
             sale.productRel = (Product*) self.prodView.selProduct;
         }
         sale.quantity = [NUMBER_FORMATTER numberFromString:self.quantity.text];
-        sale.amount = self.price;
+        
+        //
+        // iPad has price in picker on current screen/iphone has it on button
+        //
+        if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+            sale.amount = [CURRENCY_FORMATTER numberFromString:self.priceButton.titleLabel.text];
+        } else {
+            sale.amount = self.price;
+
+        }
         sale.date = self.show.date;
     
         //
