@@ -10,10 +10,11 @@
 #import <MessageUI/MFMailComposeViewController.h>
 #import "Show.h"
 
-@interface SalesTableViewController : UITableViewController <MFMailComposeViewControllerDelegate>{
+@interface SalesTableViewController : UIViewController<UITableViewDataSource, UITableViewDelegate,  MFMailComposeViewControllerDelegate>{
     
 }
 
+@property (strong, nonatomic) IBOutlet UITableView* salesTableView;
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (strong, nonatomic) Show *show;
 
