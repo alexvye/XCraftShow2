@@ -209,7 +209,9 @@ float detailedFontSize;
             salesView.title = @"Sales";
             salesView.managedObjectContext = self.managedObjectContext;
             salesView.show = show;
-            [self.navigationController pushViewController:salesView animated:true];
+//            [self.navigationController pushViewController:salesView animated:true];
+            
+            [self presentModalViewController:salesView animated:YES];
             
         } else {
             ShowViewController_ipod* detailView;
@@ -252,11 +254,9 @@ float detailedFontSize;
 - (void)configureCell:(UITableViewCell*)cell atIndexPath:(NSIndexPath *)indexPath
 {
     Show* show = (Show*)[self.fetchedResultsController objectAtIndexPath:indexPath];
-    cell.textLabel.font = [UIFont fontWithName:@"Helvetica" size:primaryFontSize];
     cell.textLabel.text = show.name;
-    cell.detailTextLabel.font = [UIFont fontWithName:@"Helvetica" size:detailedFontSize];
     cell.detailTextLabel.text = [NSString stringWithFormat:@"%@, profit = %@",[DATE_FORMATTER stringFromDate:show.date], [CURRENCY_FORMATTER stringFromNumber:[self calulateProfit:show]]];
-    cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
+    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 }
 
 - (NSNumber*)calulateProfit:(Show*)show 

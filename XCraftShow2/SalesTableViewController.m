@@ -19,12 +19,12 @@
 @end
 
 @implementation SalesTableViewController
-@synthesize managedObjectContext, show;
+@synthesize salesTableView, managedObjectContext, show;
 
 float rowHeight;
 float primaryFontSize;
 float detailedFontSize;
-
+/*
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
@@ -33,7 +33,7 @@ float detailedFontSize;
     }
     return self;
 }
-
+*/
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -47,7 +47,7 @@ float detailedFontSize;
         primaryFontSize = 36.0;
         detailedFontSize = 24.0;
     }
-    self.tableView.rowHeight = rowHeight;
+    self.salesTableView.rowHeight = rowHeight;
     //
     // Button for adding Shows
     //
@@ -61,19 +61,19 @@ float detailedFontSize;
     [super viewWillAppear:animated];
     
     [self turnOffEditing];
-    if(self.tableView != nil) {
-        [self.tableView reloadData];
+    if(self.salesTableView != nil) {
+        [self.salesTableView reloadData];
     }
 }
 
 - (void)turnOnEditing {
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(turnOffEditing)];
-    [self.tableView setEditing:YES animated:YES];
+    [self.salesTableView setEditing:YES animated:YES];
 }
 
 - (void)turnOffEditing {
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:@selector(turnOnEditing)];
-    [self.tableView setEditing:NO animated:YES];
+    [self.salesTableView setEditing:NO animated:YES];
 }
 
 - (void)viewDidUnload
@@ -113,12 +113,13 @@ float detailedFontSize;
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *EmptyCellIdentifier = @"EmptyCell";
     if(indexPath.section == INFO_SECTION) {
-        UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"HeaderCell"];
+        static NSString* HeaderCellIdentifier = @"HeaderCell";
+        
+        UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:HeaderCellIdentifier];
         if (cell == nil) {
             cell = [[UITableViewCell alloc]
-                    initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"HeaderCell"];
+                    initWithStyle:UITableViewCellStyleDefault reuseIdentifier:HeaderCellIdentifier];
         }
         
         //
@@ -126,10 +127,12 @@ float detailedFontSize;
         //
         NSString* headerString = [NSString stringWithFormat:@"%d sales for a total of %@",self.show.saleRel.count, [Utilities formatAsCurrency:[self cumulativeSales]]];
         
-        cell.textLabel.font = [UIFont fontWithName:@"Helvetica" size:detailedFontSize];
         cell.textLabel.text = headerString;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
     } else {
+        static NSString *EmptyCellIdentifier = @"EmptyCell";
+
         if(indexPath.row+1 > self.show.saleRel.count) { // using empty filled rows, basically a no-op
             UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:EmptyCellIdentifier];
             if (cell == nil) {
@@ -144,11 +147,9 @@ float detailedFontSize;
                         initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"CellIdentifier"];
             }
             Sale* sale = (Sale*)[[self.show.saleRel.objectEnumerator allObjects] objectAtIndex:indexPath.row];
-            cell.textLabel.font = [UIFont fontWithName:@"Helvetica" size:primaryFontSize];
             cell.textLabel.text = sale.productRel.name;
-            cell.detailTextLabel.font = [UIFont fontWithName:@"Helvetica" size:detailedFontSize];
             cell.detailTextLabel.text = [NSString stringWithFormat:@"Quantity = %@, Total = %@", sale.quantity, [Utilities formatAsCurrency:sale.amount]];
-            cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             return cell;
         }
     }
@@ -158,7 +159,13 @@ float detailedFontSize;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if(indexPath.row+1 <= show.saleRel.allObjects.count) {
+    if(indexPath.section == INFO_SECTION) {
+        UITableViewCell* cell = [tableView cellForRowAtIndexPath:indexPath];
+        cell.selected = FALSE;
+        return;
+    }
+    
+    if(indexPath.row < show.saleRel.allObjects.count) {
 
     //
     // push the view controller
@@ -184,7 +191,9 @@ float detailedFontSize;
         detailView.managedObjectContext = self.managedObjectContext;
         detailView.show = self.show;
         detailView.editedSale = [self.show.saleRel.allObjects objectAtIndex:indexPath.row];
-        [self.navigationController pushViewController:detailView animated:YES];
+//        [self.navigationController pushViewController:detailView animated:YES];
+        
+        [self presentModalViewController:detailView animated:YES];
     }
 }
 
@@ -213,8 +222,8 @@ float detailedFontSize;
             NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
             abort();
         }
-        [self.tableView endUpdates];
-        [self.tableView reloadData];
+        [self.salesTableView endUpdates];
+        [self.salesTableView reloadData];
     }
 }
 
@@ -235,7 +244,9 @@ float detailedFontSize;
     detailView.managedObjectContext = self.managedObjectContext;
     detailView.show = self.show;
     detailView.editedSale = nil;
-    [self.navigationController pushViewController:detailView animated:YES];
+//    [self.navigationController pushViewController:detailView animated:YES];
+    
+    [self presentModalViewController:detailView animated:YES];
 }
 
 - (NSNumber*)cumulativeSales {

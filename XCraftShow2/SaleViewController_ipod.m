@@ -140,7 +140,8 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 - (IBAction)cancelSale:(id)sender {
-    [self.navigationController popViewControllerAnimated:YES];
+    [self dismissModalViewControllerAnimated:YES];
+//    [self.navigationController popViewControllerAnimated:YES];
 }
 
 
@@ -211,7 +212,8 @@
         //
         // go back to sales table
         //
-        [self.navigationController popViewControllerAnimated:true];
+        [self dismissModalViewControllerAnimated:YES];
+//        [self.navigationController popViewControllerAnimated:true];
     }
 }
 
@@ -227,7 +229,8 @@
     // Pass the selected object to the new view controller.
     //
     prodView.selecting = TRUE;
-    [self.navigationController pushViewController:prodView animated:YES];
+    [self presentModalViewController:prodView animated:YES];
+//    [self.navigationController pushViewController:prodView animated:YES];
 }
 
 - (IBAction)openPricePicker:(id)sender {
