@@ -177,7 +177,6 @@
     //
     prodView.selecting = TRUE;
     [self presentModalViewController:prodView animated:YES];
-//    [self.navigationController pushViewController:prodView animated:YES];
 }
 
 - (IBAction)openPricePicker:(id)sender {

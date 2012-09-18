@@ -172,7 +172,7 @@ float titleFontSize;
         cell.imageView.contentMode = UIViewContentModeScaleAspectFit;
         
         if(!self.selecting) {
-            cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         }
         
         return cell;
@@ -226,8 +226,7 @@ float titleFontSize;
         if(self.selecting) {
             self.selProduct = (Product*)[self.fetchedResultsController objectAtIndexPath:indexPath];
             NSLog(@"Selected product %@ costs %@",self.selProduct.name, self.selProduct.unitCost);
-            [self.navigationController popViewControllerAnimated:TRUE];
-            
+            [self dismissModalViewControllerAnimated:TRUE];
         } else {
 	//
 	// push the view controller
