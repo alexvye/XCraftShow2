@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "Show.h"
 
-@interface ShowTableViewController : UITableViewController<UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate> {
+@interface ShowTableViewController : UITableViewController<NSFetchedResultsControllerDelegate> {
 }
 
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;

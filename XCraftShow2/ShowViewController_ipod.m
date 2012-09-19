@@ -9,6 +9,7 @@
 #define KCents      1
 
 #import "ShowViewController_ipod.h"
+#import "ProductPriceViewController.h"
 #import "Show.h"
 #import "Utilities.h"
 
@@ -18,7 +19,7 @@
 
 @implementation ShowViewController_ipod
 
-@synthesize datePicker, feeTextField, nameTextField, managedObjectContext, feePicker;
+@synthesize datePicker, feeButton, nameTextField, managedObjectContext, feePicker;
 @synthesize passedShow;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -45,7 +46,7 @@
     //
     if(self.passedShow != nil) {
         self.datePicker.date = self.passedShow.date;
-        self.feeTextField.text = [Utilities formatAsCurrency:self.passedShow.fee];
+        [self.feeButton setTitle:[Utilities formatAsCurrency:self.passedShow.fee] forState:UIControlStateNormal];
         self.nameTextField.text = self.passedShow.name;
     }
 }
@@ -69,6 +70,12 @@
 	NSString* message = [NSString stringWithFormat:@"%@",
                   [df stringFromDate:datePicker.date]];
 	NSLog(@"%@",message);
+}
+
+- (IBAction)changeFee:(id)sender {
+    ProductPriceViewController* ppvc = [[ProductPriceViewController alloc] initWithNibName:@"ProductPriceViewController" bundle:nil];
+    ppvc.prevPriceLabel = (UIButton*) sender;
+    [self presentModalViewController:ppvc animated:YES];
 }
 
 - (IBAction)cancelShow:(id)sender {
@@ -106,7 +113,7 @@
         show.date = self.datePicker.date;
         NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
         [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
-        show.fee = [formatter numberFromString:self.feeTextField.text];
+        show.fee = [formatter numberFromString:self.feeButton.titleLabel.text];
         
         //
         // Save
@@ -155,8 +162,8 @@
 }
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
-    NSInteger dollarValue = [pickerView selectedRowInComponent:kDollars];
-    NSInteger centValue = [pickerView selectedRowInComponent:KCents];
+//    NSInteger dollarValue = [pickerView selectedRowInComponent:kDollars];
+//    NSInteger centValue = [pickerView selectedRowInComponent:KCents];
 //    self.price = [NSString stringWithFormat:@"$%d.%02d", dollarValue, centValue];
 //    [pickerView reloadComponent:kDollars];
 }

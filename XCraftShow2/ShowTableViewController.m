@@ -209,10 +209,7 @@ float detailedFontSize;
             salesView.title = @"Sales";
             salesView.managedObjectContext = self.managedObjectContext;
             salesView.show = show;
-//            [self.navigationController pushViewController:salesView animated:true];
-            
-            [self presentModalViewController:salesView animated:YES];
-            
+            [self.navigationController pushViewController:salesView animated:true];
         } else {
             ShowViewController_ipod* detailView;
             if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
