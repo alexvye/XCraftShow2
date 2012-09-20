@@ -97,6 +97,10 @@
 						<string key="NSFrame">{{147, 193}, {126, 31}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
+<<<<<<< HEAD
+=======
+						<reference key="NSNextKeyView" ref="628929173"/>
+>>>>>>> dd58532e56a7b26cba2a367dc9221a775f94153d
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -111,7 +115,6 @@
 							</object>
 						</object>
 						<int key="IBUITextAlignment">1</int>
-						<bool key="IBUIClearsOnBeginEditing">YES</bool>
 						<bool key="IBUIAdjustsFontSizeToFit">YES</bool>
 						<float key="IBUIMinimumFontSize">17</float>
 						<object class="IBUITextInputTraits" key="IBUITextInputTraits">
@@ -119,6 +122,7 @@
 							<int key="IBUIReturnKeyType">9</int>
 							<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						</object>
+						<int key="IBUIClearButtonMode">1</int>
 						<object class="IBUIFontDescription" key="IBUIFontDescription">
 							<int key="type">1</int>
 							<double key="pointSize">14</double>
@@ -135,7 +139,11 @@
 						<string key="NSFrame">{{21, 64}, {280, 41}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
+<<<<<<< HEAD
 						<reference key="NSNextKeyView" ref="628929173"/>
+=======
+						<reference key="NSNextKeyView" ref="922705032"/>
+>>>>>>> dd58532e56a7b26cba2a367dc9221a775f94153d
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
 						<int key="IBUIContentMode">7</int>
@@ -155,7 +163,11 @@
 						<string key="NSFrame">{{20, 113}, {129, 37}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
+<<<<<<< HEAD
 						<reference key="NSNextKeyView" ref="1037111117"/>
+=======
+						<reference key="NSNextKeyView" ref="242353886"/>
+>>>>>>> dd58532e56a7b26cba2a367dc9221a775f94153d
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -191,7 +203,11 @@
 						<string key="NSFrame">{{147, 240}, {126, 37}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
+<<<<<<< HEAD
 						<reference key="NSNextKeyView" ref="242353886"/>
+=======
+						<reference key="NSNextKeyView"/>
+>>>>>>> dd58532e56a7b26cba2a367dc9221a775f94153d
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -214,7 +230,11 @@
 						<string key="NSFrameSize">{320, 44}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
+<<<<<<< HEAD
 						<reference key="NSNextKeyView" ref="922705032"/>
+=======
+						<reference key="NSNextKeyView" ref="1037111117"/>
+>>>>>>> dd58532e56a7b26cba2a367dc9221a775f94153d
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<array key="IBUIItems">
@@ -480,11 +500,22 @@
 						</object>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="outlets">
+<<<<<<< HEAD
+=======
+						<string key="picker">UIPickerView</string>
+>>>>>>> dd58532e56a7b26cba2a367dc9221a775f94153d
 						<string key="priceButton">UIButton</string>
 						<string key="quantity">UITextField</string>
 						<string key="selectedProductLabel">UILabel</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
+<<<<<<< HEAD
+=======
+						<object class="IBToOneOutletInfo" key="picker">
+							<string key="name">picker</string>
+							<string key="candidateClassName">UIPickerView</string>
+						</object>
+>>>>>>> dd58532e56a7b26cba2a367dc9221a775f94153d
 						<object class="IBToOneOutletInfo" key="priceButton">
 							<string key="name">priceButton</string>
 							<string key="candidateClassName">UIButton</string>

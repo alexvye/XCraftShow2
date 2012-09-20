@@ -150,11 +150,14 @@ BOOL overrodePrice;
             sale = (Sale*) [NSEntityDescription insertNewObjectForEntityForName:@"Sale" inManagedObjectContext:self.managedObjectContext];
             [self.show addSaleRelObject:sale];
             
+        } else {
+            sale = (Sale*) self.editedSale;
         }
         
         if(self.prodView != nil) {
             sale.productRel = (Product*) self.prodView.selProduct;
         }
+        
         sale.quantity = [NUMBER_FORMATTER numberFromString:self.quantity.text];
         sale.amount = [CURRENCY_FORMATTER numberFromString:self.priceButton.titleLabel.text];
         sale.date = self.show.date;
