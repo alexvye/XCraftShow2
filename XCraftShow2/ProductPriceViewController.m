@@ -95,7 +95,7 @@
     NSInteger dollarValue = [pickerView selectedRowInComponent:kDollars];
     NSInteger centValue = [pickerView selectedRowInComponent:KCents];
     self.price = [NSString stringWithFormat:@"$%d.%02d", dollarValue, centValue];
-
+    NSLog(@"%@",self.price);
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
         [self.prevPriceLabel setTitle:self.price forState:UIControlStateNormal] ;
     } else {

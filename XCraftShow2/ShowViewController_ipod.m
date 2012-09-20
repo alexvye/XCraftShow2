@@ -19,7 +19,7 @@
 
 @implementation ShowViewController_ipod
 
-@synthesize datePicker, feeButton, nameTextField, managedObjectContext, feePicker;
+@synthesize datePicker, feeButton, nameTextField, managedObjectContext;
 @synthesize passedShow;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -34,21 +34,29 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
-    self.datePicker.date = [NSDate date];
-	[self.datePicker addTarget:self
-                   action:@selector(changeDateInLabel:)
-         forControlEvents:UIControlEventValueChanged];
-	[self.view addSubview:self.datePicker];
+    // Do any additional setup after loading the view from its nib
+    if(self.passedShow == nil) {
+        self.datePicker.date = [NSDate date];
+    }
     
+	[self.datePicker addTarget:self
+                        action:@selector(changeDateInLabel:)
+              forControlEvents:UIControlEventValueChanged];
+	[self.view addSubview:self.datePicker];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+
     //
     // if a show passed in, use it
     //
+    
     if(self.passedShow != nil) {
         self.datePicker.date = self.passedShow.date;
         [self.feeButton setTitle:[Utilities formatAsCurrency:self.passedShow.fee] forState:UIControlStateNormal];
         self.nameTextField.text = self.passedShow.name;
     }
+     
 }
 
 - (void)viewDidUnload
@@ -73,6 +81,14 @@
 }
 
 - (IBAction)changeFee:(id)sender {
+    //
+    // Save show first
+    //
+    [self saveShow:nil];
+    
+    //
+    // Now pick fee
+    //
     ProductPriceViewController* ppvc = [[ProductPriceViewController alloc] initWithNibName:@"ProductPriceViewController" bundle:nil];
     ppvc.prevPriceLabel = (UIButton*) sender;
     [self presentModalViewController:ppvc animated:YES];
@@ -124,9 +140,12 @@
         }
         
         //
-        // Pop view
+        // Pop view (if the passed button was not nil ...i.e. we are saving from a button
+        // press
         //
-        [self dismissModalViewControllerAnimated:YES];
+        if(aButton != nil) {
+            [self dismissModalViewControllerAnimated:YES];
+        }
     }
 }
 
@@ -134,38 +153,4 @@
     [textField resignFirstResponder];
     return YES;
 }
-
-#pragma mark - UIPickerViewDataSource methods
-- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
-    return 2;
-}
-
-- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
-    if (component == kDollars) {
-        return 1000;
-    }
-    
-    return 100;
-}
-
-#pragma mark - UIPickerViewDelegate methods
-- (NSString*)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
-    if (component == kDollars) {
-        //        if (row == [pickerView selectedRowInComponent:component]) {
-        return [NSString stringWithFormat:@"   %d", row];
-        //        } else {
-        //            return [NSString stringWithFormat:@"%d", row];
-        //        }
-    }
-    
-    return [NSString stringWithFormat:@"%02d", row];
-}
-
-- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
-//    NSInteger dollarValue = [pickerView selectedRowInComponent:kDollars];
-//    NSInteger centValue = [pickerView selectedRowInComponent:KCents];
-//    self.price = [NSString stringWithFormat:@"$%d.%02d", dollarValue, centValue];
-//    [pickerView reloadComponent:kDollars];
-}
-
 @end

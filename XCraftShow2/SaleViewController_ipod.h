@@ -11,7 +11,7 @@
 #import "Sale.h"
 #import "ProductTableViewController.h"
 
-@interface SaleViewController_ipod : UIViewController <UITextFieldDelegate,UIPickerViewDataSource, UIPickerViewDelegate> {
+@interface SaleViewController_ipod : UIViewController <UITextFieldDelegate> {
     IBOutlet UIButton* priceButton;
     IBOutlet UITextField* quantity;
     IBOutlet UILabel* selectedProductLabel;
@@ -20,7 +20,6 @@
 @property(nonatomic, retain) IBOutlet UILabel* selectedProductLabel;
 @property (strong, nonatomic) IBOutlet UIButton* priceButton;
 @property(nonatomic, retain) IBOutlet UITextField* quantity;
-@property(nonatomic, strong) IBOutlet UIPickerView* picker;
 @property (strong, nonatomic) NSNumber* price;
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (strong, nonatomic) Show *show;

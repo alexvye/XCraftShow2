@@ -9,15 +9,13 @@
 #import <UIKit/UIKit.h>
 #import "Show.h"
 
-@interface ShowViewController_ipod : UIViewController <UIPickerViewDataSource, UIPickerViewDelegate>{
+@interface ShowViewController_ipod : UIViewController {
     IBOutlet UIDatePicker* datePicker;
-    IBOutlet UIPickerView* feePicker;
     IBOutlet UIButton* feeButton;
     IBOutlet UITextField* nameTextField;
 }
 
 @property(nonatomic,retain) IBOutlet UIDatePicker* datePicker;
-@property(nonatomic,retain) IBOutlet UIPickerView* feePicker;
 @property(nonatomic,retain) IBOutlet UIButton* feeButton;
 @property(nonatomic,retain) IBOutlet UITextField* nameTextField;
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;

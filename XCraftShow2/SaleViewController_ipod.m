@@ -28,6 +28,8 @@
 @synthesize editedSale;
 @synthesize prodView;
 
+BOOL overrodePrice;
+
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -46,6 +48,7 @@
     //
     // first time in, set the selected product to nil
     //
+    overrodePrice = FALSE;
     if(prodView == nil) {
         prodView = [[ProductTableViewController alloc]
                     initWithNibName:@"ProductTableViewController" bundle:nil];
@@ -59,40 +62,10 @@
         self.selectedProductLabel.text = sale.productRel.name;
         self.priceButton.titleLabel.text = [Utilities formatAsCurrency:sale.amount];
         self.quantity.text = [Utilities formatAsDecimal:sale.quantity];
-        //
-        // iPad has price in picker on current screen/iphone has it on button
-        //
-        if ([[UIDevice currentDevice] userInterfaceIdiom] != UIUserInterfaceIdiomPhone) {
-            int dollar = self.price.longValue/100;
-            int cent = (self.price.longValue-dollar)*100;
-                
-            [self.picker selectRow:dollar inComponent:0 animated:NO];
-            [self.picker reloadComponent:0];
-            [self.picker selectRow:cent inComponent:1 animated:NO];
-            [self.picker reloadComponent:1];
-        }
     }
 }
 
 
-/*
- if (self.prevPriceLabel != nil) {
- NSString* tmpPrice = self.price;
- if (tmpPrice != nil && tmpPrice.length > 0 && [tmpPrice characterAtIndex:0] == '$') {
- tmpPrice = [tmpPrice substringFromIndex:1];
- }
- NSArray* nums = [tmpPrice componentsSeparatedByString: @"."];
- if (nums != nil && [nums count] >= 2) {
- int dollar = [[nums objectAtIndex:0] intValue];
- int cent = [[nums objectAtIndex:1] intValue];
- 
- [self.picker selectRow:dollar inComponent:0 animated:NO];
- [self.picker reloadComponent:0];
- [self.picker selectRow:cent inComponent:1 animated:NO];
- [self.picker reloadComponent:1];
- }
- }
- */
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
     self.tap = [[UITapGestureRecognizer alloc]
                 initWithTarget:self
@@ -127,10 +100,10 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+    NSLog(@"button is %@",self.priceButton.titleLabel.text);
     if(self.prodView.selProduct != nil) {
         self.selectedProductLabel.text = self.prodView.selProduct.name;
         self.quantity.text = [NSString stringWithFormat:@"%d",1];
-        NSLog(@"Price should be %@", self.prodView.selProduct.unitCost);
         [self.priceButton setTitle:[Utilities formatAsCurrency:self.prodView.selProduct.defaultCost] forState:UIControlStateNormal] ;
     } 
 }
@@ -183,16 +156,7 @@
             sale.productRel = (Product*) self.prodView.selProduct;
         }
         sale.quantity = [NUMBER_FORMATTER numberFromString:self.quantity.text];
-        
-        //
-        // iPad has price in picker on current screen/iphone has it on button
-        //
-        if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-            sale.amount = [CURRENCY_FORMATTER numberFromString:self.priceButton.titleLabel.text];
-        } else {
-            sale.amount = self.price;
-
-        }
+        sale.amount = [CURRENCY_FORMATTER numberFromString:self.priceButton.titleLabel.text];
         sale.date = self.show.date;
     
         //
@@ -260,26 +224,6 @@
     }
     
     return 100;
-}
-
-#pragma mark - UIPickerViewDelegate methods
-- (NSString*)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
-    if (component == kDollars) {
-        //        if (row == [pickerView selectedRowInComponent:component]) {
-        return [NSString stringWithFormat:@"   %d", row];
-        //        } else {
-        //            return [NSString stringWithFormat:@"%d", row];
-        //        }
-    }
-    
-    return [NSString stringWithFormat:@"%02d", row];
-}
-
-- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
-    NSInteger dollarValue = [pickerView selectedRowInComponent:kDollars];
-    NSInteger centValue = [pickerView selectedRowInComponent:KCents];
-    self.price = [NSNumber numberWithLong:(dollarValue + centValue/100)];
-    //    [pickerView reloadComponent:kDollars];
 }
 
 @end

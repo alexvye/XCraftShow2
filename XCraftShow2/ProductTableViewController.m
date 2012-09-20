@@ -24,7 +24,8 @@ static NSString *EmptyCellIdentifier = @"Empty Cell";
 @synthesize selecting, selProduct; // for reuse of this controller for selecting products
 
 float rowHeight;
-float titleFontSize;
+float primaryFontSize;
+float detailedFontSize;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -57,10 +58,12 @@ float titleFontSize;
     //
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
         rowHeight = 44.0;
-        titleFontSize = 12.0;
+        primaryFontSize = 18.0;
+        detailedFontSize = 14.0;
     } else {
         rowHeight = 99.0;
-        titleFontSize = 15.0;
+        primaryFontSize = 36.0;
+        detailedFontSize = 24.0;
     }
     
     self.tableView.rowHeight = rowHeight;
@@ -170,6 +173,9 @@ float titleFontSize;
         cell.detailTextLabel.text = [NSString stringWithFormat:@"Quantity: %d",product.quantity.intValue];
         cell.imageView.image = [[UIImage alloc] initWithData:product.image];
         cell.imageView.contentMode = UIViewContentModeScaleAspectFit;
+        cell.textLabel.textColor = [UIColor colorWithRed:154.0/255.0 green:14.0/255.0 blue:2.0/255.0 alpha:1];
+        cell.textLabel.font = [UIFont systemFontOfSize:primaryFontSize];
+        cell.detailTextLabel.font = [UIFont systemFontOfSize:detailedFontSize];
         
         if(!self.selecting) {
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;

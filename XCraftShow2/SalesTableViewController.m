@@ -40,8 +40,8 @@ float detailedFontSize;
     
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
         rowHeight = 44.0;
-        primaryFontSize = 12.0;
-        detailedFontSize = 10.0;
+        primaryFontSize = 18.0;
+        detailedFontSize = 14.0;
     } else {
         rowHeight = 99.0;
         primaryFontSize = 36.0;
@@ -129,6 +129,8 @@ float detailedFontSize;
         
         cell.textLabel.text = headerString;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.textLabel.font = [UIFont systemFontOfSize:primaryFontSize];
+
         return cell;
     } else {
         static NSString *EmptyCellIdentifier = @"EmptyCell";
@@ -150,6 +152,10 @@ float detailedFontSize;
             cell.textLabel.text = sale.productRel.name;
             cell.detailTextLabel.text = [NSString stringWithFormat:@"Quantity = %@, Total = %@", sale.quantity, [Utilities formatAsCurrency:sale.amount]];
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            
+            cell.textLabel.textColor = [UIColor colorWithRed:154.0/255.0 green:14.0/255.0 blue:2.0/255.0 alpha:1];
+            cell.textLabel.font = [UIFont systemFontOfSize:primaryFontSize];
+            cell.detailTextLabel.font = [UIFont systemFontOfSize:detailedFontSize];
             return cell;
         }
     }
