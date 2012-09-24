@@ -97,11 +97,11 @@
 - (void) viewWillAppear:(BOOL)animated  {
     NSNumber* defaultPrice = [[State instance].mem objectForKey:DEFAULT_PRICE];
     if(defaultPrice == nil) {
-        defaultPrice = [NSNumber numberWithInt:0];
+        defaultPrice = [NSNumber numberWithDouble:0.00];
     }
     NSNumber* unitPrice = [[State instance].mem objectForKey:UNIT_COST];
     if(unitPrice == nil) {
-        unitPrice = [NSNumber numberWithInt:0];
+        unitPrice = [NSNumber numberWithDouble:0.00];
     }
     
     self.defaultCost.titleLabel.text = [Utilities formatAsCurrency:defaultPrice];
@@ -166,10 +166,25 @@
         self.popover = [[UIPopoverController alloc] initWithContentViewController:ppvc];
         self.popover.popoverContentSize = ppvc.view.frame.size;
        UIView* view = sender;
+        self.popover.delegate = self;
         [self.popover presentPopoverFromRect:view.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
     } else {
        [self presentModalViewController:ppvc animated:YES];
     }
+}
+
+- (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController {
+    NSNumber* defaultPrice = [[State instance].mem objectForKey:DEFAULT_PRICE];
+    if(defaultPrice == nil) {
+        defaultPrice = [NSNumber numberWithDouble:0.00];
+    }
+    NSNumber* unitPrice = [[State instance].mem objectForKey:UNIT_COST];
+    if(unitPrice == nil) {
+        unitPrice = [NSNumber numberWithDouble:0.00];
+    }
+    
+    self.defaultCost.titleLabel.text = [Utilities formatAsCurrency:defaultPrice];
+    self.unitCost.titleLabel.text = [Utilities formatAsCurrency:unitPrice];
 }
 
 - (IBAction)resignButton:(id)sender {

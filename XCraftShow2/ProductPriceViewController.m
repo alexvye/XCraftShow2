@@ -58,7 +58,6 @@
 }
 
 - (IBAction)save:(id)sender {
-    [[State instance].mem setValue:self.price forKey:self.priceKey];
     [self dismissModalViewControllerAnimated:YES];
 }
 
@@ -88,7 +87,7 @@
     NSNumber* dollarValue = [NSNumber numberWithInt:[pickerView selectedRowInComponent:kDollars]];
     NSNumber* centValue = [NSNumber numberWithInt:[pickerView selectedRowInComponent:KCents]];
     self.price = [NSNumber numberWithDouble:dollarValue.doubleValue + centValue.doubleValue/100];
-    //[pickerView reloadComponent:kDollars];
+    [[State instance].mem setValue:self.price forKey:self.priceKey];
 }
 
 @end
