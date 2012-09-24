@@ -8,10 +8,14 @@
 #define kDollars    0
 #define KCents      1
 
+#define FEE_BUTTON 2
+#define SAVE_BUTTON 1
+
 #import "ShowViewController_ipod.h"
 #import "ProductPriceViewController.h"
 #import "Show.h"
 #import "Utilities.h"
+#import "State.h"
 
 @interface ShowViewController_ipod ()
 
@@ -47,16 +51,30 @@
 
 - (void)viewWillAppear:(BOOL)animated {
 
+
     //
     // if a show passed in, use it
     //
-    
     if(self.passedShow != nil) {
         self.datePicker.date = self.passedShow.date;
         [self.feeButton setTitle:[Utilities formatAsCurrency:self.passedShow.fee] forState:UIControlStateNormal];
         self.nameTextField.text = self.passedShow.name;
     }
-     
+    
+    //
+    // If coming back from price picker
+    //
+    if([[State instance].mem objectForKey:SHOW_NAME]!=[NSNull null]) {
+        self.nameTextField.text = [[State instance].mem objectForKey:SHOW_NAME];
+    }
+    
+    if([[State instance].mem objectForKey:SHOW_DATE]!=[NSNull null])  {
+        self.datePicker.date = [[State instance].mem objectForKey:SHOW_DATE];
+    }
+    
+    if([[State instance].mem objectForKey:SHOW_FEE]!=[NSNull null])  {
+        [self.feeButton setTitle:[Utilities formatAsCurrency:[[State instance].mem objectForKey:SHOW_FEE]] forState:UIControlStateNormal];
+    }
 }
 
 - (void)viewDidUnload
@@ -83,14 +101,22 @@
 - (IBAction)changeFee:(id)sender {
     //
     // Save show first
-    //
-    [self saveShow:nil];
+    //[
+    NSDictionary* dict = [State instance].mem;
+    NSEnumerator* keys = dict.keyEnumerator;
+    for(id key in keys) {
+        NSLog(@"key=%@, value=%@",key, [dict objectForKey:key]);
+    }
+    if(self.nameTextField.text!=nil) {
+        [[State instance].mem setValue:self.nameTextField.text forKey:SHOW_NAME];
+    }
+    [[State instance].mem setValue:self.datePicker.date forKey:SHOW_DATE];
     
     //
     // Now pick fee
     //
     ProductPriceViewController* ppvc = [[ProductPriceViewController alloc] initWithNibName:@"ProductPriceViewController" bundle:nil];
-    ppvc.prevPriceLabel = (UIButton*) sender;
+    ppvc.priceKey  = SHOW_FEE;
     [self presentModalViewController:ppvc animated:YES];
 }
 
@@ -103,7 +129,7 @@
     // Check existing product names for duplicates
     // product names is an array of strings
     //
-    if([self.nameTextField.text isEqualToString:@""]) {
+    if([self.nameTextField.text isEqualToString:@""] && aButton != nil) {
         
         //
         // alert the user that they need to select a product
@@ -127,10 +153,10 @@
 
         show.name = self.nameTextField.text;
         show.date = self.datePicker.date;
-        NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
-        [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
-        show.fee = [formatter numberFromString:self.feeButton.titleLabel.text];
-        
+
+        show.fee = [[State instance].mem objectForKey:SHOW_FEE];
+        NSLog(@"%@",[[State instance].mem objectForKey:SHOW_FEE]);
+        NSLog(@"%@",show.fee);
         //
         // Save
         //
@@ -143,6 +169,7 @@
         // Pop view (if the passed button was not nil ...i.e. we are saving from a button
         // press
         //
+        [[State instance] clear];
         if(aButton != nil) {
             [self dismissModalViewControllerAnimated:YES];
         }

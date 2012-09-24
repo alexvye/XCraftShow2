@@ -47,7 +47,6 @@
 						<string key="NSFrame">{{0, 244}, {320, 216}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<int key="IBUIContentMode">4</int>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -222,6 +221,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 									<int key="IBUISystemItemIdentifier">1</int>
 								</object>
 								<object class="IBUIBarButtonItem" key="IBUIRightBarButtonItem" id="3331117">
+									<int key="IBUITag">1</int>
 									<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 									<int key="IBUIStyle">2</int>
 									<reference key="IBUINavigationItem" ref="762332609"/>
@@ -234,12 +234,13 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 					<object class="IBUIButton" id="936563296">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{116, 99}, {73, 44}}</string>
+						<string key="NSFrame">{{116, 101}, {73, 44}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="504239407"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
+						<int key="IBUITag">2</int>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
 						<int key="IBUIContentVerticalAlignment">0</int>
@@ -491,7 +492,6 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="datePicker">UIDatePicker</string>
 						<string key="feeButton">UIButton</string>
-						<string key="feePicker">UIPickerView</string>
 						<string key="nameTextField">UITextField</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
@@ -502,10 +502,6 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 						<object class="IBToOneOutletInfo" key="feeButton">
 							<string key="name">feeButton</string>
 							<string key="candidateClassName">UIButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="feePicker">
-							<string key="name">feePicker</string>
-							<string key="candidateClassName">UIPickerView</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="nameTextField">
 							<string key="name">nameTextField</string>

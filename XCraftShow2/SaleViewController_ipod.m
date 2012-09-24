@@ -8,6 +8,7 @@
 
 #import "SaleViewController_ipod.h"
 #import "Sale.h"
+#import "State.h"
 #import "Product.h"
 #import "Utilities.h"
 #import <AudioToolbox/AudioToolbox.h>
@@ -28,9 +29,6 @@
 @synthesize editedSale;
 @synthesize prodView;
 
-BOOL overrodePrice;
-
-
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -44,11 +42,12 @@ BOOL overrodePrice;
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    [[State instance] clear];
     
     //
     // first time in, set the selected product to nil
     //
-    overrodePrice = FALSE;
+
     if(prodView == nil) {
         prodView = [[ProductTableViewController alloc]
                     initWithNibName:@"ProductTableViewController" bundle:nil];
@@ -62,6 +61,7 @@ BOOL overrodePrice;
         self.selectedProductLabel.text = sale.productRel.name;
         self.priceButton.titleLabel.text = [Utilities formatAsCurrency:sale.amount];
         self.quantity.text = [Utilities formatAsDecimal:sale.quantity];
+        [[State instance] setValue:sale.quantity forKey:SALE_PRICE];
     }
 }
 
@@ -79,12 +79,12 @@ BOOL overrodePrice;
     // Only one text field, quantity, set the price
     // to be quantity * default cost
     //
-    NSNumber* saleQqantity = [NUMBER_FORMATTER numberFromString:textField.text];
-    NSNumber* salePrice = [NSNumber numberWithLong:(saleQqantity.intValue * self.prodView.selProduct.defaultCost.longValue)];
+    NSNumber* saleQantity = [NUMBER_FORMATTER numberFromString:textField.text];
+    double defaultPrice = [[[State instance].mem objectForKey:DEFAULT_PRICE] doubleValue];
+    NSNumber* salePrice = [NSNumber numberWithDouble:(saleQantity.intValue * defaultPrice)];
     self.priceButton.titleLabel.text = [Utilities formatAsCurrency:salePrice];
     [self.quantity resignFirstResponder];
     [self.view removeGestureRecognizer:self.tap];
-    
 }
 
 -(void)dismissKeyboard {
@@ -100,12 +100,18 @@ BOOL overrodePrice;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    NSLog(@"button is %@",self.priceButton.titleLabel.text);
-    if(self.prodView.selProduct != nil) {
-        self.selectedProductLabel.text = self.prodView.selProduct.name;
+    Product* selectedProduct = [[State instance].mem objectForKey:SELECTED_PRODUCT];
+    NSNumber* salePrice = [[State instance].mem objectForKey:SALE_PRICE];
+    
+    if(selectedProduct != nil) {
+        self.selectedProductLabel.text = selectedProduct.name;
         self.quantity.text = [NSString stringWithFormat:@"%d",1];
-        [self.priceButton setTitle:[Utilities formatAsCurrency:self.prodView.selProduct.defaultCost] forState:UIControlStateNormal] ;
-    } 
+        [self.priceButton setTitle:[Utilities formatAsCurrency:selectedProduct.defaultCost] forState:UIControlStateNormal];
+    }
+    
+    if(salePrice != nil) {
+       [self.priceButton setTitle:[Utilities formatAsCurrency:salePrice] forState:UIControlStateNormal];
+    }
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -123,7 +129,7 @@ BOOL overrodePrice;
     // If you are coming from "edit sale", you will pass, otherwise you need to
     // select a product
     //
-    if(self.prodView.selProduct == nil && self.editedSale == nil) {
+    if([[State instance].mem objectForKey:SELECTED_PRODUCT] == nil && self.editedSale == nil) {
         //
         // alert the user that they need to select a product
         //
@@ -154,12 +160,12 @@ BOOL overrodePrice;
             sale = (Sale*) self.editedSale;
         }
         
-        if(self.prodView != nil) {
-            sale.productRel = (Product*) self.prodView.selProduct;
+        if([[State instance].mem objectForKey:SELECTED_PRODUCT] != nil) {
+            sale.productRel = [[State instance].mem objectForKey:SELECTED_PRODUCT];
         }
         
         sale.quantity = [NUMBER_FORMATTER numberFromString:self.quantity.text];
-        sale.amount = [CURRENCY_FORMATTER numberFromString:self.priceButton.titleLabel.text];
+        sale.amount = [[State instance].mem objectForKey:SALE_PRICE];
         sale.date = self.show.date;
     
         //
@@ -179,8 +185,8 @@ BOOL overrodePrice;
         //
         // go back to sales table
         //
+        [[State instance] clear];
         [self dismissModalViewControllerAnimated:YES];
-//        [self.navigationController popViewControllerAnimated:true];
     }
 }
 
@@ -203,7 +209,7 @@ BOOL overrodePrice;
     [self resignButton:sender];
     
     ProductPriceViewController* ppvc = [[ProductPriceViewController alloc] initWithNibName:@"ProductPriceViewController" bundle:nil];
-    ppvc.prevPriceLabel = (UIButton*) sender;
+    ppvc.priceKey = SALE_PRICE;
     [self presentModalViewController:ppvc animated:YES];
 }
 

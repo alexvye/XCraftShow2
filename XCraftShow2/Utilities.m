@@ -17,17 +17,13 @@ NSDateFormatter* DATE_FORMATTER;
 +(NSString*) formatAsCurrency:(NSNumber*)amount {
     
     if(amount == nil) {
-        amount = [NSNumber numberWithInt:0];
+        amount = [NSNumber numberWithDouble:0.00];
     }
-    NSMutableString *aString = [NSMutableString stringWithCapacity:30];
-    NSNumberFormatter *aCurrency = [[NSNumberFormatter alloc]init];
-    [aCurrency setFormatterBehavior:NSNumberFormatterBehavior10_4];
-    [aCurrency setNumberStyle:NSNumberFormatterCurrencyStyle];   
-    [aCurrency setMinimumFractionDigits:2];
-    [aCurrency setMaximumFractionDigits:2];
-    [aString appendString:[aCurrency stringFromNumber:amount]];
-    
-    return aString;
+
+    NSNumberFormatter *formatter = [[NSNumberFormatter alloc]init];
+    [formatter setNumberStyle:NSNumberFormatterCurrencyStyle];  
+    NSString* result = [formatter stringFromNumber:amount];
+    return result;
 }
 
 +(NSString*) formatAsDecimal:(NSNumber*)amount {

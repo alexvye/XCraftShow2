@@ -16,12 +16,13 @@ static NSString *EmptyCellIdentifier = @"Empty Cell";
 #import "Product.h"
 #import "CustomProductCell.h"
 #import "Utilities.h"
+#import "State.h"
 
 @implementation ProductTableViewController
 
 @synthesize managedObjectContext;
 @synthesize fetchedResultsController = __fetchedResultsController;
-@synthesize selecting, selProduct; // for reuse of this controller for selecting products
+@synthesize selecting; // for reuse of this controller for selecting products
 
 float rowHeight;
 float primaryFontSize;
@@ -84,10 +85,6 @@ float detailedFontSize;
 								   initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addProduct:)];
         self.navigationItem.leftBarButtonItem = plusButton;
     }
-    //
-    // for when we come from sell view controller
-    //
-    selProduct = nil;
 }
 
 - (void)turnOnEditing {
@@ -230,8 +227,9 @@ float detailedFontSize;
         // if you are adding product (came from tab bar) push to editor
         //
         if(self.selecting) {
-            self.selProduct = (Product*)[self.fetchedResultsController objectAtIndexPath:indexPath];
-            NSLog(@"Selected product %@ costs %@",self.selProduct.name, self.selProduct.unitCost);
+            Product* product = (Product*)[self.fetchedResultsController objectAtIndexPath:indexPath];
+            [[State instance] setValue:product forKey:SELECTED_PRODUCT];
+
             [self dismissModalViewControllerAnimated:TRUE];
         } else {
 	//

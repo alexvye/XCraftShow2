@@ -7,6 +7,7 @@
 //
 
 #import "ProductPriceViewController.h"
+#import "State.h"
 
 @interface ProductPriceViewController ()
 
@@ -14,8 +15,8 @@
 
 @implementation ProductPriceViewController
 @synthesize picker = _picker;
-@synthesize price = _price;
-@synthesize prevPriceLabel = _prevPriceLabel;
+@synthesize priceKey;
+@synthesize price;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -30,31 +31,23 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    if (self.prevPriceLabel != nil) {
-        self.price = [self.prevPriceLabel titleForState:UIControlStateNormal];
-    }
 }
 
 
 - (void)viewDidAppear:(BOOL)animated{
-    if (self.prevPriceLabel != nil) {
-        NSString* tmpPrice = self.price;
-        if (tmpPrice != nil && tmpPrice.length > 0 && [tmpPrice characterAtIndex:0] == '$') {
-            tmpPrice = [tmpPrice substringFromIndex:1];
-        }
-        NSArray* nums = [tmpPrice componentsSeparatedByString: @"."];
-        if (nums != nil && [nums count] >= 2) {
-            int dollar = [[nums objectAtIndex:0] intValue];
-            int cent = [[nums objectAtIndex:1] intValue];
-            
-            [self.picker selectRow:dollar inComponent:0 animated:NO];
-            [self.picker reloadComponent:0];
-            [self.picker selectRow:cent inComponent:1 animated:NO];
-            [self.picker reloadComponent:1];
-        }
-    }
     
+    self.price = [[State instance].mem objectForKey:self.priceKey];
+    if (self.price != nil) {
+        int dollar = self.price.intValue;
+        int cent = (self.price.doubleValue - dollar)*100;
+            
+        [self.picker selectRow:dollar inComponent:0 animated:NO];
+        [self.picker reloadComponent:0];
+        [self.picker selectRow:cent inComponent:1 animated:NO];
+        [self.picker reloadComponent:1];
+    }
 }
+
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
@@ -65,7 +58,7 @@
 }
 
 - (IBAction)save:(id)sender {
-    [self.prevPriceLabel setTitle:self.price forState:UIControlStateNormal] ;
+    [[State instance].mem setValue:self.price forKey:self.priceKey];
     [self dismissModalViewControllerAnimated:YES];
 }
 
@@ -92,15 +85,10 @@
 }
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
-    NSInteger dollarValue = [pickerView selectedRowInComponent:kDollars];
-    NSInteger centValue = [pickerView selectedRowInComponent:KCents];
-    self.price = [NSString stringWithFormat:@"$%d.%02d", dollarValue, centValue];
-    NSLog(@"%@",self.price);
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-        [self.prevPriceLabel setTitle:self.price forState:UIControlStateNormal] ;
-    } else {
-        [pickerView reloadComponent:kDollars];
-    }
+    NSNumber* dollarValue = [NSNumber numberWithInt:[pickerView selectedRowInComponent:kDollars]];
+    NSNumber* centValue = [NSNumber numberWithInt:[pickerView selectedRowInComponent:KCents]];
+    self.price = [NSNumber numberWithDouble:dollarValue.doubleValue + centValue.doubleValue/100];
+    //[pickerView reloadComponent:kDollars];
 }
 
 @end

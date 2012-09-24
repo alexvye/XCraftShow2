@@ -5,11 +5,14 @@
 //  Created by Alex Vye on 12-07-04.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
+#define UNIT_COST_TAG 1
+#define DEFAULT_COST_TAG 2
 
 #import "ProductAddViewController_ipod.h"
 #import "ProductPriceViewController.h"
 #import "Product.h"
 #import "Utilities.h"
+#import "State.h"
 
 @interface ProductAddViewController_ipod ()
 - (NSString*)removeDollarSign:(NSString*)price;
@@ -92,8 +95,17 @@
 }
 
 - (void) viewWillAppear:(BOOL)animated  {
-
+    NSNumber* defaultPrice = [[State instance].mem objectForKey:DEFAULT_PRICE];
+    if(defaultPrice == nil) {
+        defaultPrice = [NSNumber numberWithInt:0];
+    }
+    NSNumber* unitPrice = [[State instance].mem objectForKey:UNIT_COST];
+    if(unitPrice == nil) {
+        unitPrice = [NSNumber numberWithInt:0];
+    }
     
+    self.defaultCost.titleLabel.text = [Utilities formatAsCurrency:defaultPrice];
+    self.unitCost.titleLabel.text = [Utilities formatAsCurrency:unitPrice];
 }
 
 
@@ -138,18 +150,24 @@
 
 - (IBAction)openPricePicker:(id)sender {
     [self resignButton:sender];
+    
+    UIButton* button = (UIButton*)sender;
+    NSString* key;
+    if(button.tag == UNIT_COST_TAG) {
+        key = UNIT_COST;
+    } else {
+        key = DEFAULT_PRICE;
+    }
+    
+    ProductPriceViewController* ppvc = [[ProductPriceViewController alloc] initWithNibName:@"ProductPriceViewController_iPad" bundle:nil];
+    ppvc.priceKey = key;
 
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-        ProductPriceViewController* ppvc = [[ProductPriceViewController alloc] initWithNibName:@"ProductPriceViewController_iPad" bundle:nil];
-        ppvc.prevPriceLabel = (UIButton*) sender;
-        
         self.popover = [[UIPopoverController alloc] initWithContentViewController:ppvc];
         self.popover.popoverContentSize = ppvc.view.frame.size;
        UIView* view = sender;
         [self.popover presentPopoverFromRect:view.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
     } else {
-        ProductPriceViewController* ppvc = [[ProductPriceViewController alloc] initWithNibName:@"ProductPriceViewController" bundle:nil];
-        ppvc.prevPriceLabel = (UIButton*) sender;
        [self presentModalViewController:ppvc animated:YES];
     }
 }
@@ -200,8 +218,8 @@
         NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
         [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
         product.quantity = [formatter numberFromString:self.quantity.text];
-        product.unitCost = [formatter numberFromString:[self removeDollarSign:self.unitCost.titleLabel.text]];
-        product.defaultCost = [formatter numberFromString:[self removeDollarSign:self.defaultCost.titleLabel.text]];
+        product.unitCost = [[State instance].mem objectForKey:UNIT_COST];
+        product.defaultCost = [[State instance].mem objectForKey:DEFAULT_PRICE];
         product.image = self.image;
 
         product.createdDate = [NSDate date];
@@ -217,6 +235,7 @@
         //
         // Pop view
         //
+        [[State instance] clear];
         [self dismissModalViewControllerAnimated:YES];
     }
 }

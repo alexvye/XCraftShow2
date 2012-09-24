@@ -15,7 +15,6 @@
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
 @property (nonatomic, assign, getter=isSelecting) BOOL selecting;
-@property (strong, nonatomic) Product* selProduct;
 
 - (void)insertNewObject;
 

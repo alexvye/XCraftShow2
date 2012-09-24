@@ -269,7 +269,7 @@ float detailedFontSize;
         profit = [standardUserDefaults boolForKey:@"profit"];
     
     
-    double sum = 0.0 - show.fee.doubleValue;
+    double sum = 0.00 - show.fee.doubleValue;
     
     Product*product;
     for(Sale* sale in show.saleRel) {

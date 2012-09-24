@@ -2,7 +2,7 @@
 //  Product.m
 //  XCraftShow2
 //
-//  Created by Alex Vye on 2012-08-29.
+//  Created by Alex Vye on 2012-09-24.
 //
 //
 

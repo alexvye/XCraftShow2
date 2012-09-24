@@ -2,7 +2,7 @@
 //  Show.m
 //  XCraftShow2
 //
-//  Created by Alex Vye on 2012-08-07.
+//  Created by Alex Vye on 2012-09-24.
 //
 //
 
@@ -15,10 +15,10 @@
 
 @dynamic address;
 @dynamic date;
+@dynamic eventId;
 @dynamic fee;
 @dynamic name;
 @dynamic rules;
-@dynamic eventId;
 @dynamic contactRel;
 @dynamic saleRel;
 
