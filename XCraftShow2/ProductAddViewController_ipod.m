@@ -158,17 +158,18 @@
     } else {
         key = DEFAULT_PRICE;
     }
-    
-    ProductPriceViewController* ppvc = [[ProductPriceViewController alloc] initWithNibName:@"ProductPriceViewController_iPad" bundle:nil];
-    ppvc.priceKey = key;
 
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        ProductPriceViewController* ppvc = [[ProductPriceViewController alloc] initWithNibName:@"ProductPriceViewController_iPad" bundle:nil];
+        ppvc.priceKey = key;
         self.popover = [[UIPopoverController alloc] initWithContentViewController:ppvc];
         self.popover.popoverContentSize = ppvc.view.frame.size;
        UIView* view = sender;
         self.popover.delegate = self;
         [self.popover presentPopoverFromRect:view.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
     } else {
+        ProductPriceViewController* ppvc = [[ProductPriceViewController alloc] initWithNibName:@"ProductPriceViewController" bundle:nil];
+        ppvc.priceKey = key;
        [self presentModalViewController:ppvc animated:YES];
     }
 }
