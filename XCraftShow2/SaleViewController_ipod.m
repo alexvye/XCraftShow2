@@ -100,10 +100,15 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+    NSDictionary* dict = [State instance].mem;
+    NSEnumerator* keys = dict.keyEnumerator;
+    for(id key in keys) {
+        NSLog(@"key=%@, value=%@",key, [dict objectForKey:key]);
+    }
     Product* selectedProduct = [[State instance].mem objectForKey:SELECTED_PRODUCT];
     NSNumber* salePrice = [[State instance].mem objectForKey:SALE_PRICE];
     
-    if(selectedProduct != nil) {
+    if([[State instance].mem objectForKey:SELECTED_PRODUCT] != [NSNull null]) {
         self.selectedProductLabel.text = selectedProduct.name;
         self.quantity.text = [NSString stringWithFormat:@"%d",1];
         [self.priceButton setTitle:[Utilities formatAsCurrency:selectedProduct.defaultCost] forState:UIControlStateNormal];
