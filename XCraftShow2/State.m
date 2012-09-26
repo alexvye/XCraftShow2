@@ -33,16 +33,16 @@ static State* _instance = nil;
 	self = [super init];
 	if (self != nil) {
 		// initialize stuff here
-        NSNumber* nilPrice = [NSNumber numberWithInt:0];
+        NSNumber* nilPrice = [NSNumber numberWithDouble:0.0];
 
         self.mem = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                nilPrice, SHOW_FEE,
                nilPrice, UNIT_COST,
                nilPrice, DEFAULT_PRICE,
-               nilPrice, SALE_PRICE,
-               [NSNull null],SHOW_NAME,
-               [NSNull null],SHOW_DATE,
-               [NSNull null], SELECTED_PRODUCT, nil];
+               nilPrice, SALE_PRICE, nil];
+        self.showName = nil;
+        self.selectedProduct = nil;
+        self.showDate = nil;
 	}
     
 	return self;
@@ -54,9 +54,9 @@ static State* _instance = nil;
     [self.mem setValue:nilPrice forKey:UNIT_COST];
     [self.mem setValue:nilPrice forKey:DEFAULT_PRICE];
     [self.mem setValue:nilPrice forKey:SALE_PRICE];
-    [self.mem setValue:[NSNull null] forKey:SHOW_NAME];
-    [self.mem setValue:[NSNull null] forKey:SHOW_DATE];
-    [self.mem setValue:[NSNull null] forKey:SELECTED_PRODUCT];
+    self.showName = nil;
+    self.selectedProduct = nil;
+    self.showDate = nil;
 }
 
 @end

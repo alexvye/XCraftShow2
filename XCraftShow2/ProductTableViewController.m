@@ -196,7 +196,9 @@ float detailedFontSize;
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         // Delete the managed object for the given index path
         NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
-        [context deleteObject:[self.fetchedResultsController objectAtIndexPath:indexPath]];
+        //[context deleteObject:[self.fetchedResultsController objectAtIndexPath:indexPath]];
+        Product* product = (Product*)[self.fetchedResultsController objectAtIndexPath:indexPath];
+        product.retired = [NSNumber numberWithBool:YES];
         
         // Save the context.
         NSError *error = nil;
@@ -228,7 +230,7 @@ float detailedFontSize;
         //
         if(self.selecting) {
             Product* product = (Product*)[self.fetchedResultsController objectAtIndexPath:indexPath];
-            [[State instance] setValue:product forKey:SELECTED_PRODUCT];
+            [State instance].selectedProduct = product;
 
             [self dismissModalViewControllerAnimated:TRUE];
         } else {
@@ -305,6 +307,13 @@ float detailedFontSize;
     
     [fetchRequest setSortDescriptors:sortDescriptors];
     
+    //
+    // filter
+    //
+    NSPredicate *fetchPredicate = [NSPredicate predicateWithFormat:@"retired == %@", [NSNumber numberWithBool: NO]];
+    
+    [fetchRequest setPredicate:fetchPredicate];
+
     // Edit the section name key path and cache name if appropriate.
     // nil for section name key path means "no sections".
     NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:nil];

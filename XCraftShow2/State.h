@@ -6,31 +6,23 @@
 //
 //
 
-/*
-#define kSHOW_FEE         @"ShowFee"
-#define kUNIT_COST        @"UnitCost"
-#define kDEFAULT_PRICE    @"DefaultPrice"
-#define kSALE_PRICE       @"SalePrice"
-#define kSELECTED_PRODUCT @"SelectedProduct"
-#define kSHOW_NAME        @"ShowName"
-#define kSHOW_DATE        @"ShowDate"
-*/
-
 #import <Foundation/Foundation.h>
+#import "Product.h"
 
 static NSString* SHOW_FEE = @"ShowFee";
 static NSString* UNIT_COST = @"UnitCost";
 static NSString* DEFAULT_PRICE = @"DefaultPrice";
 static NSString* SALE_PRICE = @"SalePrice";
-static NSString* SELECTED_PRODUCT = @"SelectedProduct";
-static NSString* SHOW_NAME = @"ShowName";
-static NSString* SHOW_DATE = @"ShowDate";
 
 @interface State : NSObject {
     
 }
 
 @property (nonatomic, retain) NSMutableDictionary *mem;
+@property (nonatomic, retain) Product *selectedProduct;
+@property (nonatomic, retain) NSString *showName;
+@property (nonatomic, retain) NSDate *showDate;
+
 
 +(State*)instance;
 -(void)clear;

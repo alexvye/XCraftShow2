@@ -2,7 +2,7 @@
 //  Product.h
 //  XCraftShow2
 //
-//  Created by Alex Vye on 2012-09-24.
+//  Created by Alex Vye on 2012-09-25.
 //
 //
 
@@ -20,6 +20,7 @@
 @property (nonatomic, retain) NSString * productDescription;
 @property (nonatomic, retain) NSNumber * quantity;
 @property (nonatomic, retain) NSNumber * unitCost;
+@property (nonatomic, retain) NSNumber * retired;
 @property (nonatomic, retain) NSSet *saleRel;
 @end
 

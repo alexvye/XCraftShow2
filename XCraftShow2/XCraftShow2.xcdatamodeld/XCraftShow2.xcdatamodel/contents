@@ -14,6 +14,7 @@
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="productDescription" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="quantity" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="retired" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="unitCost" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <relationship name="saleRel" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Sale" inverseName="productRel" inverseEntity="Sale" syncable="YES"/>
     </entity>
@@ -36,7 +37,7 @@
     </entity>
     <elements>
         <element name="Contact" positionX="-504" positionY="-252" width="128" height="105"/>
-        <element name="Product" positionX="-1170" positionY="-420" width="128" height="165"/>
+        <element name="Product" positionX="-1170" positionY="-420" width="128" height="180"/>
         <element name="Sale" positionX="-945" positionY="-351" width="128" height="120"/>
         <element name="Show" positionX="-704" positionY="-450" width="128" height="165"/>
     </elements>

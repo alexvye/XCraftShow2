@@ -58,7 +58,7 @@
 		9AEACFE4161009A8006D8E08 /* Show.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AEACFE3161009A8006D8E08 /* Show.m */; };
 		9AEACFE7161009C9006D8E08 /* Contact.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AEACFE6161009C9006D8E08 /* Contact.m */; };
 		9AEACFEA161009CA006D8E08 /* Sale.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AEACFE9161009CA006D8E08 /* Sale.m */; };
-		9AEACFED161009CA006D8E08 /* Product.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AEACFEC161009CA006D8E08 /* Product.m */; };
+		9AEACFF0161285FC006D8E08 /* Product.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AEACFEF161285FC006D8E08 /* Product.m */; };
 		9AF44CCD15E68B210057E736 /* cash-register.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 9AF44CCC15E68B210057E736 /* cash-register.aiff */; };
 		9AF8AFEE15DB25E500ABE444 /* SaleViewController_ipod.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AF8AFEC15DB25E500ABE444 /* SaleViewController_ipod.m */; };
 		9AF8AFEF15DB25E500ABE444 /* SaleViewController_ipod.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9AF8AFED15DB25E500ABE444 /* SaleViewController_ipod.xib */; };
@@ -144,8 +144,8 @@
 		9AEACFE6161009C9006D8E08 /* Contact.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Contact.m; sourceTree = "<group>"; };
 		9AEACFE8161009CA006D8E08 /* Sale.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sale.h; sourceTree = "<group>"; };
 		9AEACFE9161009CA006D8E08 /* Sale.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Sale.m; sourceTree = "<group>"; };
-		9AEACFEB161009CA006D8E08 /* Product.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Product.h; sourceTree = "<group>"; };
-		9AEACFEC161009CA006D8E08 /* Product.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Product.m; sourceTree = "<group>"; };
+		9AEACFEE161285FC006D8E08 /* Product.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Product.h; sourceTree = "<group>"; };
+		9AEACFEF161285FC006D8E08 /* Product.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Product.m; sourceTree = "<group>"; };
 		9AF44CCC15E68B210057E736 /* cash-register.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = "cash-register.aiff"; sourceTree = "<group>"; };
 		9AF8AFEB15DB25E500ABE444 /* SaleViewController_ipod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SaleViewController_ipod.h; sourceTree = "<group>"; };
 		9AF8AFEC15DB25E500ABE444 /* SaleViewController_ipod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SaleViewController_ipod.m; sourceTree = "<group>"; };
@@ -314,14 +314,14 @@
 		9A3E2083154B306100A3650E /* dataModel */ = {
 			isa = PBXGroup;
 			children = (
-				9AEACFE2161009A8006D8E08 /* Show.h */,
-				9AEACFE3161009A8006D8E08 /* Show.m */,
-				9AEACFEB161009CA006D8E08 /* Product.h */,
-				9AEACFEC161009CA006D8E08 /* Product.m */,
-				9AEACFE8161009CA006D8E08 /* Sale.h */,
-				9AEACFE9161009CA006D8E08 /* Sale.m */,
 				9AEACFE5161009C9006D8E08 /* Contact.h */,
 				9AEACFE6161009C9006D8E08 /* Contact.m */,
+				9AEACFEE161285FC006D8E08 /* Product.h */,
+				9AEACFEF161285FC006D8E08 /* Product.m */,
+				9AEACFE8161009CA006D8E08 /* Sale.h */,
+				9AEACFE9161009CA006D8E08 /* Sale.m */,
+				9AEACFE2161009A8006D8E08 /* Show.h */,
+				9AEACFE3161009A8006D8E08 /* Show.m */,
 			);
 			name = dataModel;
 			sourceTree = "<group>";
@@ -486,7 +486,7 @@
 				9AEACFE4161009A8006D8E08 /* Show.m in Sources */,
 				9AEACFE7161009C9006D8E08 /* Contact.m in Sources */,
 				9AEACFEA161009CA006D8E08 /* Sale.m in Sources */,
-				9AEACFED161009CA006D8E08 /* Product.m in Sources */,
+				9AEACFF0161285FC006D8E08 /* Product.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -74,14 +74,16 @@
     productNavigationController.tabBarItem.image = [UIImage imageNamed:@"24-gift.png"];
     productNavigationController.title = @"Products";
     
+    /*
     HelpViewController* helpViewController = [[HelpViewController alloc] initWithNibName:@"HelpViewController" bundle:nil];
     helpViewController.title = @"Help";
     helpNavigationController = [[UINavigationController alloc] initWithRootViewController:helpViewController];
     helpNavigationController.tabBarItem.image = [UIImage imageNamed:@"09-chat-2.png"];    
     helpNavigationController.title = @"Help";
+    */
     
     self.tabBarController = [[UITabBarController alloc] init];
-    self.tabBarController.viewControllers = [NSArray arrayWithObjects:showNavigationController, showEditNavigationController, productNavigationController, helpNavigationController, nil];
+    self.tabBarController.viewControllers = [NSArray arrayWithObjects:showNavigationController, showEditNavigationController, productNavigationController, nil];
     self.window.rootViewController = self.tabBarController;
     
     //

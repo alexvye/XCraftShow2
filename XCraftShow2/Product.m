@@ -2,7 +2,7 @@
 //  Product.m
 //  XCraftShow2
 //
-//  Created by Alex Vye on 2012-09-24.
+//  Created by Alex Vye on 2012-09-25.
 //
 //
 
@@ -19,6 +19,7 @@
 @dynamic productDescription;
 @dynamic quantity;
 @dynamic unitCost;
+@dynamic retired;
 @dynamic saleRel;
 
 @end

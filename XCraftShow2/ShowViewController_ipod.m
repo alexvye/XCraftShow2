@@ -64,16 +64,16 @@
     //
     // If coming back from price picker
     //
-    if([[State instance].mem objectForKey:SHOW_NAME]!=[NSNull null]) {
-        self.nameTextField.text = [[State instance].mem objectForKey:SHOW_NAME];
+    if([State instance].showName != nil) {
+        self.nameTextField.text = [State instance].showName;
     }
     
-    if([[State instance].mem objectForKey:SHOW_DATE]!=[NSNull null])  {
-        self.datePicker.date = [[State instance].mem objectForKey:SHOW_DATE];
+    if([State instance].showDate != nil) {
+        self.datePicker.date = [State instance].showDate;
     }
-    
-    if([[State instance].mem objectForKey:SHOW_FEE]!=[NSNull null])  {
-        [self.feeButton setTitle:[Utilities formatAsCurrency:[[State instance].mem objectForKey:SHOW_FEE]] forState:UIControlStateNormal];
+    NSNumber* showFee = [[State instance].mem objectForKey:SHOW_FEE];
+    if(showFee.doubleValue!=0.00)  {
+        [self.feeButton setTitle:[Utilities formatAsCurrency:showFee] forState:UIControlStateNormal];
     }
 }
 
@@ -102,15 +102,9 @@
     //
     // Save show first
     //[
-    NSDictionary* dict = [State instance].mem;
-    NSEnumerator* keys = dict.keyEnumerator;
-    for(id key in keys) {
-        NSLog(@"key=%@, value=%@",key, [dict objectForKey:key]);
-    }
-    if(self.nameTextField.text!=nil) {
-        [[State instance].mem setValue:self.nameTextField.text forKey:SHOW_NAME];
-    }
-    [[State instance].mem setValue:self.datePicker.date forKey:SHOW_DATE];
+
+    [State instance].showName = self.nameTextField.text;
+    [State instance].showDate = self.datePicker.date;
     
     //
     // Now pick fee

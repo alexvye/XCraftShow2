@@ -96,16 +96,25 @@
 
 - (void) viewWillAppear:(BOOL)animated  {
     NSNumber* defaultPrice = [[State instance].mem objectForKey:DEFAULT_PRICE];
-    if(defaultPrice == nil) {
-        defaultPrice = [NSNumber numberWithDouble:0.00];
-    }
     NSNumber* unitPrice = [[State instance].mem objectForKey:UNIT_COST];
-    if(unitPrice == nil) {
-        unitPrice = [NSNumber numberWithDouble:0.00];
-    }
     
-    self.defaultCost.titleLabel.text = [Utilities formatAsCurrency:defaultPrice];
-    self.unitCost.titleLabel.text = [Utilities formatAsCurrency:unitPrice];
+    if(self.selectedProduct == nil) {
+        self.defaultCost.titleLabel.text = [Utilities formatAsCurrency:defaultPrice];
+        self.unitCost.titleLabel.text = [Utilities formatAsCurrency:unitPrice];
+    } else {
+        if(defaultPrice.doubleValue != 0.00) {
+           self.defaultCost.titleLabel.text = [Utilities formatAsCurrency:defaultPrice]; 
+        } else {
+            Product* product = (Product*)selectedProduct;
+            self.defaultCost.titleLabel.text = [Utilities formatAsCurrency:product.defaultCost];
+        }
+        if(unitPrice.doubleValue != 0.00) {
+           self.unitCost.titleLabel.text = [Utilities formatAsCurrency:unitPrice]; 
+        } else {
+            Product* product = (Product*)selectedProduct;
+            self.unitCost.titleLabel.text = [Utilities formatAsCurrency:product.unitCost];
+        }
+    }
 }
 
 
@@ -207,15 +216,15 @@
     // Check existing product names for duplicates
     // product names is an array of strings
     //
-    if( (self.selectedProduct == nil && [self doesProductExist:self.name.text]) || [self.name.text isEqualToString:@""]) {
+    if([self.name.text isEqualToString:@""]) {
         
         //
         // alert the user that they need to select a product
         //
-        NSString *message = @"Please enter a non-blank, unique product name.";
+        NSString *message = @"Please enter a non-blank product name.";
         
         UIAlertView *alertDialog = [[UIAlertView alloc]
-                                    initWithTitle:@"Duplicate product name"
+                                    initWithTitle:@"Blank product name"
                                     message:message
                                     delegate:nil
                                     cancelButtonTitle:@"Ok"
@@ -237,7 +246,7 @@
         product.unitCost = [[State instance].mem objectForKey:UNIT_COST];
         product.defaultCost = [[State instance].mem objectForKey:DEFAULT_PRICE];
         product.image = self.image;
-
+        product.retired = [NSNumber numberWithBool: NO];
         product.createdDate = [NSDate date];
         
         //

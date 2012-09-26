@@ -185,20 +185,13 @@ float detailedFontSize;
             detailView = [[SaleViewController_ipod alloc]
                       initWithNibName:@"SaleViewController_ipad" bundle:nil];
         }
-            
-        detailView.managedObjectContext = self.managedObjectContext;
-            
-    //
-    // Pass the selected object to the new view controller.
-    //
+
         //
         // Pass the selected object to the new view controller.
         //
         detailView.managedObjectContext = self.managedObjectContext;
         detailView.show = self.show;
         detailView.editedSale = [self.show.saleRel.allObjects objectAtIndex:indexPath.row];
-//        [self.navigationController pushViewController:detailView animated:YES];
-        
         [self presentModalViewController:detailView animated:YES];
     }
 }

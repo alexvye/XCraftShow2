@@ -100,21 +100,17 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    NSDictionary* dict = [State instance].mem;
-    NSEnumerator* keys = dict.keyEnumerator;
-    for(id key in keys) {
-        NSLog(@"key=%@, value=%@",key, [dict objectForKey:key]);
-    }
-    Product* selectedProduct = [[State instance].mem objectForKey:SELECTED_PRODUCT];
-    NSNumber* salePrice = [[State instance].mem objectForKey:SALE_PRICE];
+    Product* selectedProduct = [State instance].selectedProduct;
     
-    if([[State instance].mem objectForKey:SELECTED_PRODUCT] != [NSNull null]) {
+    NSNumber* salePrice = [[State instance].mem objectForKey:SALE_PRICE];
+
+    if(selectedProduct != nil) {
         self.selectedProductLabel.text = selectedProduct.name;
         self.quantity.text = [NSString stringWithFormat:@"%d",1];
         [self.priceButton setTitle:[Utilities formatAsCurrency:selectedProduct.defaultCost] forState:UIControlStateNormal];
     }
     
-    if(salePrice != nil) {
+    if(salePrice.doubleValue != 0.00) {
        [self.priceButton setTitle:[Utilities formatAsCurrency:salePrice] forState:UIControlStateNormal];
     }
 }
@@ -134,7 +130,7 @@
     // If you are coming from "edit sale", you will pass, otherwise you need to
     // select a product
     //
-    if([[State instance].mem objectForKey:SELECTED_PRODUCT] == nil && self.editedSale == nil) {
+    if([State instance].selectedProduct == nil && self.editedSale == nil) {
         //
         // alert the user that they need to select a product
         //
@@ -165,12 +161,13 @@
             sale = (Sale*) self.editedSale;
         }
         
-        if([[State instance].mem objectForKey:SELECTED_PRODUCT] != nil) {
-            sale.productRel = [[State instance].mem objectForKey:SELECTED_PRODUCT];
-        }
-        
+        sale.productRel = [State instance].selectedProduct;
+
         sale.quantity = [NUMBER_FORMATTER numberFromString:self.quantity.text];
         sale.amount = [[State instance].mem objectForKey:SALE_PRICE];
+        if(sale.amount.doubleValue == 0.00) {
+            sale.amount = [NSNumber numberWithDouble:(sale.quantity.integerValue * [State instance].selectedProduct.defaultCost.doubleValue)];
+        }
         sale.date = self.show.date;
     
         //
