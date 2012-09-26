@@ -10,7 +10,7 @@
 
 @implementation State
 
-@synthesize mem;
+@synthesize selectedProduct, showFee, showDate, showName, defaultPrice, unitCost, salePrice;
 
 static State* _instance = nil;
 
@@ -34,12 +34,9 @@ static State* _instance = nil;
 	if (self != nil) {
 		// initialize stuff here
         NSNumber* nilPrice = [NSNumber numberWithDouble:0.0];
-
-        self.mem = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-               nilPrice, SHOW_FEE,
-               nilPrice, UNIT_COST,
-               nilPrice, DEFAULT_PRICE,
-               nilPrice, SALE_PRICE, nil];
+        self.defaultPrice = nilPrice;
+        self.unitCost = nilPrice;
+        self.salePrice = nilPrice;
         self.showName = nil;
         self.selectedProduct = nil;
         self.showDate = nil;
@@ -50,10 +47,9 @@ static State* _instance = nil;
 
 -(void)clear {
     NSNumber* nilPrice = [NSNumber numberWithDouble:0.00];
-    [self.mem setValue:nilPrice forKey:SHOW_FEE];
-    [self.mem setValue:nilPrice forKey:UNIT_COST];
-    [self.mem setValue:nilPrice forKey:DEFAULT_PRICE];
-    [self.mem setValue:nilPrice forKey:SALE_PRICE];
+    self.defaultPrice = nilPrice;
+    self.unitCost = nilPrice;
+    self.salePrice = nilPrice;
     self.showName = nil;
     self.selectedProduct = nil;
     self.showDate = nil;

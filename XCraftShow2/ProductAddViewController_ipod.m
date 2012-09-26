@@ -95,8 +95,8 @@
 }
 
 - (void) viewWillAppear:(BOOL)animated  {
-    NSNumber* defaultPrice = [[State instance].mem objectForKey:DEFAULT_PRICE];
-    NSNumber* unitPrice = [[State instance].mem objectForKey:UNIT_COST];
+    NSNumber* defaultPrice = [State instance].defaultPrice;
+    NSNumber* unitPrice = [State instance].unitCost;
     
     if(self.selectedProduct == nil) {
         self.defaultCost.titleLabel.text = [Utilities formatAsCurrency:defaultPrice];

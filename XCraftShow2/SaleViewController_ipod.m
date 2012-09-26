@@ -61,7 +61,7 @@
         self.selectedProductLabel.text = sale.productRel.name;
         self.priceButton.titleLabel.text = [Utilities formatAsCurrency:sale.amount];
         self.quantity.text = [Utilities formatAsDecimal:sale.quantity];
-        [[State instance] setValue:sale.quantity forKey:SALE_PRICE];
+        [State instance].salePrice = sale.quantity;
     }
 }
 
