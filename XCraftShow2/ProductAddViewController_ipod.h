@@ -24,10 +24,6 @@
 // for ipad ui only
 //
 @property (strong, nonatomic) UIPopoverController* popover;
-//@property(nonatomic, strong) IBOutlet UIPickerView* unitCostPicker;
-//@property(nonatomic, strong) IBOutlet UIPickerView* defaultCostCostPicker;
-//@property(nonatomic, strong) UIButton* prevPriceLabel;
-//@property(nonatomic, strong) NSString* price;
 
 - (IBAction)cancelProduct:(id)sender;
 - (IBAction)saveProduct:(id)sender;

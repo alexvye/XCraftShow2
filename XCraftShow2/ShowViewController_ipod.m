@@ -71,7 +71,7 @@
     if([State instance].showDate != nil) {
         self.datePicker.date = [State instance].showDate;
     }
-    NSNumber* showFee = [State instance].salePrice;
+    NSNumber* showFee = [State instance].showFee;
     if(showFee.doubleValue!=0.00)  {
         [self.feeButton setTitle:[Utilities formatAsCurrency:showFee] forState:UIControlStateNormal];
     }
@@ -148,9 +148,8 @@
         show.name = self.nameTextField.text;
         show.date = self.datePicker.date;
 
-        show.fee = [[State instance].mem objectForKey:SHOW_FEE];
-        NSLog(@"%@",[[State instance].mem objectForKey:SHOW_FEE]);
-        NSLog(@"%@",show.fee);
+        show.fee = [State instance].showFee;
+                    
         //
         // Save
         //

@@ -36,7 +36,19 @@
 
 - (void)viewDidAppear:(BOOL)animated{
     
-    self.price = [[State instance].mem objectForKey:self.priceKey];
+    NSNumber *localPrice;
+    if([self.priceKey isEqualToString:SALE_PRICE]) {
+        localPrice = [State instance].salePrice;
+    } else if([self.priceKey isEqualToString:UNIT_COST]) {
+        localPrice = [State instance].unitCost;
+    } else if([self.priceKey isEqualToString:DEFAULT_PRICE]) {
+        localPrice = [State instance].defaultPrice;
+    } else if([self.priceKey isEqualToString:SHOW_FEE]) {
+        localPrice = [State instance].showFee;
+    } else {
+        localPrice = [NSNumber numberWithDouble:0.00];
+    }
+
     if (self.price != nil) {
         int dollar = self.price.intValue;
         int cent = (self.price.doubleValue - dollar)*100;
@@ -87,7 +99,16 @@
     NSNumber* dollarValue = [NSNumber numberWithInt:[pickerView selectedRowInComponent:kDollars]];
     NSNumber* centValue = [NSNumber numberWithInt:[pickerView selectedRowInComponent:KCents]];
     self.price = [NSNumber numberWithDouble:dollarValue.doubleValue + centValue.doubleValue/100];
-    [[State instance].mem setValue:self.price forKey:self.priceKey];
+
+    if([self.priceKey isEqualToString:SALE_PRICE]) {
+        [State instance].salePrice = self.price;
+    } else if([self.priceKey isEqualToString:UNIT_COST]) {
+        [State instance].unitCost = self.price;
+    } else if([self.priceKey isEqualToString:DEFAULT_PRICE]) {
+        [State instance].defaultPrice = self.price;
+    } else if([self.priceKey isEqualToString:SHOW_FEE]) {
+        [State instance].showFee = self.price;
+    } 
 }
 
 @end

@@ -80,7 +80,7 @@
     // to be quantity * default cost
     //
     NSNumber* saleQantity = [NUMBER_FORMATTER numberFromString:textField.text];
-    double defaultPrice = [[[State instance].mem objectForKey:DEFAULT_PRICE] doubleValue];
+    double defaultPrice = [[State instance].defaultPrice doubleValue];
     NSNumber* salePrice = [NSNumber numberWithDouble:(saleQantity.intValue * defaultPrice)];
     self.priceButton.titleLabel.text = [Utilities formatAsCurrency:salePrice];
     [self.quantity resignFirstResponder];
@@ -102,7 +102,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     Product* selectedProduct = [State instance].selectedProduct;
     
-    NSNumber* salePrice = [[State instance].mem objectForKey:SALE_PRICE];
+    NSNumber* salePrice = [State instance].salePrice;
 
     if(selectedProduct != nil) {
         self.selectedProductLabel.text = selectedProduct.name;
@@ -164,8 +164,7 @@
         sale.productRel = [State instance].selectedProduct;
 
         sale.quantity = [NUMBER_FORMATTER numberFromString:self.quantity.text];
-        sale.amount = [[State instance].mem objectForKey:SALE_PRICE];
-        if(sale.amount.doubleValue == 0.00) {
+        sale.amount = [State instance].salePrice;        if(sale.amount.doubleValue == 0.00) {
             sale.amount = [NSNumber numberWithDouble:(sale.quantity.integerValue * [State instance].selectedProduct.defaultCost.doubleValue)];
         }
         sale.date = self.show.date;

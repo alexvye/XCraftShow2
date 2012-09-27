@@ -71,17 +71,12 @@
         [self.unitCost setTitle:[Utilities formatAsCurrency:product.unitCost] forState:UIControlStateNormal];
         [self.defaultCost setTitle:[Utilities formatAsCurrency:product.defaultCost] forState:UIControlStateNormal];
         self.productImageView.image = [[UIImage alloc] initWithData:product.image];
+        self.image = product.image;
     }
 }
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
-    /*
-    self.tap = [[UITapGestureRecognizer alloc]
-                initWithTarget:self
-                action:@selector(dismissKeyboard)];
-    
-    [self.view addGestureRecognizer:tap];
-     */
+
 }
 
 -(void)dismissKeyboard {
@@ -99,20 +94,20 @@
     NSNumber* unitPrice = [State instance].unitCost;
     
     if(self.selectedProduct == nil) {
-        self.defaultCost.titleLabel.text = [Utilities formatAsCurrency:defaultPrice];
-        self.unitCost.titleLabel.text = [Utilities formatAsCurrency:unitPrice];
+        [self.defaultCost setTitle:[Utilities formatAsCurrency:defaultPrice] forState:UIControlStateNormal];
+        [self.unitCost setTitle:[Utilities formatAsCurrency:unitPrice] forState:UIControlStateNormal];
     } else {
         if(defaultPrice.doubleValue != 0.00) {
-           self.defaultCost.titleLabel.text = [Utilities formatAsCurrency:defaultPrice]; 
+           [self.defaultCost setTitle:[Utilities formatAsCurrency:defaultPrice] forState:UIControlStateNormal];
         } else {
             Product* product = (Product*)selectedProduct;
-            self.defaultCost.titleLabel.text = [Utilities formatAsCurrency:product.defaultCost];
+            [self.defaultCost setTitle:[Utilities formatAsCurrency:product.defaultCost] forState:UIControlStateNormal];
         }
         if(unitPrice.doubleValue != 0.00) {
-           self.unitCost.titleLabel.text = [Utilities formatAsCurrency:unitPrice]; 
+           [self.unitCost setTitle:[Utilities formatAsCurrency:unitPrice] forState:UIControlStateNormal];
         } else {
             Product* product = (Product*)selectedProduct;
-            self.unitCost.titleLabel.text = [Utilities formatAsCurrency:product.unitCost];
+            [self.unitCost setTitle:[Utilities formatAsCurrency:product.unitCost] forState:UIControlStateNormal];
         }
     }
 }
@@ -162,6 +157,7 @@
     
     UIButton* button = (UIButton*)sender;
     NSString* key;
+    NSLog(@"button tag is %d", button.tag);
     if(button.tag == UNIT_COST_TAG) {
         key = UNIT_COST;
     } else {
@@ -184,17 +180,19 @@
 }
 
 - (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController {
-    NSNumber* defaultPrice = [[State instance].mem objectForKey:DEFAULT_PRICE];
-    if(defaultPrice == nil) {
+    NSNumber* defaultPrice = [State instance].defaultPrice;
+    if(defaultPrice == nil && selectedProduct == nil) {
         defaultPrice = [NSNumber numberWithDouble:0.00];
-    }
-    NSNumber* unitPrice = [[State instance].mem objectForKey:UNIT_COST];
-    if(unitPrice == nil) {
-        unitPrice = [NSNumber numberWithDouble:0.00];
+    } else if(defaultPrice!=nil){
+        [self.defaultCost setTitle:[Utilities formatAsCurrency:defaultPrice] forState:UIControlStateNormal];    
     }
     
-    self.defaultCost.titleLabel.text = [Utilities formatAsCurrency:defaultPrice];
-    self.unitCost.titleLabel.text = [Utilities formatAsCurrency:unitPrice];
+    NSNumber* unitPrice = [State instance].unitCost;
+    if(unitPrice == nil && selectedProduct == nil) {
+        unitPrice = [NSNumber numberWithDouble:0.00];
+    } else if(unitPrice != nil) {
+        [self.unitCost setTitle:[Utilities formatAsCurrency:unitPrice] forState:UIControlStateNormal];
+    }
 }
 
 - (IBAction)resignButton:(id)sender {
@@ -243,8 +241,8 @@
         NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
         [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
         product.quantity = [formatter numberFromString:self.quantity.text];
-        product.unitCost = [[State instance].mem objectForKey:UNIT_COST];
-        product.defaultCost = [[State instance].mem objectForKey:DEFAULT_PRICE];
+        product.unitCost = [State instance].unitCost;
+        product.defaultCost = [State instance].defaultPrice;
         product.image = self.image;
         product.retired = [NSNumber numberWithBool: NO];
         product.createdDate = [NSDate date];

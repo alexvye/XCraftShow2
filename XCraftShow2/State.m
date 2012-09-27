@@ -33,10 +33,9 @@ static State* _instance = nil;
 	self = [super init];
 	if (self != nil) {
 		// initialize stuff here
-        NSNumber* nilPrice = [NSNumber numberWithDouble:0.0];
-        self.defaultPrice = nilPrice;
-        self.unitCost = nilPrice;
-        self.salePrice = nilPrice;
+        self.defaultPrice = [NSNumber numberWithDouble:0.0];
+        self.unitCost = [NSNumber numberWithDouble:0.0];
+        self.salePrice = [NSNumber numberWithDouble:0.0];
         self.showName = nil;
         self.selectedProduct = nil;
         self.showDate = nil;
@@ -46,10 +45,9 @@ static State* _instance = nil;
 }
 
 -(void)clear {
-    NSNumber* nilPrice = [NSNumber numberWithDouble:0.00];
-    self.defaultPrice = nilPrice;
-    self.unitCost = nilPrice;
-    self.salePrice = nilPrice;
+    self.defaultPrice = [NSNumber numberWithDouble:0.0];
+    self.unitCost = [NSNumber numberWithDouble:0.0];
+    self.salePrice = [NSNumber numberWithDouble:0.0];
     self.showName = nil;
     self.selectedProduct = nil;
     self.showDate = nil;

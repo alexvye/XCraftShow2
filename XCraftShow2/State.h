@@ -18,7 +18,6 @@ static NSString* SHOW_FEE = @"ShowFee";
     
 }
 
-@property (nonatomic, retain) NSMutableDictionary *mem;
 @property (nonatomic, retain) Product *selectedProduct;
 @property (nonatomic, retain) NSString *showName;
 @property (nonatomic, retain) NSDate *showDate;
