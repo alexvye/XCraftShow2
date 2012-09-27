@@ -156,6 +156,9 @@ float detailedFontSize;
             cell.textLabel.textColor = [UIColor colorWithRed:154.0/255.0 green:14.0/255.0 blue:2.0/255.0 alpha:1];
             cell.textLabel.font = [UIFont systemFontOfSize:primaryFontSize];
             cell.detailTextLabel.font = [UIFont systemFontOfSize:detailedFontSize];
+            
+            cell.imageView.image = [[UIImage alloc] initWithData:sale.productRel.image];
+            cell.imageView.contentMode = UIViewContentModeScaleAspectFit;
             return cell;
         }
     }
