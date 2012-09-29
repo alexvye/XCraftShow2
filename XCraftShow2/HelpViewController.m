@@ -10,6 +10,8 @@
 
 @implementation HelpViewController
 
+@synthesize webView;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -33,6 +35,8 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    NSString *finalPath = [[NSBundle mainBundle] pathForResource:@"xcs" ofType:@"pdf"];
+    [webView loadRequest:[NSURLRequest requestWithURL:[NSURL fileURLWithPath:finalPath]]];
 }
 
 - (void)viewDidUnload

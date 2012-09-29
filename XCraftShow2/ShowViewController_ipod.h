@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "Show.h"
 
-@interface ShowViewController_ipod : UIViewController {
+@interface ShowViewController_ipod : UIViewController <UITextFieldDelegate>{
     IBOutlet UIDatePicker* datePicker;
     IBOutlet UIButton* feeButton;
     IBOutlet UITextField* nameTextField;

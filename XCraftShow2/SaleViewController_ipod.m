@@ -80,9 +80,16 @@
     // to be quantity * default cost
     //
     NSNumber* saleQantity = [NUMBER_FORMATTER numberFromString:textField.text];
+    
     double defaultPrice = [[State instance].defaultPrice doubleValue];
+    if(defaultPrice == 0.0) {
+        Product* product = [State instance].selectedProduct;
+        if(product!=nil) {
+            defaultPrice = product.defaultCost.doubleValue;
+        }
+    }
     NSNumber* salePrice = [NSNumber numberWithDouble:(saleQantity.intValue * defaultPrice)];
-    self.priceButton.titleLabel.text = [Utilities formatAsCurrency:salePrice];
+    [self.priceButton setTitle:[Utilities formatAsCurrency:salePrice] forState:UIControlStateNormal];
     [self.quantity resignFirstResponder];
     [self.view removeGestureRecognizer:self.tap];
 }
@@ -121,6 +128,7 @@
 }
 - (IBAction)cancelSale:(id)sender {
     [self dismissModalViewControllerAnimated:YES];
+    [[State instance] clear];
 //    [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -160,11 +168,18 @@
         } else {
             sale = (Sale*) self.editedSale;
         }
-        
-        sale.productRel = [State instance].selectedProduct;
-
+        Product* product = [State instance].selectedProduct;
         sale.quantity = [NUMBER_FORMATTER numberFromString:self.quantity.text];
-        sale.amount = [State instance].salePrice;        if(sale.amount.doubleValue == 0.00) {
+        //
+        // Only decrement the quantity if it is not zero
+        //
+        if(product.quantity.doubleValue > 0.0) {
+            product.quantity = [NSNumber numberWithDouble:(product.quantity.doubleValue - sale.quantity.doubleValue)];
+        }
+        sale.productRel = product;
+
+        sale.amount = [State instance].salePrice;
+        if(sale.amount.doubleValue == 0.00) {
             sale.amount = [NSNumber numberWithDouble:(sale.quantity.integerValue * [State instance].selectedProduct.defaultCost.doubleValue)];
         }
         sale.date = self.show.date;

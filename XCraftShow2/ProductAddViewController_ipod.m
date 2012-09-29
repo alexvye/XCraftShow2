@@ -201,6 +201,7 @@
 }
 
 - (IBAction)cancelProduct:(id)sender {
+    [[State instance] clear];
     [self dismissModalViewControllerAnimated:YES];
 }
 

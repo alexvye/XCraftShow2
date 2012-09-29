@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface HelpViewController : UIViewController
+@interface HelpViewController : UIViewController {
+    UIWebView	*webView;
+}
+
+@property (nonatomic, retain) IBOutlet UIWebView *webView;
 
 @end

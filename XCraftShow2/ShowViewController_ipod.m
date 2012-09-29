@@ -50,8 +50,6 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-
-
     //
     // if a show passed in, use it
     //
@@ -64,6 +62,7 @@
     //
     // If coming back from price picker
     //
+    
     if([State instance].showName != nil) {
         self.nameTextField.text = [State instance].showName;
     }
@@ -71,6 +70,7 @@
     if([State instance].showDate != nil) {
         self.datePicker.date = [State instance].showDate;
     }
+     
     NSNumber* showFee = [State instance].showFee;
     if(showFee.doubleValue!=0.00)  {
         [self.feeButton setTitle:[Utilities formatAsCurrency:showFee] forState:UIControlStateNormal];
@@ -93,9 +93,6 @@
 	//Use NSDateFormatter to write out the date in a friendly format
 	NSDateFormatter *df = [[NSDateFormatter alloc] init];
 	df.dateStyle = NSDateFormatterMediumStyle;
-	NSString* message = [NSString stringWithFormat:@"%@",
-                  [df stringFromDate:datePicker.date]];
-	NSLog(@"%@",message);
 }
 
 - (IBAction)changeFee:(id)sender {
@@ -115,6 +112,7 @@
 }
 
 - (IBAction)cancelShow:(id)sender {
+    [[State instance] clear];
     [self dismissModalViewControllerAnimated:YES];
 }
 
