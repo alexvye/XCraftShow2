@@ -11,12 +11,12 @@
 
 @interface ShowViewController_ipod : UIViewController <UITextFieldDelegate>{
     IBOutlet UIDatePicker* datePicker;
-    IBOutlet UIButton* feeButton;
+    IBOutlet UITextField* feeTextField;
     IBOutlet UITextField* nameTextField;
 }
 
 @property(nonatomic,retain) IBOutlet UIDatePicker* datePicker;
-@property(nonatomic,retain) IBOutlet UIButton* feeButton;
+@property(nonatomic,retain) IBOutlet UITextField* feeTextField;
 @property(nonatomic,retain) IBOutlet UITextField* nameTextField;
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (strong, nonatomic) Show* passedShow;

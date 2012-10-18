@@ -6,13 +6,15 @@
 //
 //
 
+#define PRICE_TEXT_FIELD 2
+#define QUANTITY_PRICE_FIELD 1
+
 #import "SaleViewController_ipod.h"
 #import "Sale.h"
 #import "State.h"
 #import "Product.h"
 #import "Utilities.h"
 #import <AudioToolbox/AudioToolbox.h>
-#import "ProductPriceViewController.h"
 
 @interface SaleViewController_ipod ()
 
@@ -22,7 +24,7 @@
 
 @synthesize managedObjectContext;
 @synthesize quantity;
-@synthesize price,priceButton;
+@synthesize priceTextField,productImage;
 @synthesize selectedProductLabel;
 @synthesize show;
 @synthesize tap;
@@ -59,12 +61,22 @@
     if(editedSale!= nil) {
         Sale* sale = (Sale*)self.editedSale;
         self.selectedProductLabel.text = sale.productRel.name;
-        self.priceButton.titleLabel.text = [Utilities formatAsCurrency:sale.amount];
+        self.priceTextField.text = [Utilities formatAsCurrency:sale.amount];
         self.quantity.text = [Utilities formatAsDecimal:sale.quantity];
-        [State instance].salePrice = sale.quantity;
+        [State instance].selectedProduct = sale.productRel;
     }
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+
+    Product* product = [State instance].selectedProduct;
+    if(product != nil) {
+        self.selectedProductLabel.text = product.name;
+        self.productImage.image = [[UIImage alloc] initWithData:product.image];
+        self.priceTextField.text = [Utilities formatAsCurrency:product.defaultCost];
+        self.quantity.text = @"1";
+    }
+}
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
     self.tap = [[UITapGestureRecognizer alloc]
@@ -75,22 +87,22 @@
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField {
-    //
-    // Only one text field, quantity, set the price
-    // to be quantity * default cost
-    //
-    NSNumber* saleQantity = [NUMBER_FORMATTER numberFromString:textField.text];
-    
-    double defaultPrice = [[State instance].defaultPrice doubleValue];
-    if(defaultPrice == 0.0) {
-        Product* product = [State instance].selectedProduct;
-        if(product!=nil) {
-            defaultPrice = product.defaultCost.doubleValue;
+
+    if(textField.tag == QUANTITY_PRICE_FIELD) {
+        if([State instance].selectedProduct != nil) {
+            NSNumber* saleQantity = [NUMBER_FORMATTER numberFromString:textField.text];
+            float defaultPrice = [State instance].selectedProduct.defaultCost.floatValue;
+            NSNumber* salePrice = [NSNumber numberWithDouble:(saleQantity.intValue * defaultPrice)];
+            self.priceTextField.text = [Utilities formatAsCurrency:salePrice];
         }
+    } else {
+        self.priceTextField.text = [NSString stringWithFormat:@"$%@",textField.text];
     }
-    NSNumber* salePrice = [NSNumber numberWithDouble:(saleQantity.intValue * defaultPrice)];
-    [self.priceButton setTitle:[Utilities formatAsCurrency:salePrice] forState:UIControlStateNormal];
+    //
+    // dismiss keyboard
+    //
     [self.quantity resignFirstResponder];
+    [self.priceTextField resignFirstResponder];
     [self.view removeGestureRecognizer:self.tap];
 }
 
@@ -104,22 +116,6 @@
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    Product* selectedProduct = [State instance].selectedProduct;
-    
-    NSNumber* salePrice = [State instance].salePrice;
-
-    if(selectedProduct != nil) {
-        self.selectedProductLabel.text = selectedProduct.name;
-        self.quantity.text = [NSString stringWithFormat:@"%d",1];
-        [self.priceButton setTitle:[Utilities formatAsCurrency:selectedProduct.defaultCost] forState:UIControlStateNormal];
-    }
-    
-    if(salePrice.doubleValue != 0.00) {
-       [self.priceButton setTitle:[Utilities formatAsCurrency:salePrice] forState:UIControlStateNormal];
-    }
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -177,11 +173,7 @@
             product.quantity = [NSNumber numberWithDouble:(product.quantity.doubleValue - sale.quantity.doubleValue)];
         }
         sale.productRel = product;
-
-        sale.amount = [State instance].salePrice;
-        if(sale.amount.doubleValue == 0.00) {
-            sale.amount = [NSNumber numberWithDouble:(sale.quantity.integerValue * [State instance].selectedProduct.defaultCost.doubleValue)];
-        }
+        sale.amount = [CURRENCY_FORMATTER numberFromString:self.priceTextField.text];
         sale.date = self.show.date;
     
         //
@@ -221,34 +213,11 @@
     [self presentModalViewController:prodView animated:YES];
 }
 
-- (IBAction)openPricePicker:(id)sender {
-    [self resignButton:sender];
-    
-    ProductPriceViewController* ppvc = [[ProductPriceViewController alloc] initWithNibName:@"ProductPriceViewController" bundle:nil];
-    ppvc.priceKey = SALE_PRICE;
-    [self presentModalViewController:ppvc animated:YES];
-}
-
-- (IBAction)resignButton:(id)sender {
-   [self.priceButton resignFirstResponder];
-}
-
 -(BOOL) textFieldShouldReturn:(UITextField*) textField {
     [textField resignFirstResponder];
     return YES;
 }
 
-#pragma mark - UIPickerViewDataSource methods
-- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
-    return 2;
-}
 
-- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
-    if (component == kDollars) {
-        return 1000;
-    }
-    
-    return 100;
-}
 
 @end

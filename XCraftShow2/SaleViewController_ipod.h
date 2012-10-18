@@ -12,27 +12,26 @@
 #import "ProductTableViewController.h"
 
 @interface SaleViewController_ipod : UIViewController <UITextFieldDelegate> {
-    IBOutlet UIButton* priceButton;
     IBOutlet UITextField* quantity;
+    IBOutlet UITextField* priceTextField;
     IBOutlet UILabel* selectedProductLabel;
+    IBOutlet UIImageView*  productImage;
 }
 
 @property(nonatomic, retain) IBOutlet UILabel* selectedProductLabel;
-@property (strong, nonatomic) IBOutlet UIButton* priceButton;
 @property(nonatomic, retain) IBOutlet UITextField* quantity;
-@property (strong, nonatomic) NSNumber* price;
+@property(nonatomic, retain) IBOutlet UITextField* priceTextField;
+@property (strong, nonatomic) IBOutlet UIImageView*  productImage;
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (strong, nonatomic) Show *show;
 @property (strong, nonatomic) Show *editedSale;
-@property (strong, nonatomic) ProductTableViewController* prodView;
 @property (strong, nonatomic) UITapGestureRecognizer *tap;
+@property (strong, nonatomic) ProductTableViewController* prodView;
 
 
 -(IBAction)selectProduct:(id)sender;
 -(IBAction)saveSale:(id)sender;
 -(IBAction)cancelSale:(id)sender;
--(IBAction)openPricePicker:(id)sender;
 -(void)playSound;
--(IBAction)resignButton:(id)sender;
 
 @end

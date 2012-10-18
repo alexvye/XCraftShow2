@@ -8,26 +8,20 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ProductAddViewController_ipod : UIViewController <UINavigationControllerDelegate, UITextFieldDelegate,UITextViewDelegate,
-        UIImagePickerControllerDelegate, UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate,UIPopoverControllerDelegate>
+@interface ProductAddViewController_ipod : UIViewController <UINavigationControllerDelegate, UITextFieldDelegate, UITextFieldDelegate>
 
 @property (strong, nonatomic) IBOutlet UITextField* name;
+@property (strong, nonatomic) IBOutlet UITextField* unitCostTextField;
+@property (strong, nonatomic) IBOutlet UITextField* defaultPriceTextField;
 @property (strong, nonatomic) IBOutlet UIImageView* productImageView;
 @property (strong, nonatomic) IBOutlet UITextField* quantity;
-@property (strong, nonatomic) IBOutlet UIButton* unitCost;
-@property (strong, nonatomic) IBOutlet UIButton* defaultCost;
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (strong, nonatomic) NSManagedObject *selectedProduct;
 @property (strong, nonatomic) NSData* image;
 @property (strong, nonatomic) UITapGestureRecognizer *tap;
-//
-// for ipad ui only
-//
-@property (strong, nonatomic) UIPopoverController* popover;
 
 - (IBAction)cancelProduct:(id)sender;
 - (IBAction)saveProduct:(id)sender;
-- (IBAction)openPricePicker:(id)sender;
 - (IBAction)resignButton:(id)sender;
 - (BOOL)doesProductExist:(NSString*)_name;
 - (IBAction)takePicture:(id)sender;

@@ -9,27 +9,17 @@
 #define DEFAULT_COST_TAG 2
 
 #import "ProductAddViewController_ipod.h"
-#import "ProductPriceViewController.h"
 #import "Product.h"
 #import "Utilities.h"
 #import "State.h"
 
-@interface ProductAddViewController_ipod ()
-- (NSString*)removeDollarSign:(NSString*)price;
-@end
-
 
 @implementation ProductAddViewController_ipod
 
-@synthesize unitCost, quantity, name, defaultCost;
+@synthesize unitCostTextField, quantity, name, defaultPriceTextField;
 @synthesize managedObjectContext,selectedProduct,image,productImageView;
 @synthesize tap;
 
-//
-// for ipad ui
-//
-@synthesize popover;
-//@synthesize price, prevPriceLabel,unitCostPicker,defaultCostCostPicker;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -60,23 +50,30 @@
     //
     // Create/set product oject
     //
-    
-    if(selectedProduct == nil) {
-        self.name.text = @"";
-        self.quantity.text = [Utilities formatAsDecimal:[NSNumber numberWithInt:0]];
+    if(self.selectedProduct == nil) {
+        self.defaultPriceTextField.text = [Utilities formatAsCurrency:[NSNumber numberWithFloat:0.00]];
+        self.unitCostTextField.text = [Utilities formatAsCurrency:[NSNumber numberWithFloat:0.00]];
     } else {
-        Product* product = (Product*) self.selectedProduct;
+        Product* product = (Product*)selectedProduct;
         self.name.text = product.name;
         self.quantity.text = [Utilities formatAsDecimal:product.quantity];
-        [self.unitCost setTitle:[Utilities formatAsCurrency:product.unitCost] forState:UIControlStateNormal];
-        [self.defaultCost setTitle:[Utilities formatAsCurrency:product.defaultCost] forState:UIControlStateNormal];
+        self.defaultPriceTextField.text = [Utilities formatAsCurrency:product.defaultCost];
+        self.unitCostTextField.text = [Utilities formatAsCurrency:product.unitCost];
         self.productImageView.image = [[UIImage alloc] initWithData:product.image];
         self.image = product.image;
     }
 }
 
-- (void)textFieldDidBeginEditing:(UITextField *)textField {
-
+- (void)textFieldDidEndEditing:(UITextField *)textField {
+    
+    if(textField.tag == UNIT_COST_TAG || textField.tag == DEFAULT_COST_TAG) {
+       textField.text = [NSString stringWithFormat:@"$%@",textField.text];
+    } 
+    //
+    // dismiss keyboard
+    //
+    [textField resignFirstResponder];
+    [self.view removeGestureRecognizer:self.tap];
 }
 
 -(void)dismissKeyboard {
@@ -86,35 +83,12 @@
 }
 
 -(void) viewDidAppear:(BOOL)animated {
-    
 }
 
 - (void) viewWillAppear:(BOOL)animated  {
-    NSNumber* defaultPrice = [State instance].defaultPrice;
-    NSNumber* unitPrice = [State instance].unitCost;
-    
-    if(self.selectedProduct == nil) {
-        [self.defaultCost setTitle:[Utilities formatAsCurrency:defaultPrice] forState:UIControlStateNormal];
-        [self.unitCost setTitle:[Utilities formatAsCurrency:unitPrice] forState:UIControlStateNormal];
-    } else {
-        if(defaultPrice.doubleValue != 0.00) {
-           [self.defaultCost setTitle:[Utilities formatAsCurrency:defaultPrice] forState:UIControlStateNormal];
-        } else {
-            Product* product = (Product*)selectedProduct;
-            [self.defaultCost setTitle:[Utilities formatAsCurrency:product.defaultCost] forState:UIControlStateNormal];
-        }
-        if(unitPrice.doubleValue != 0.00) {
-           [self.unitCost setTitle:[Utilities formatAsCurrency:unitPrice] forState:UIControlStateNormal];
-        } else {
-            Product* product = (Product*)selectedProduct;
-            [self.unitCost setTitle:[Utilities formatAsCurrency:product.unitCost] forState:UIControlStateNormal];
-        }
-    }
 }
 
-
 -(void)viewWillDisappear:(BOOL)animated {
-    
 }
 
 - (void)viewDidUnload
@@ -149,49 +123,6 @@
         return FALSE;
     } else {
         return TRUE;
-    }
-}
-
-- (IBAction)openPricePicker:(id)sender {
-    [self resignButton:sender];
-    
-    UIButton* button = (UIButton*)sender;
-    NSString* key;
-    NSLog(@"button tag is %d", button.tag);
-    if(button.tag == UNIT_COST_TAG) {
-        key = UNIT_COST;
-    } else {
-        key = DEFAULT_PRICE;
-    }
-
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-        ProductPriceViewController* ppvc = [[ProductPriceViewController alloc] initWithNibName:@"ProductPriceViewController_iPad" bundle:nil];
-        ppvc.priceKey = key;
-        self.popover = [[UIPopoverController alloc] initWithContentViewController:ppvc];
-        self.popover.popoverContentSize = ppvc.view.frame.size;
-       UIView* view = sender;
-        self.popover.delegate = self;
-        [self.popover presentPopoverFromRect:view.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
-    } else {
-        ProductPriceViewController* ppvc = [[ProductPriceViewController alloc] initWithNibName:@"ProductPriceViewController" bundle:nil];
-        ppvc.priceKey = key;
-       [self presentModalViewController:ppvc animated:YES];
-    }
-}
-
-- (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController {
-    NSNumber* defaultPrice = [State instance].defaultPrice;
-    if(defaultPrice == nil && selectedProduct == nil) {
-        defaultPrice = [NSNumber numberWithDouble:0.00];
-    } else if(defaultPrice!=nil){
-        [self.defaultCost setTitle:[Utilities formatAsCurrency:defaultPrice] forState:UIControlStateNormal];    
-    }
-    
-    NSNumber* unitPrice = [State instance].unitCost;
-    if(unitPrice == nil && selectedProduct == nil) {
-        unitPrice = [NSNumber numberWithDouble:0.00];
-    } else if(unitPrice != nil) {
-        [self.unitCost setTitle:[Utilities formatAsCurrency:unitPrice] forState:UIControlStateNormal];
     }
 }
 
@@ -242,8 +173,8 @@
         NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
         [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
         product.quantity = [formatter numberFromString:self.quantity.text];
-        product.unitCost = [State instance].unitCost;
-        product.defaultCost = [State instance].defaultPrice;
+        product.unitCost = [CURRENCY_FORMATTER numberFromString:self.unitCostTextField.text];
+        product.defaultCost = [CURRENCY_FORMATTER numberFromString:self.defaultPriceTextField.text];
         product.image = self.image;
         product.retired = [NSNumber numberWithBool: NO];
         product.createdDate = [NSDate date];
@@ -262,14 +193,6 @@
         [[State instance] clear];
         [self dismissModalViewControllerAnimated:YES];
     }
-}
-
-- (NSString*)removeDollarSign:(NSString*)localPrice; {
-    if (localPrice != nil && localPrice.length > 0 && [localPrice characterAtIndex:0] == '$') {
-        localPrice = [localPrice substringFromIndex:1];
-    }
-    
-    return localPrice;
 }
 
 - (IBAction)takePicture:(id)sender {
@@ -318,38 +241,6 @@
 	[picker dismissModalViewControllerAnimated:YES];
 }
 
-#pragma mark - UIPickerViewDataSource methods
-- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
-    return 2;
-}
-
-- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
-    if (component == kDollars) {
-        return 1000;
-    }
-    
-    return 100;
-}
-
-#pragma mark - UIPickerViewDelegate methods
-- (NSString*)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
-    if (component == kDollars) {
-        //        if (row == [pickerView selectedRowInComponent:component]) {
-        return [NSString stringWithFormat:@"   %d", row];
-        //        } else {
-        //            return [NSString stringWithFormat:@"%d", row];
-        //        }
-    }
-    
-    return [NSString stringWithFormat:@"%02d", row];
-}
-
-- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
-//    NSInteger dollarValue = [pickerView selectedRowInComponent:kDollars];
-//    NSInteger centValue = [pickerView selectedRowInComponent:KCents];
-//    self.price = [NSString stringWithFormat:@"$%d.%02d", dollarValue, centValue];
-    //    [pickerView reloadComponent:kDollars];
-}
 
 -(BOOL) textFieldShouldReturn:(UITextField*) textField {
     [textField resignFirstResponder];

@@ -10,7 +10,7 @@
 
 @implementation State
 
-@synthesize selectedProduct, showFee, showDate, showName, defaultPrice, unitCost, salePrice;
+@synthesize selectedProduct;
 
 static State* _instance = nil;
 
@@ -32,25 +32,14 @@ static State* _instance = nil;
 -(id)init {
 	self = [super init];
 	if (self != nil) {
-		// initialize stuff here
-        self.defaultPrice = [NSNumber numberWithDouble:0.0];
-        self.unitCost = [NSNumber numberWithDouble:0.0];
-        self.salePrice = [NSNumber numberWithDouble:0.0];
-        self.showName = nil;
         self.selectedProduct = nil;
-        self.showDate = nil;
 	}
     
 	return self;
 }
 
 -(void)clear {
-    self.defaultPrice = [NSNumber numberWithDouble:0.0];
-    self.unitCost = [NSNumber numberWithDouble:0.0];
-    self.salePrice = [NSNumber numberWithDouble:0.0];
-    self.showName = nil;
     self.selectedProduct = nil;
-    self.showDate = nil;
 }
 
 @end
