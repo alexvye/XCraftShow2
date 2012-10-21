@@ -21,7 +21,6 @@
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (strong, nonatomic) Show* passedShow;
 
-- (IBAction)changeFee:(id)sender;
 - (IBAction)cancelShow:(id)sender;
 - (IBAction)saveShow:(id)sender;
 

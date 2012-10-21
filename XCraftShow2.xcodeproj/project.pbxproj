@@ -63,10 +63,7 @@
 		9AF44CCD15E68B210057E736 /* cash-register.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 9AF44CCC15E68B210057E736 /* cash-register.aiff */; };
 		9AF8AFEE15DB25E500ABE444 /* SaleViewController_ipod.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AF8AFEC15DB25E500ABE444 /* SaleViewController_ipod.m */; };
 		9AF8AFEF15DB25E500ABE444 /* SaleViewController_ipod.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9AF8AFED15DB25E500ABE444 /* SaleViewController_ipod.xib */; };
-		B5801AB515B5BD4C00DB16C9 /* ProductPriceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5801AB315B5BD4B00DB16C9 /* ProductPriceViewController.m */; };
-		B5801AB615B5BD4C00DB16C9 /* ProductPriceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B5801AB415B5BD4C00DB16C9 /* ProductPriceViewController.xib */; };
 		B5C029F81603879600052760 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B5C029F71603879600052760 /* Default-568h@2x.png */; };
-		B5C7074516053C04008043AD /* ProductPriceViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = B5C7074416053C04008043AD /* ProductPriceViewController_iPad.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -152,11 +149,7 @@
 		9AF8AFEB15DB25E500ABE444 /* SaleViewController_ipod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SaleViewController_ipod.h; sourceTree = "<group>"; };
 		9AF8AFEC15DB25E500ABE444 /* SaleViewController_ipod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SaleViewController_ipod.m; sourceTree = "<group>"; };
 		9AF8AFED15DB25E500ABE444 /* SaleViewController_ipod.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SaleViewController_ipod.xib; sourceTree = "<group>"; };
-		B5801AB215B5BD4B00DB16C9 /* ProductPriceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductPriceViewController.h; sourceTree = "<group>"; };
-		B5801AB315B5BD4B00DB16C9 /* ProductPriceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductPriceViewController.m; sourceTree = "<group>"; };
-		B5801AB415B5BD4C00DB16C9 /* ProductPriceViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProductPriceViewController.xib; sourceTree = "<group>"; };
 		B5C029F71603879600052760 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
-		B5C7074416053C04008043AD /* ProductPriceViewController_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProductPriceViewController_iPad.xib; sourceTree = "<group>"; };
 		B5F0B2FD15BE1AFA00A3E5A8 /* no-img.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "no-img.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -195,7 +188,6 @@
 				9A5617EF154EE190001579B6 /* ProductAddViewController.xib */,
 				9A03036615EEC1E600089B59 /* SaleViewController_ipad.xib */,
 				9A5617EA154EE17C001579B6 /* ShowAddViewController.xib */,
-				B5C7074416053C04008043AD /* ProductPriceViewController_iPad.xib */,
 			);
 			name = ipad;
 			sourceTree = "<group>";
@@ -203,15 +195,12 @@
 		9A24AF7A15A52185000D555D /* ipod */ = {
 			isa = PBXGroup;
 			children = (
-				B5801AB215B5BD4B00DB16C9 /* ProductPriceViewController.h */,
-				B5801AB315B5BD4B00DB16C9 /* ProductPriceViewController.m */,
-				B5801AB415B5BD4C00DB16C9 /* ProductPriceViewController.xib */,
 				9A24AF8615A536CC000D555D /* ProductAddViewController_ipod.h */,
 				9A24AF8715A536CD000D555D /* ProductAddViewController_ipod.m */,
 				9A24AF8815A536CD000D555D /* ProductAddViewController_ipod.xib */,
 				9AF8AFEB15DB25E500ABE444 /* SaleViewController_ipod.h */,
-				9AF8AFED15DB25E500ABE444 /* SaleViewController_ipod.xib */,
 				9AF8AFEC15DB25E500ABE444 /* SaleViewController_ipod.m */,
+				9AF8AFED15DB25E500ABE444 /* SaleViewController_ipod.xib */,
 				9A03035615EC2AE500089B59 /* ShowViewController_ipod.h */,
 				9A03035715EC2AE500089B59 /* ShowViewController_ipod.m */,
 				9A03035815EC2AE500089B59 /* ShowViewController_ipod.xib */,
@@ -455,7 +444,6 @@
 				9A8A4462159BF4FA002C48EE /* ShowTableViewController.xib in Resources */,
 				9A8A4467159CADE8002C48EE /* ProductTableViewController.xib in Resources */,
 				9A24AF8A15A536CD000D555D /* ProductAddViewController_ipod.xib in Resources */,
-				B5801AB615B5BD4C00DB16C9 /* ProductPriceViewController.xib in Resources */,
 				9A85DFE215BF8C1200DE3C50 /* Icon.png in Resources */,
 				9A85DFE315BF8C1F00DE3C50 /* Default.png in Resources */,
 				9A85DFE415BF8C2A00DE3C50 /* Icon-72.png in Resources */,
@@ -468,7 +456,6 @@
 				9A03036815EEC1E600089B59 /* SaleViewController_ipad.xib in Resources */,
 				9A03037215EF0A1C00089B59 /* angel.png in Resources */,
 				B5C029F81603879600052760 /* Default-568h@2x.png in Resources */,
-				B5C7074516053C04008043AD /* ProductPriceViewController_iPad.xib in Resources */,
 				9AF21A2B16172B8D00CE63EA /* xcs.pdf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -489,7 +476,6 @@
 				9A8A4461159BF4FA002C48EE /* ShowTableViewController.m in Sources */,
 				9A8A4466159CADE8002C48EE /* ProductTableViewController.m in Sources */,
 				9A24AF8915A536CD000D555D /* ProductAddViewController_ipod.m in Sources */,
-				B5801AB515B5BD4C00DB16C9 /* ProductPriceViewController.m in Sources */,
 				9ADB44F015D88EAF00914873 /* SalesTableViewController.m in Sources */,
 				9AF8AFEE15DB25E500ABE444 /* SaleViewController_ipod.m in Sources */,
 				9A03035915EC2AE500089B59 /* ShowViewController_ipod.m in Sources */,
@@ -522,8 +508,8 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=*]" = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Alex Vye (WL5ZC2ZVXM)";
+				"CODE_SIGN_IDENTITY[sdk=*]" = "iPhone Developer: Alex Vye (WL5ZC2ZVXM)";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -539,6 +525,8 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
 				"OTHER_CODE_SIGN_FLAGS[sdk=*]" = "";
+				PROVISIONING_PROFILE = "0CE4E926-1872-45E8-81DE-8D6141823E20";
+				"PROVISIONING_PROFILE[sdk=*]" = "0CE4E926-1872-45E8-81DE-8D6141823E20";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -551,8 +539,8 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=*]" = "iPhone Distribution: Alex Vye";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Alex Vye";
+				"CODE_SIGN_IDENTITY[sdk=*]" = "iPhone Distribution";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
@@ -561,7 +549,8 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				"PROVISIONING_PROFILE[sdk=*]" = "9FA4B91C-B757-46BA-95AC-D07B9A383C1F";
+				PROVISIONING_PROFILE = "7F6E3F44-2D36-4F68-A798-D9C19D93BCFE";
+				"PROVISIONING_PROFILE[sdk=*]" = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -595,14 +584,14 @@
 					armv6,
 					"$(ARCHS_STANDARD_32_BIT)",
 				);
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Alex Vye";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "XCraftShow2/XCraftShow2-Prefix.pch";
 				GCC_THUMB_SUPPORT = NO;
 				INFOPLIST_FILE = "XCraftShow2/XCraftShow2-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "8292F085-037D-468C-94D9-C9353ACED02F";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};

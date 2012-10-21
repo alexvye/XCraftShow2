@@ -17,7 +17,6 @@
 @property (strong, nonatomic) IBOutlet UITextField* quantity;
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (strong, nonatomic) NSManagedObject *selectedProduct;
-@property (strong, nonatomic) NSData* image;
 @property (strong, nonatomic) UITapGestureRecognizer *tap;
 
 - (IBAction)cancelProduct:(id)sender;

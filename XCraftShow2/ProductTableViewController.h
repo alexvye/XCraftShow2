@@ -17,5 +17,6 @@
 @property (nonatomic, assign, getter=isSelecting) BOOL selecting;
 
 - (void)insertNewObject;
+- (UIImage *)reSizeImage:(UIImage *)image toSize:(CGSize)reSize;
 
 @end

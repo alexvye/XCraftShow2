@@ -84,7 +84,16 @@ float detailedFontSize;
         UIBarButtonItem *plusButton = [[UIBarButtonItem alloc]
 								   initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addProduct:)];
         self.navigationItem.leftBarButtonItem = plusButton;
+    } else {
+        UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc]
+                                       initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancel:)];
+        self.navigationItem.leftBarButtonItem = cancelButton;
+        self.navigationItem.rightBarButtonItem = nil;
     }
+}
+
+- (IBAction)cancel:(id)sender {
+    [self dismissModalViewControllerAnimated:YES];
 }
 
 - (void)turnOnEditing {
@@ -168,7 +177,17 @@ float detailedFontSize;
         
         cell.textLabel.text = product.name;
         cell.detailTextLabel.text = [NSString stringWithFormat:@"Quantity: %d",product.quantity.intValue];
-        cell.imageView.image = [[UIImage alloc] initWithData:product.image];
+        //cell.imageView.image = [[UIImage alloc] initWithData:product.image];
+        
+        // begin scale image
+        CGSize destinationSize = CGSizeMake(80, 80);
+        
+        UIGraphicsBeginImageContext(destinationSize);
+        [[UIImage imageWithData:product.image] drawInRect:CGRectMake(0,0,destinationSize.width,destinationSize.height)];
+        cell.imageView.image = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+
+        // end scale image
         cell.imageView.contentMode = UIViewContentModeScaleAspectFit;
         cell.textLabel.textColor = [UIColor colorWithRed:154.0/255.0 green:14.0/255.0 blue:2.0/255.0 alpha:1];
         cell.textLabel.font = [UIFont systemFontOfSize:primaryFontSize];
@@ -180,6 +199,15 @@ float detailedFontSize;
         
         return cell;
     }
+}
+
+- (UIImage *)reSizeImage:(UIImage *)image toSize:(CGSize)reSize
+{
+    UIGraphicsBeginImageContext(CGSizeMake(reSize.width, reSize.height));
+    [image drawInRect:CGRectMake(0, 0, reSize.width, reSize.height)];
+    UIImage *reSizeImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return reSizeImage;
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {

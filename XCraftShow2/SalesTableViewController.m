@@ -157,7 +157,15 @@ float detailedFontSize;
             cell.textLabel.font = [UIFont systemFontOfSize:primaryFontSize];
             cell.detailTextLabel.font = [UIFont systemFontOfSize:detailedFontSize];
             
-            cell.imageView.image = [[UIImage alloc] initWithData:sale.productRel.image];
+            // begin scale image
+            CGSize destinationSize = CGSizeMake(80, 80);
+            
+            UIGraphicsBeginImageContext(destinationSize);
+            [[UIImage imageWithData:sale.productRel.image] drawInRect:CGRectMake(0,0,destinationSize.width,destinationSize.height)];
+            cell.imageView.image = UIGraphicsGetImageFromCurrentImageContext();
+            UIGraphicsEndImageContext();
+            
+            // end scale image
             cell.imageView.contentMode = UIViewContentModeScaleAspectFit;
             return cell;
         }
@@ -246,8 +254,6 @@ float detailedFontSize;
     detailView.managedObjectContext = self.managedObjectContext;
     detailView.show = self.show;
     detailView.editedSale = nil;
-//    [self.navigationController pushViewController:detailView animated:YES];
-    
     [self presentModalViewController:detailView animated:YES];
 }
 

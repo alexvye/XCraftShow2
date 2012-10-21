@@ -17,17 +17,13 @@
 @implementation ProductAddViewController_ipod
 
 @synthesize unitCostTextField, quantity, name, defaultPriceTextField;
-@synthesize managedObjectContext,selectedProduct,image,productImageView;
+@synthesize managedObjectContext,selectedProduct,productImageView;
 @synthesize tap;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        UIImage *productImage = [UIImage imageNamed:@"no-img.jpeg"];
-        self.image = UIImagePNGRepresentation(productImage);
-    }
     return self;
 }
 
@@ -53,6 +49,7 @@
     if(self.selectedProduct == nil) {
         self.defaultPriceTextField.text = [Utilities formatAsCurrency:[NSNumber numberWithFloat:0.00]];
         self.unitCostTextField.text = [Utilities formatAsCurrency:[NSNumber numberWithFloat:0.00]];
+        self.productImageView.image = [UIImage imageNamed:@"no-img.jpeg"];
     } else {
         Product* product = (Product*)selectedProduct;
         self.name.text = product.name;
@@ -60,7 +57,6 @@
         self.defaultPriceTextField.text = [Utilities formatAsCurrency:product.defaultCost];
         self.unitCostTextField.text = [Utilities formatAsCurrency:product.unitCost];
         self.productImageView.image = [[UIImage alloc] initWithData:product.image];
-        self.image = product.image;
     }
 }
 
@@ -175,7 +171,7 @@
         product.quantity = [formatter numberFromString:self.quantity.text];
         product.unitCost = [CURRENCY_FORMATTER numberFromString:self.unitCostTextField.text];
         product.defaultCost = [CURRENCY_FORMATTER numberFromString:self.defaultPriceTextField.text];
-        product.image = self.image;
+        product.image = UIImagePNGRepresentation(self.productImageView.image);
         product.retired = [NSNumber numberWithBool: NO];
         product.createdDate = [NSDate date];
         
@@ -213,9 +209,16 @@
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     UIImage *productImage = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
-    self.image = UIImagePNGRepresentation(productImage);
-    self.productImageView.image = productImage;
     
+    // begin scale image
+    CGSize destinationSize = CGSizeMake(300, 300);
+    
+    UIGraphicsBeginImageContext(destinationSize);
+    [productImage drawInRect:CGRectMake(0,0,destinationSize.width,destinationSize.height)];
+    self.productImageView.image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    // end scale image
 	[picker dismissModalViewControllerAnimated:YES];
     
 }

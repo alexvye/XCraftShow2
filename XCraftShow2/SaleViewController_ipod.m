@@ -72,7 +72,17 @@
     Product* product = [State instance].selectedProduct;
     if(product != nil) {
         self.selectedProductLabel.text = product.name;
-        self.productImage.image = [[UIImage alloc] initWithData:product.image];
+        
+        // begin scale image
+        CGSize destinationSize = CGSizeMake(300, 300);
+        
+        UIGraphicsBeginImageContext(destinationSize);
+        [[[UIImage alloc] initWithData:product.image] drawInRect:CGRectMake(0,0,destinationSize.width,destinationSize.height)];
+        self.productImage.image = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+        
+        // end scale image
+        
         self.priceTextField.text = [Utilities formatAsCurrency:product.defaultCost];
         self.quantity.text = @"1";
     }
@@ -210,7 +220,10 @@
     // Pass the selected object to the new view controller.
     //
     prodView.selecting = TRUE;
-    [self presentModalViewController:prodView animated:YES];
+    //[self presentModalViewController:prodView animated:YES];
+    
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:prodView];
+    [self presentModalViewController:navController animated:YES];
 }
 
 -(BOOL) textFieldShouldReturn:(UITextField*) textField {
